@@ -51,7 +51,6 @@ public class Player : MonoBehaviour
     {
         Move();
         Attack();
-        TryJump();
     }
 
     private void FixedUpdate()
@@ -108,46 +107,32 @@ public class Player : MonoBehaviour
         }
     }
 
-    void TryJump()
+    //플레이어 점프
+    void Jump()
     {
         if (isAttack)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        
+
+        RaycastHit hit;
+
+        Debug.DrawRay(transform.position, Vector3.down * jumpRange, Color.red);
+
+        if (Physics.Raycast(transform.position,Vector3.down,out hit,jumpRange))
+        {
+            isJump = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isJump && isGround)
         {
             isJump = true;
-            Jump();
-        }
-    }
-
-    //플레이어 점프
-    void Jump()
-    {
-        //if (isAttack)
-        //    return;
-        
-        RaycastHit hit;
-        
-        Debug.DrawRay(transform.position, Vector3.down * jumpRange, Color.red);
-        
-        //if (Physics.Raycast(transform.position, Vector3.down, out hit, jumpRange))
-        //{
-        //    isJump = false;
-        //}
-        //
-        //if (Input.GetKeyDown(KeyCode.Space) && !isJump && isGround)
-        //{
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, jumpRange) && isJump)
-        {
+            isGround = false;
             animator.SetTrigger("Jump");
             rigidbody.velocity = Vector3.zero;
             rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
-        //    isJump = true;
-        //    isGround = false;
-        //}
 
-        isJump = false;
     }
 
     //플레이어 공격
