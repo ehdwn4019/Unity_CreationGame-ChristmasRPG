@@ -18,7 +18,6 @@ public class FallBlock : MonoBehaviour
     private void OnEnable()
     {
 
-        
     }
 
     private void Start()
@@ -49,7 +48,7 @@ public class FallBlock : MonoBehaviour
     {
         return ObjectPoolingManager.TakeOut(responeBlock);
     }
-
+    
     void Disappear(GameObject obj)
     {
         ObjectPoolingManager.Put(obj, responeBlock);
@@ -60,7 +59,7 @@ public class FallBlock : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             
-
+    
             for(int i=0; i<responeBlock.Count; i++)
             {
                 if(Input.GetKey(KeyCode.Q))
@@ -78,6 +77,7 @@ public class FallBlock : MonoBehaviour
         if(other.gameObject.tag == "DeadZone")
         {
             GameObject block = Appear();
+            //gameObject.SetActive(false);
     
         }
     }
