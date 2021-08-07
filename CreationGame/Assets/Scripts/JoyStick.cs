@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 
 public class JoyStick : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,IDragHandler
 {
-    public RectTransform BG;
-    public RectTransform stick;
+    [SerializeField]
+    RectTransform BG;
+    [SerializeField]
+    RectTransform stick;
 
     Vector3 startPos;
     Vector2 value;

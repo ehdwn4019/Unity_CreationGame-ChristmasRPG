@@ -5,10 +5,14 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour 
 {
-    public GameObject resetPosition;
-    public SphereCollider attackRangeColl;
-    public LayerMask enemyLayer;
-    public Slider hpSlider;
+    [SerializeField]
+    GameObject resetPosition;
+    [SerializeField]
+    SphereCollider attackRangeColl;
+    [SerializeField]
+    LayerMask enemyLayer;
+    [SerializeField]
+    Slider hpSlider;
 
     Rigidbody rigidbody;
     Animator animator;
@@ -16,11 +20,15 @@ public class Player : MonoBehaviour
     JoyStick joyStick;
     Enemy target;
 
-    public float moveSpeed = 5.0f;
-    public float jumpPower = 5.0f;
-    public float jumpRange = 0.3f;
-    public float attackDelay = 4.0f;
-    
+    [SerializeField]
+    float moveSpeed = 5.0f;
+    [SerializeField]
+    float jumpPower = 5.0f;
+    [SerializeField]
+    float jumpRange = 0.3f;
+    [SerializeField]
+    float attackDelay = 4.0f;
+    [SerializeField]
     float attackRange = 0.5f;
 
     bool isMove;
@@ -31,8 +39,11 @@ public class Player : MonoBehaviour
 
     public bool IsDie { get { return isDie; } }
 
-    public float currentHp;
-    public float maxHp = 100f;
+    [SerializeField]
+    float currentHp;
+    [SerializeField]
+    float maxHp = 100f;
+    [SerializeField]
     int attackDamage ;
 
     // Start is called before the first frame update
@@ -235,6 +246,13 @@ public class Player : MonoBehaviour
         {
             transform.position = resetPosition.transform.position;
             DecreaseHP(20);
+        }
+
+        if(other.gameObject.name == "ShowZone")
+        {
+            MonsterSpawn.instance.CreateMonster();
+            FallBlockSpawn.instance.CreateBlock();
+            Destroy(other);
         }
     }
 }

@@ -6,11 +6,15 @@ using UnityEngine.UI;
 public class Monster : Enemy
 {
     Vector3 monsterStartPos;
-    public Image questionMark;
+    [SerializeField]
+    Image questionMark;
 
-    public float responeTime = 3f;
-    public float lookSpeed = 10f;
-    public SphereCollider collider;
+    [SerializeField]
+    float responeTime = 3f;
+    [SerializeField]
+    float lookSpeed = 10f;
+    [SerializeField]
+    SphereCollider collider;
 
     //활성화 했을 때 세팅 
     private void OnEnable()
@@ -141,7 +145,7 @@ public class Monster : Enemy
     {
         yield return new WaitForSeconds(responeTime);
 
-        MonsterSpawn.instance.Put(gameObject);
+        MonsterSpawn.instance.Disappear(gameObject);
     }
 
     //물음표 마크 회전 

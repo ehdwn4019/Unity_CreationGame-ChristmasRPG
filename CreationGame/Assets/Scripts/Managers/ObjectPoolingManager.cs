@@ -18,13 +18,14 @@ public class ObjectPoolingManager : MonoBehaviour
         obj.SetActive(false);
     }
 
-    public static GameObject TakeOut(List<GameObject> list)
+    public static GameObject TakeOut(List<GameObject> list,Vector3 pos)
     {
         for(int i=0; i<list.Count; i++)
         {
             if(!list[i].activeInHierarchy)
             {
                 list[i].SetActive(true);
+                list[i].transform.position = pos;
                 return list[i];
             }
         }

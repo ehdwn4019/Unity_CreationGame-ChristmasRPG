@@ -7,10 +7,12 @@ public class Enemy : MonoBehaviour
 {
     //Enemy Type 공통 변수 
 
-    public float findRange;
-    public float moveRange;
-    public float attackRange;
-
+    [SerializeField]
+    protected float findRange;
+    [SerializeField]
+    protected float moveRange;
+    [SerializeField]
+    protected float attackRange;
     
     protected Animator animator;
     protected NavMeshAgent nav;
@@ -18,8 +20,8 @@ public class Enemy : MonoBehaviour
     protected Rigidbody rigidbody;
 
     //스탯
-    public int hp;
-    public int attackPower;
+    protected int hp;
+    protected int attackPower;
 
     //Enemy enums 
     public enum EnemyState 
@@ -38,7 +40,6 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         Init();
-        
     }
 
     protected virtual void Init()

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DrawGizmo : MonoBehaviour
 {
-    public float radius;
+    [SerializeField]
+    float radius;
 
     private void OnDrawGizmos()
     {

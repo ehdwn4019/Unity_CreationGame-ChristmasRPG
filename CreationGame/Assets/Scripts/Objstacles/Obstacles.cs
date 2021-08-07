@@ -7,11 +7,11 @@ public class Obstacles : MonoBehaviour
     protected enum ObstaclesType
     {
         None,
-        FallingObj,
+        FallBlock,
         Cannon,
     }
 
-    ObstaclesType ot;
+    protected ObstaclesType ot;
 
     // Start is called before the first frame update
     void Start()
@@ -35,9 +35,4 @@ public class Obstacles : MonoBehaviour
     {
 
     }
-
-   
-
-    
-
 }

@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class FollowCam : MonoBehaviour
 {
-    public Transform target;
-    public Transform camLookPos;
-    public float camSpeed;
+    [SerializeField]
+    Transform target;
+    [SerializeField]
+    Transform camLookPos;
+    [SerializeField]
+    float camSpeed;
+
     float camX;
     float camY;
     float camZ;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!54 &613062105497837721
+--- !u!54 &1093374847930528966
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16,19 +16,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-4528778357241413357
+--- !u!114 &-516978671631314279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9055502145458154016}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 890e30e207e10b843b6df7c1c7917336, type: 3}
+  m_Script: {fileID: 11500000, guid: 348622d48a912a940823092c06f57a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  responePos: []
 --- !u!1001 &9055502145458026264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,7 +41,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 138552, guid: 44da82967f52bc246b5bcbbe12626d21, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 138552, guid: 44da82967f52bc246b5bcbbe12626d21, type: 3}
       propertyPath: m_TagString
