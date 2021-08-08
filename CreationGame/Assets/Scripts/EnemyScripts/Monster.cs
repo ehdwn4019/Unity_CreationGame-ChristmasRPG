@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class Monster : Enemy
 {
     Vector3 monsterStartPos;
-    [SerializeField]
-    Image questionMark;
+    
 
     [SerializeField]
     float responeTime = 3f;
@@ -15,6 +14,8 @@ public class Monster : Enemy
     float lookSpeed = 10f;
     [SerializeField]
     SphereCollider collider;
+    [SerializeField]
+    Image questionMark;
 
     //활성화 했을 때 세팅 
     private void OnEnable()

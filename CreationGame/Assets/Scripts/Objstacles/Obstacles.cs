@@ -8,15 +8,16 @@ public class Obstacles : MonoBehaviour
     {
         None,
         FallBlock,
+        BounceBall,
         Cannon,
     }
 
-    protected ObstaclesType ot;
+    protected ObstaclesType ot = ObstaclesType.None;
 
     // Start is called before the first frame update
     void Start()
     {
-        ot = ObstaclesType.None;
+        
         Init();
     }
 

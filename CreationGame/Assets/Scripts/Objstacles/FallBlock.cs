@@ -12,13 +12,14 @@ public class FallBlock : Obstacles
 
     private void Awake()
     {
+        ot = ObstaclesType.FallBlock;
         startPos = transform.position;
         startRotation = transform.rotation;
     }
 
     private void OnEnable()
     {
-        ot = ObstaclesType.FallBlock;
+        
         rigid = gameObject.AddComponent<Rigidbody>();
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;

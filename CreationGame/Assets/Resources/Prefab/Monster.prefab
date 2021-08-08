@@ -171,11 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738c366f73ee5714a9a135022f15d98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  findRange: 0
-  moveRange: 0
-  attackRange: 0
-  hp: 0
-  attackPower: 0
+  findRange: 3
+  moveRange: 2
+  attackRange: 1
   state: 0
   questionMark: {fileID: 7869858893699024049}
   responeTime: 3
