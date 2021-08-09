@@ -6,7 +6,7 @@ public class ObjectPoolingManager : MonoBehaviour
 {
     public static GameObject Create(string name, Vector3 pos, Quaternion rotation)
     {
-        Object obj = Resources.Load("Prefab/" + name);
+        Object obj = Resources.Load("Prefab/Pooling/" + name);
         GameObject go = Instantiate(obj, pos, rotation) as GameObject;
 
         return go;

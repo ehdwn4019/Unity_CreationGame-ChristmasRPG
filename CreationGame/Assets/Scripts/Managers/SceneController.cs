@@ -8,6 +8,19 @@ public class SceneController : MonoBehaviour
 {
     public static SceneController instance = null;
 
+    //public enum SceneType
+    //{
+    //    None,
+    //    StartScene,
+    //    LoadingScene,
+    //    InGameScene,
+    //}
+    //
+    //SceneType st = SceneType.None; 
+    //public SceneType St { get { return st; } set { st = value; } }
+    //
+    //public Dictionary<int, string> sceneList = new Dictionary<int, string>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +34,8 @@ public class SceneController : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+
+        //AddSceneList();
     }
 
     //시작씬 이동
@@ -36,4 +51,14 @@ public class SceneController : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    //void AddSceneList()
+    //{
+    //    sceneList[0] = "StartScene";
+    //    sceneList[1] = "LoadingScene";
+    //    sceneList[2] = "InGameScene";
+    //
+    //    foreach (var e in sceneList)
+    //        Debug.Log(e);
+    //}
 }
