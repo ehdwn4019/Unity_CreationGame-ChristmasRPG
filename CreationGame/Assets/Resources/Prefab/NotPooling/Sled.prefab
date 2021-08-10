@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4014757000630479964}
   - component: {fileID: 7945238189706491453}
-  - component: {fileID: 2244477763457664211}
   m_Layer: 0
   m_Name: Sled
   m_TagString: Untagged
@@ -49,19 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df2da6a4b01ee14c90c856e53fe9c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &2244477763457664211
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1590023783961694}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.89, y: 0.89, z: 0.06}
-  m_Center: {x: 0.36, y: -0.25, z: -1.28}
 --- !u!65 &1889221581059999256
 BoxCollider:
   m_ObjectHideFlags: 0

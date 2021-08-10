@@ -62,7 +62,6 @@ public class Player : MonoBehaviour
     {
         Move();
         Attack();
-        Debug.Log("is Jump : " + isJump);
     }
 
     private void FixedUpdate()
