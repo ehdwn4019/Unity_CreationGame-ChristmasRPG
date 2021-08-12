@@ -56,7 +56,7 @@ public class Monster : Enemy
             //부드럽게 쳐다보기
             Vector3 forward = target.transform.position- transform.position;
             Quaternion quaternion = Quaternion.LookRotation(forward);
-            this.transform.rotation = Quaternion.Lerp(transform.rotation, quaternion , Time.deltaTime * lookSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, quaternion , Time.deltaTime * lookSpeed);
             questionMark.enabled = true;
 
             //이동 범위에 들어올 때
