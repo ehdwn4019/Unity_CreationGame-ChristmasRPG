@@ -135,7 +135,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!195 &2152005113793735371
 NavMeshAgent:
@@ -175,10 +175,10 @@ MonoBehaviour:
   moveRange: 2
   attackRange: 1
   state: 0
-  questionMark: {fileID: 7869858893699024049}
   responeTime: 3
   lookSpeed: 10
   collider: {fileID: 6850969789462114972}
+  questionMark: {fileID: 7869858893699024049}
 --- !u!135 &6850969789462114972
 SphereCollider:
   m_ObjectHideFlags: 0

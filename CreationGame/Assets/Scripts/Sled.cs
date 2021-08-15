@@ -58,6 +58,7 @@ public class Sled : MonoBehaviour
     //    }
     //}
 
+    // TODO : 상태에 따라서 가야할길 분류하기 
     void FindStation()
     {
         //nav.SetDestination(direction.position);

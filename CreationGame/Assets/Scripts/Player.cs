@@ -170,7 +170,9 @@ public class Player : MonoBehaviour
         
         foreach(Collider c in coll)
         {
-            c.GetComponent<Enemy>().DecreaseHP(attackDamage);
+            Enemy enemy = c.GetComponent<Enemy>();
+            if(enemy !=null)
+                enemy.DecreaseHP(attackDamage);
         }
 
         //for(int i=0; i<coll.Length; i++)
@@ -237,6 +239,21 @@ public class Player : MonoBehaviour
         {
             isGround = true;
         }
+
+        if(collision.gameObject.tag == "Enemy")
+        {
+            rigidbody.isKinematic = true;
+            //collision.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            rigidbody.isKinematic = false;
+            //collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -253,5 +270,7 @@ public class Player : MonoBehaviour
             FallBlockSpawn.instance.CreateBlock();
             Destroy(other);
         }
+
+        
     }
 }
