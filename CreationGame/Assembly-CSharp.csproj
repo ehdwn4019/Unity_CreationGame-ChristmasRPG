@@ -107,12 +107,13 @@
     <Compile Include="Assets\Scripts\Objstacles\Cannon.cs" />
     <Compile Include="Assets\Scripts\Objstacles\FallBlock.cs" />
     <Compile Include="Assets\Scripts\Objstacles\Obstacles.cs" />
+    <Compile Include="Assets\Scripts\Objstacles\RollBall.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Scene\LoadingScene.cs" />
     <Compile Include="Assets\Scripts\Scene\StartScene.cs" />
     <Compile Include="Assets\Scripts\Sled.cs" />
     <Compile Include="Assets\Scripts\SledDoor.cs" />
-    <Compile Include="Assets\Scripts\Spawn\BulletSpawn.cs" />
+    <Compile Include="Assets\Scripts\Spawn\CannonBulletSpawn.cs" />
     <Compile Include="Assets\Scripts\Spawn\FallBlockSpawn.cs" />
     <Compile Include="Assets\Scripts\Spawn\MonsterSpawn.cs" />
     <None Include="Assets\DownLoads\Other\SD_Project\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Tonemapper.shader" />

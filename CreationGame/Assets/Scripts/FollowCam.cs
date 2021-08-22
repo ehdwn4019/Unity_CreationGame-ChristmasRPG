@@ -47,7 +47,7 @@ public class FollowCam : MonoBehaviour
             camX += Input.GetAxis("Mouse X");
             camY += Input.GetAxis("Mouse Y") * -1;
 
-            camY = Mathf.Clamp(camY, -2f, 2f);
+            camY = Mathf.Clamp(camY, -3.5f, 2f);
 
             Vector3 camPos = new Vector3(camLookPos.rotation.x + camY, camLookPos.rotation.y + camX, 0) * camSpeed;
 
