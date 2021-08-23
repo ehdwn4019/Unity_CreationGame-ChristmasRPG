@@ -116,6 +116,7 @@
     <Compile Include="Assets\Scripts\Spawn\CannonBulletSpawn.cs" />
     <Compile Include="Assets\Scripts\Spawn\FallBlockSpawn.cs" />
     <Compile Include="Assets\Scripts\Spawn\MonsterSpawn.cs" />
+    <Compile Include="Assets\Scripts\Spawn\RollBallSpawn.cs" />
     <None Include="Assets\DownLoads\Other\SD_Project\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Tonemapper.shader" />
     <None Include="Assets\DownLoads\Other\SD_Project\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\DownLoads\Other\SD_Project\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlobalFog.shader" />

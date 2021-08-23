@@ -37,19 +37,27 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
-        else if(instance!=this)
+        else if (instance != this)
         {
             Destroy(this.gameObject);
         }
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        MonsterSpawn.instance.CreateMonster();
+        FallBlockSpawn.instance.CreateBlock();
+        RollBallSpawn.instance.CreateBall();
+        CannonBulletSpawn.instance.CreateBullet();
     }
 
     // Update is called once per frame

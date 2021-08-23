@@ -11,12 +11,13 @@ public class CannonBulletSpawn : MonoBehaviour
 
     List<GameObject> bulletPooling = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
-        else if(instance != this)
+        }
+        else if (instance != this)
         {
             Destroy(this.gameObject);
         }

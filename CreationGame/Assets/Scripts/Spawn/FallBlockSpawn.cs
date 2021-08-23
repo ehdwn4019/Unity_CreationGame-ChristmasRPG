@@ -11,6 +11,18 @@ public class FallBlockSpawn : MonoBehaviour
 
     List<GameObject> blockPooling = new List<GameObject>();
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void Start()
     {
         //testPos = GameObject.Find("TestPos");
@@ -23,12 +35,7 @@ public class FallBlockSpawn : MonoBehaviour
         //    //GameObject go = Instantiate(Resources.Load("Prefab/FallBlock"), responePos[i].transform.position, Quaternion.identity) as GameObject;
         //}
 
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-        {
-            Destroy(this.gameObject);
-        }
+        
     }
 
     public void CreateBlock()

@@ -263,15 +263,5 @@ public class Player : MonoBehaviour
             transform.position = resetPosition.transform.position;
             DecreaseHP(20);
         }
-
-        if(other.gameObject.name == "ShowZone")
-        {
-            MonsterSpawn.instance.CreateMonster();
-            FallBlockSpawn.instance.CreateBlock();
-            Destroy(other);
-        }
-
-
-        
     }
 }

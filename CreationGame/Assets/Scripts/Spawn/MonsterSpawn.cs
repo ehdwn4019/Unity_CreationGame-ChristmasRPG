@@ -15,16 +15,21 @@ public class MonsterSpawn : MonoBehaviour
 
     public List<GameObject> monsterPooling = new List<GameObject>(); // 오브젝트 풀링 List
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+        }
         else if (instance != this)
         {
             Destroy(this.gameObject);
         }
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         //CreateMonster();
 
         //InvokeRepeating("TakeOut", 6, 4);

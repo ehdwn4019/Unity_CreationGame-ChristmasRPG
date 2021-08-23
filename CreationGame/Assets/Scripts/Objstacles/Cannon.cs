@@ -54,7 +54,7 @@ public class Cannon : Obstacles
 
     IEnumerator test()
     {
-        CannonBulletSpawn.instance.CreateBullet();
+        //CannonBulletSpawn.instance.CreateBullet();
         isShoot = false;
         yield return new WaitForSeconds(5.0f);
         isShoot = true;

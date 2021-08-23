@@ -8,6 +8,20 @@ public class SceneController : MonoBehaviour
 {
     public static SceneController instance = null;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     //public enum SceneType
     //{
     //    None,
@@ -20,23 +34,6 @@ public class SceneController : MonoBehaviour
     //public SceneType St { get { return st; } set { st = value; } }
     //
     //public Dictionary<int, string> sceneList = new Dictionary<int, string>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
-
-        //AddSceneList();
-    }
 
     //시작씬 이동
     public void GoStartScene()
