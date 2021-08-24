@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\NPC\Santa.cs" />
     <Compile Include="Assets\Scripts\Objstacles\BounceBall.cs" />
     <Compile Include="Assets\Scripts\Objstacles\Cannon.cs" />
+    <Compile Include="Assets\Scripts\Objstacles\CannonBullet.cs" />
     <Compile Include="Assets\Scripts\Objstacles\FallBlock.cs" />
     <Compile Include="Assets\Scripts\Objstacles\Obstacles.cs" />
     <Compile Include="Assets\Scripts\Objstacles\RollBall.cs" />

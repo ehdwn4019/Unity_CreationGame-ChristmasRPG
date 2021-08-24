@@ -26,7 +26,6 @@ public class CannonBulletSpawn : MonoBehaviour
     public void CreateBullet()
     {
         GameObject bullet = ObjectPoolingManager.Create("CannonBullet", responePos.transform.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody>().AddForce(new Vector3(-4.0f,0f,0f) * 25.0f, ForceMode.Impulse);
         bulletPooling.Add(bullet);
     }
 

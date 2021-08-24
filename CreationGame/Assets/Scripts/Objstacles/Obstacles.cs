@@ -36,4 +36,14 @@ public class Obstacles : MonoBehaviour
     {
 
     }
+
+    private void FixedUpdate()
+    {
+        FixedLoop();
+    }
+
+    protected virtual void FixedLoop()
+    {
+
+    }
 }

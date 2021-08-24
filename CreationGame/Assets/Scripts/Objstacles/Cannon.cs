@@ -4,75 +4,26 @@ using UnityEngine;
 
 public class Cannon : Obstacles
 {
-    [SerializeField]
-    Transform target;
-
-    [SerializeField]
-    GameObject bullet;
-
-    [SerializeField]
-    float bulletPower;
-
-    bool isShoot = true;
+    protected GameObject target;
 
     protected override void Init()
     {
         base.Init();
         ot = ObstaclesType.Cannon;
+        target = GameObject.Find("Player");
     }
 
     protected override void Loop()
     {
         base.Loop();
-
         LookTarget();
-        Shoot();
     }
 
     void LookTarget()
     {
-        //Vector3 forward = target.position - transform.position;
-        Vector3 forward = new Vector3(target.position.x, transform.position.y, target.position.z);
-        transform.LookAt(forward);
-        //Quaternion quaternion = Quaternion.LookRotation(forward);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, Time.deltaTime * 5.0f);
-    }
-
-    void Shoot()
-    {
-        if(isShoot)
-        {
-            Debug.Log("TEST");
-            
-        }
-        if(isShoot)
-        {
-            StartCoroutine("test");
-        }
-        //CannonBulletSpawn.instance.CreateBullet();
-    }
-
-    IEnumerator test()
-    {
-        //CannonBulletSpawn.instance.CreateBullet();
-        isShoot = false;
-        yield return new WaitForSeconds(5.0f);
-        isShoot = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.name == "Player")
-        {
-            isShoot = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.name == "Player")
-        {
-            isShoot = false;
-        }
+        Vector3 forward = target.transform.position - transform.position;
+        Quaternion quaternion = Quaternion.LookRotation(forward);
+        Vector3 rotation = Quaternion.Lerp(transform.rotation, quaternion, 5.0f * Time.deltaTime).eulerAngles;
+        transform.rotation = Quaternion.Euler(0f,rotation.y,0f);
     }
 }

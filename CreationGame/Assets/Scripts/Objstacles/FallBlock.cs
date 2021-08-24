@@ -41,7 +41,7 @@ public class FallBlock : Obstacles
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "DeadZone")
+        if(other.gameObject.name == "LeftMapZone")
         {
             FallBlockSpawn.instance.Disappear(gameObject);
             Destroy(rigid);

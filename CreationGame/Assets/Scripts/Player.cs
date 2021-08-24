@@ -258,7 +258,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "DeadZone")
+        if (other.gameObject.name == "BasicMapZone")
         {
             transform.position = resetPosition.transform.position;
             DecreaseHP(20);
