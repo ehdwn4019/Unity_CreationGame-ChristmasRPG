@@ -19,8 +19,8 @@ public class FallBlock : Obstacles
 
     private void OnEnable()
     {
-        
-        rigid = gameObject.AddComponent<Rigidbody>();
+        if(rigid == null)
+            rigid = gameObject.AddComponent<Rigidbody>();
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
         transform.position = startPos;
