@@ -5,32 +5,41 @@ using UnityEngine;
 public class RollBall : Obstacles
 {
     [SerializeField]
-    float power;
+    float speed;
 
-    Vector3 startPos;
+    GameObject startPos;
+    float x;
+    float z;
 
     private void Awake()
     {
         ot = ObstaclesType.RollBall;
-        startPos = transform.position;
+        startPos = GameObject.Find("RoleBallPos");
     }
 
     private void OnEnable()
     {
-        transform.position = startPos;
+        transform.rotation = startPos.transform.rotation;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name =="Player")
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * power, ForceMode.Impulse);
+            float x = Random.Range(-1, 1);
+            float z = 0;
+
+            if (x == 0)
+                z = -1;
+
+            //collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x,0f,z) * speed, ForceMode.Impulse);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "RollBallStopZone")
+        if(other.gameObject.name == "RollBallStopZone" || other.gameObject.name == "RightMapZone")
         {
             RollBallSpawn.instance.Disappear(gameObject);
             //gameObject.SetActive(false);
@@ -41,7 +50,7 @@ public class RollBall : Obstacles
     //Corutine에서는 gameObject가 비활성화되면 실행x , 대신 invoke함수 사용
     void ReturnPos()
     {
-        RollBallSpawn.instance.Appear(startPos);
+        RollBallSpawn.instance.Appear(startPos.transform.position);
         //gameObject.SetActive(true);
     }
 }

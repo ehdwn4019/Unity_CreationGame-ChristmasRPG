@@ -12,7 +12,7 @@ public class Boss : Enemy
         base.Init();
         state = EnemyState.Idle;
         bossStartPos = transform.position;
-        hp = 100;
+        maxHp = 100;
     }
 
     protected override void Loop()

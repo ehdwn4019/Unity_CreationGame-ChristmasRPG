@@ -7,6 +7,9 @@ public class BounceBall : Obstacles
     Rigidbody rigid;
     bool isJump;
 
+    [SerializeField]
+    float speed;
+
     protected override void Init()
     {
         base.Init();
@@ -40,7 +43,14 @@ public class BounceBall : Obstacles
 
         if (collision.gameObject.name == "Player")
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * 12.0f,ForceMode.Impulse);
+            float x = Random.Range(-1, 1);
+            float z = 0;
+
+            if (x == 0)
+                z = -1;
+
+            //collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x,0f,z) * speed, ForceMode.Impulse);
         }
     }
 }

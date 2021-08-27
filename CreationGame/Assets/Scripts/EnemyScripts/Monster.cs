@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Monster : Enemy
 {
@@ -16,12 +17,15 @@ public class Monster : Enemy
     SphereCollider collider;
     [SerializeField]
     Image questionMark;
+    [SerializeField]
+    Slider slider;
 
     //활성화 했을 때 세팅 
     private void OnEnable()
     {
-        hp = 50;
-        attackPower = 3;
+        maxHp = 50;
+        currentHp = 50;
+        attackspeed = 3;
         collider.enabled = true;
         state = EnemyState.Idle;
     }
@@ -41,7 +45,7 @@ public class Monster : Enemy
         if (questionMark.enabled == true)
             RotateQuestionMark();
 
-        Debug.Log("HP : " + hp);
+        Debug.Log("HP : " + currentHp);
     }
 
     protected override void Idle()
@@ -123,9 +127,10 @@ public class Monster : Enemy
     public override void DecreaseHP(int attackDamage)
     {
         base.DecreaseHP(attackDamage);
-        if (hp <= 0)
+        slider.value = (float)currentHp / maxHp;
+        if (currentHp <= 0)
         {
-            hp = 0;
+            currentHp = 0;
             state = EnemyState.Die;
         }
     }
@@ -134,7 +139,7 @@ public class Monster : Enemy
     {
         base.Die();
         //잘 안되면 이걸로 사용해보기
-        nav.isStopped = true;
+        //nav.isStopped = true;
         nav.enabled = false;
         collider.enabled = false;
 

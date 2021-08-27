@@ -20,8 +20,9 @@ public class Enemy : MonoBehaviour
     protected Rigidbody rigidbody;
 
     //스탯
-    protected int hp;
-    protected int attackPower;
+    protected int currentHp;
+    protected int maxHp;
+    protected int attackspeed;
 
     //Enemy enums 
     public enum EnemyState 
@@ -138,6 +139,6 @@ public class Enemy : MonoBehaviour
     //hp 감소 함수
     public virtual void DecreaseHP(int attackDamage)
     {
-        hp -= attackDamage;
+        currentHp -= attackDamage;
     }
 }

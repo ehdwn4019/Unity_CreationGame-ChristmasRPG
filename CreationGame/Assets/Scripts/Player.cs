@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     float moveSpeed = 5.0f;
     [SerializeField]
-    float jumpPower = 5.0f;
+    float jumpspeed = 5.0f;
     [SerializeField]
     float jumpRange = 0.3f;
     [SerializeField]
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
         { 
             animator.SetTrigger("Jump");
             rigidbody.velocity = Vector3.zero;
-            rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            rigidbody.AddForce(Vector3.up * jumpspeed, ForceMode.Impulse);
             isJump = true;
             isGround = false;
         }
@@ -199,8 +199,8 @@ public class Player : MonoBehaviour
 
         //for(int i= 0; i<rayCastHit.Length; i++)
         //{
-        //    target.attackPower--;
-        //    Debug.Log("target.attackPower : " + target.attackPower);
+        //    target.attackspeed--;
+        //    Debug.Log("target.attackspeed : " + target.attackspeed);
         //    Debug.Log("무야호");
         //
         //}
