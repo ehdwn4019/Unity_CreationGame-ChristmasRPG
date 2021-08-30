@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\DrawGizmo.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\Boss.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\EnemyScripts\HPBar.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\Monster.cs" />
     <Compile Include="Assets\Scripts\FollowCam.cs" />
     <Compile Include="Assets\Scripts\JoyStick.cs" />

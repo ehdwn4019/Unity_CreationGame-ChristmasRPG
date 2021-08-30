@@ -240,21 +240,21 @@ public class Player : MonoBehaviour
             isGround = true;
         }
 
-        if(collision.gameObject.tag == "Enemy")
-        {
-            rigidbody.isKinematic = true;
-            //collision.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        }
+        //if (collision.gameObject.tag == "Enemy")
+        //{
+        //    rigidbody.isKinematic = true;
+        //    //collision.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        //}
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if(collision.gameObject.tag == "Enemy")
-        {
-            rigidbody.isKinematic = false;
-            //collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        }
-    }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if(collision.gameObject.tag == "Enemy")
+    //    {
+    //        rigidbody.isKinematic = false;
+    //        //collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+    //    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {

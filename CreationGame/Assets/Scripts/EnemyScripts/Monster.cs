@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Monster : Enemy
 {
-    Vector3 monsterStartPos;
+    Vector3 startPos;
     
 
     [SerializeField]
@@ -23,17 +23,19 @@ public class Monster : Enemy
     //활성화 했을 때 세팅 
     private void OnEnable()
     {
+        state = EnemyState.Idle;
         maxHp = 50;
         currentHp = 50;
         attackspeed = 3;
+        slider.value = 1;
         collider.enabled = true;
-        state = EnemyState.Idle;
+        
     }
 
     protected override void Init()
     {
         base.Init();
-        monsterStartPos = transform.position;
+        startPos = transform.position;
         questionMark.enabled = false;
     }
 
@@ -46,11 +48,18 @@ public class Monster : Enemy
             RotateQuestionMark();
 
         Debug.Log("HP : " + currentHp);
+        Debug.Log("Slider Value : " + slider.value);
     }
 
     protected override void Idle()
     {
         base.Idle();
+
+        if (currentHp != maxHp)
+        {
+            currentHp++;
+            slider.value += Time.deltaTime;
+        }
 
         //탐지 범위에 들어올때
         if (Vector3.Distance(transform.position, target.transform.position) < findRange)
@@ -71,6 +80,8 @@ public class Monster : Enemy
         }
         else
         {
+            Quaternion baseQuater = Quaternion.LookRotation(Vector3.back);
+            transform.rotation = Quaternion.Lerp(transform.rotation, baseQuater, Time.deltaTime * lookSpeed);
             questionMark.enabled = false;
         }
     }
@@ -83,7 +94,7 @@ public class Monster : Enemy
         nav.SetDestination(target.transform.position);
 
         //이동범위보다 멀어질때 
-        if (Vector3.Distance(transform.position, monsterStartPos) > moveRange)
+        if (Vector3.Distance(transform.position, startPos) > moveRange)
         {
             questionMark.enabled = false;
             base.Move();
@@ -104,7 +115,8 @@ public class Monster : Enemy
 
         int attackDamage = Random.Range(2, 5);
 
-        //GameManager.instance.Player.DecreaseHP(attackDamage);
+        transform.forward = target.transform.position - transform.position;
+
 
         if (Vector3.Distance(transform.position, target.transform.position) > attackRange)
         {
@@ -116,9 +128,9 @@ public class Monster : Enemy
     {
         base.Return();
 
-        nav.SetDestination(monsterStartPos);
+        nav.SetDestination(startPos);
 
-        if ((Vector3.Distance(monsterStartPos,transform.position) <0.1f)|| Vector3.Distance(transform.position,target.transform.position) < attackRange )
+        if ((Vector3.Distance(startPos, transform.position) <0.1f)|| Vector3.Distance(transform.position,target.transform.position) < attackRange )
         {
             state = EnemyState.Idle;
         }
@@ -131,6 +143,7 @@ public class Monster : Enemy
         if (currentHp <= 0)
         {
             currentHp = 0;
+            
             state = EnemyState.Die;
         }
     }
@@ -142,6 +155,7 @@ public class Monster : Enemy
         //nav.isStopped = true;
         nav.enabled = false;
         collider.enabled = false;
+        slider.gameObject.SetActive(false);
 
         StartCoroutine("Hide");
         
@@ -152,6 +166,15 @@ public class Monster : Enemy
         yield return new WaitForSeconds(responeTime);
 
         MonsterSpawn.instance.Disappear(gameObject);
+
+        Invoke("ReturnPos", 3.0f);
+    }
+
+    void ReturnPos()
+    {
+        MonsterSpawn.instance.Appear(startPos);
+        nav.enabled = true;
+        slider.gameObject.SetActive(true);
     }
 
     //물음표 마크 회전 

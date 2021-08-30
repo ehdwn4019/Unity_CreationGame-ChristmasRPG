@@ -63,7 +63,7 @@ public class MonsterSpawn : MonoBehaviour
     }
     
     //몬스터 꺼내고 활성화 및 위치 세팅
-    public GameObject Appear()
+    public GameObject Appear(Vector3 startPos)
     {
         Vector3 randomPos = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
 
@@ -79,7 +79,7 @@ public class MonsterSpawn : MonoBehaviour
         //
         //return null;
 
-        return ObjectPoolingManager.TakeOut(monsterPooling, randomPos);
+        return ObjectPoolingManager.TakeOut(monsterPooling, startPos+randomPos);
     }
 
     //public void CreateMonster()
