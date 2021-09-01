@@ -6,8 +6,10 @@ public class FollowCam : MonoBehaviour
 {
     [SerializeField]
     Transform target;
+
     [SerializeField]
     Transform camLookPos;
+
     [SerializeField]
     float camSpeed;
 
@@ -16,11 +18,15 @@ public class FollowCam : MonoBehaviour
     float camZ;
     Vector3 camStopPos;
 
+    JoyStickRotate joyStickRotate;
+    JoyStickMove joyStickMove;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        joyStickRotate = GameObject.FindObjectOfType<JoyStickRotate>();
+        joyStickMove = GameObject.FindObjectOfType<JoyStickMove>();
     }
 
     // Update is called once per frame
@@ -42,21 +48,50 @@ public class FollowCam : MonoBehaviour
     //카메라 회전
     void LookAround()
     {
-        if (Input.GetMouseButton(1))
+        if((joyStickRotate.isTouch && Input.GetMouseButton(1)) || (joyStickMove.isTouch && Input.GetMouseButton(1))) 
         {
-            camX += Input.GetAxis("Mouse X");
-            camY += Input.GetAxis("Mouse Y") * -1;
+            return;
+        }
 
-            camY = Mathf.Clamp(camY, -3.5f, 2f);
+        if (GameManager.instance.ct == GameManager.ControllType.Computer)
+        {
+            if (Input.GetMouseButton(1))
+            {
+                camX += Input.GetAxis("Mouse X");
+                camY += Input.GetAxis("Mouse Y") * -1;
 
-            Vector3 camPos = new Vector3(camLookPos.rotation.x + camY, camLookPos.rotation.y + camX, 0) * camSpeed;
+                camY = Mathf.Clamp(camY, -3.5f, 2f);
 
-            camLookPos.rotation = Quaternion.Euler(camPos);
-            camStopPos = camLookPos.eulerAngles;
+                Vector3 camPos = new Vector3(camLookPos.rotation.x + camY, camLookPos.rotation.y + camX, 0) * camSpeed;
+
+                camLookPos.rotation = Quaternion.Euler(camPos);
+                camStopPos = camLookPos.eulerAngles;
+            }
+            else
+            {
+                camLookPos.rotation = Quaternion.Euler(camStopPos);
+            }
         }
         else
         {
-            camLookPos.rotation = Quaternion.Euler(camStopPos);
+            if(joyStickRotate.isTouch)
+            {
+                camX += joyStickRotate.Value.x;
+                camY += joyStickRotate.Value.y * -1;
+
+                camY = Mathf.Clamp(camY, -3.5f, 2f);
+
+                Vector3 camPos = new Vector3(camLookPos.rotation.x + camY, camLookPos.rotation.y + camX, 0) * camSpeed;
+
+                camLookPos.rotation = Quaternion.Euler(camPos);
+                camStopPos = camLookPos.eulerAngles;
+            }
+            else
+            {
+                camLookPos.rotation = Quaternion.Euler(camStopPos);
+            }
         }
+
+        
     }
 }

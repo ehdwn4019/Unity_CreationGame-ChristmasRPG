@@ -11,6 +11,15 @@ public class GameManager : MonoBehaviour
     //[SerializeField] Boss boss;
     //[SerializeField] Player player;
 
+    
+    public enum ControllType
+    {
+        Computer,
+        Phone,
+    }
+
+    public ControllType ct = ControllType.Computer;
+
     #region 프로퍼티들
 
     //public Monster Monster
@@ -60,10 +69,32 @@ public class GameManager : MonoBehaviour
         CannonBulletSpawn.instance.CreateBullet();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    //public void ChangeComputer()
+    //{
+    //    ct = ControllType.Phone;
+    //    computer.SetActive(false);
+    //    phone.SetActive(true);
+    //}
+    //
+    //public void ChangePhone()
+    //{
+    //    ct = ControllType.Computer;
+    //    computer.SetActive(true);
+    //    phone.SetActive(false);
+    //}
 
+    public void ControllerChange()
+    {
+        switch(ct)
+        {
+            case ControllType.Computer:
+                ct = ControllType.Phone;
+                break;
+    
+            case ControllType.Phone:
+                ct = ControllType.Computer;
+                break;
+        }
     }
 
     void EndGame()

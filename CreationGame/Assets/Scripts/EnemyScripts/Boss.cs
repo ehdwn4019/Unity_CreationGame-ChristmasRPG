@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Boss : Enemy
 {
+    [SerializeField]
+    float lookSpeed = 10f;
+
     Vector3 bossStartPos;
-    [SerializeField] float lookSpeed = 10f;
 
     protected override void Init()
     {

@@ -11,12 +11,16 @@ public class Monster : Enemy
 
     [SerializeField]
     float responeTime = 3f;
+
     [SerializeField]
     float lookSpeed = 10f;
+
     [SerializeField]
     SphereCollider collider;
+
     [SerializeField]
     Image questionMark;
+
     [SerializeField]
     Slider slider;
 

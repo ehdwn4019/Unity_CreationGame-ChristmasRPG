@@ -7,27 +7,37 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     GameObject resetPosition;
+
     [SerializeField]
     SphereCollider attackRangeColl;
+
     [SerializeField]
     LayerMask enemyLayer;
+
     [SerializeField]
     Slider hpSlider;
+
+    [SerializeField]
+    Text potion;
 
     Rigidbody rigidbody;
     Animator animator;
     Camera cam;
-    JoyStick joyStick;
+    JoyStickMove joyStickMove;
     Enemy target;
 
     [SerializeField]
     float moveSpeed = 5.0f;
+
     [SerializeField]
     float jumpspeed = 5.0f;
+
     [SerializeField]
     float jumpRange = 0.3f;
+
     [SerializeField]
     float attackDelay = 4.0f;
+
     [SerializeField]
     float attackRange = 0.5f;
 
@@ -36,6 +46,9 @@ public class Player : MonoBehaviour
     bool isJump;
     bool isGround;
     bool isDie;
+
+    bool isTouchAttackBtn;
+    bool isTouchJumpBtn;
 
     public bool IsDie { get { return isDie; } }
 
@@ -53,7 +66,7 @@ public class Player : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         cam = Camera.main;
-        joyStick = FindObjectOfType<JoyStick>();
+        joyStickMove = FindObjectOfType<JoyStickMove>();
         currentHp = maxHp;
     }
 
@@ -61,6 +74,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        Debug.Log(joyStickMove.isTouch && Input.GetMouseButton(1));
         Attack();
     }
 
@@ -72,16 +86,19 @@ public class Player : MonoBehaviour
     //플레이어 이동
     void Move()
     {
-        if (isAttack)
+        if (isAttack || isDie || (joyStickMove.isTouch && Input.GetMouseButton(1)))
             return;
 
         float h = 0;
         float v = 0;
 
-        if(joyStick.isTouch)
+        if(GameManager.instance.ct == GameManager.ControllType.Phone)
         {
-            h = joyStick.Value.x;
-            v = joyStick.Value.y;
+            if(joyStickMove.isTouch)
+            {
+                h = joyStickMove.Value.x;
+                v = joyStickMove.Value.y;
+            }
         }
         else
         {
@@ -118,44 +135,91 @@ public class Player : MonoBehaviour
         }
     }
 
-    //플레이어 점프
-    void Jump()
+    public void TouchJump()
     {
-        if (isAttack)
+        isTouchJumpBtn = true;
+    }
+
+    //플레이어 점프
+    public void Jump()
+    {
+        if (isAttack||isDie)
             return;
 
-        if (Input.GetKey(KeyCode.Space) && !isJump && isGround)
-        { 
-            animator.SetTrigger("Jump");
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.AddForce(Vector3.up * jumpspeed, ForceMode.Impulse);
-            isJump = true;
-            isGround = false;
-        }
-
-        Debug.DrawRay(transform.position, Vector3.down * jumpRange, Color.red);
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, jumpRange))
+        if(GameManager.instance.ct==GameManager.ControllType.Computer)
         {
-            isJump = false;
+            if (Input.GetKey(KeyCode.Space) && !isJump && isGround)
+            {
+                animator.SetTrigger("Jump");
+                rigidbody.velocity = Vector3.zero;
+                rigidbody.AddForce(Vector3.up * jumpspeed, ForceMode.Impulse);
+                isJump = true;
+                isGround = false;
+            }
+
+            Debug.DrawRay(transform.position, Vector3.down * jumpRange, Color.red);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, jumpRange))
+            {
+                isJump = false;
+            }
         }
+        else
+        {
+            if (isTouchJumpBtn && !isJump && isGround)
+            {
+                animator.SetTrigger("Jump");
+                rigidbody.velocity = Vector3.zero;
+                rigidbody.AddForce(Vector3.up * jumpspeed, ForceMode.Impulse);
+                isJump = true;
+                isGround = false;
+            }
 
+            Debug.DrawRay(transform.position, Vector3.down * jumpRange, Color.red);
 
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, jumpRange))
+            {
+                isJump = false;
+                isTouchJumpBtn = false;
+            }
+        }
+    }
+
+    public void TouchAttack()
+    {
+        isTouchAttackBtn = true;
     }
 
     //플레이어 공격
-    void Attack()
+    public void Attack()
     {
-        if (isMove)
+        if (isMove||isDie)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if(GameManager.instance.ct == GameManager.ControllType.Computer)
         {
-            isAttack = true;
-            attackRangeColl.enabled = true;
-            StartCoroutine("ComboAttack");
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                isAttack = true;
+                attackRangeColl.enabled = true;
+                StartCoroutine("ComboAttack");
+            }
+        }
+        else
+        {
+            if(isTouchAttackBtn)
+            {
+                isAttack = true;
+                attackRangeColl.enabled = true;
+                StartCoroutine("ComboAttack");
+            }
+
+            isTouchAttackBtn = false;
+            
         }
     }
 
@@ -212,10 +276,10 @@ public class Player : MonoBehaviour
 
 
     //플레이어 피격
-    void Damaged()
-    {
-        animator.SetTrigger("Damaged");
-    }
+    //void Damaged()
+    //{
+    //    animator.SetTrigger("Damaged");
+    //}
 
     public void DecreaseHP(int attackDamage)
     {
@@ -227,9 +291,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void RecoveryHp()
+    {
+        //potion.text -= 
+    }
+
     //플레이어 사망
     void Die()
     {
+        isDie = true;
         animator.SetTrigger("Die");
     }
 

@@ -9,8 +9,10 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     protected float findRange;
+
     [SerializeField]
     protected float moveRange;
+
     [SerializeField]
     protected float attackRange;
     

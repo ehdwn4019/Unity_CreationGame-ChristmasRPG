@@ -19,8 +19,8 @@ public class CannonBullet : MonoBehaviour
 
     private void OnEnable()
     {
-        if(rigid == null)
-            rigid = gameObject.AddComponent<Rigidbody>();
+        //if(rigid == null)
+        rigid = gameObject.AddComponent<Rigidbody>();
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
         rigid.drag = 10.0f;
@@ -53,18 +53,14 @@ public class CannonBullet : MonoBehaviour
             //other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x, 0f, z) * speed, ForceMode.Impulse);
             CannonBulletSpawn.instance.Disappear(gameObject);
-            Destroy(gameObject.GetComponent<Rigidbody>());
+            Destroy(rigid);
             Invoke("ReturnPos", 2.0f);
-            Debug.Log("플레이어와 충돌");
-
-            
-
         }
 
         if(other.gameObject.name == "CannonBulletStopZone"|| other.gameObject.name == "RightMapZone")
         {
             CannonBulletSpawn.instance.Disappear(gameObject);
-            Destroy(gameObject.GetComponent<Rigidbody>());
+            Destroy(rigid);
             Invoke("ReturnPos", 2.0f);
         }
     }
