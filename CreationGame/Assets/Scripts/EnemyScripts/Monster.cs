@@ -6,9 +6,6 @@ using UnityEngine.AI;
 
 public class Monster : Enemy
 {
-    Vector3 startPos;
-    
-
     [SerializeField]
     float responeTime = 3f;
 
@@ -23,6 +20,9 @@ public class Monster : Enemy
 
     [SerializeField]
     Slider slider;
+
+    Vector3 startPos;
+    float attackDelay = 0.9f;
 
     //활성화 했을 때 세팅 
     private void OnEnable()
@@ -51,14 +51,15 @@ public class Monster : Enemy
         if (questionMark.enabled == true)
             RotateQuestionMark();
 
-        Debug.Log("HP : " + currentHp);
-        Debug.Log("Slider Value : " + slider.value);
+        //Debug.Log("HP : " + currentHp);
+        //Debug.Log("Slider Value : " + slider.value);
     }
 
     protected override void Idle()
     {
         base.Idle();
 
+        //Hp 회복
         if (currentHp != maxHp)
         {
             currentHp++;
@@ -68,8 +69,6 @@ public class Monster : Enemy
         //탐지 범위에 들어올때
         if (Vector3.Distance(transform.position, target.transform.position) < findRange)
         {
-            Debug.Log("Find");
-
             //부드럽게 쳐다보기
             Vector3 forward = target.transform.position- transform.position;
             Quaternion quaternion = Quaternion.LookRotation(forward);
@@ -117,10 +116,20 @@ public class Monster : Enemy
     {
         base.Attack();
 
-        int attackDamage = Random.Range(2, 5);
-
         transform.forward = target.transform.position - transform.position;
 
+        int attackDamage = Random.Range(2, 5);
+
+        attackDelay -= Time.deltaTime;
+
+        if(attackDelay<=0f)
+        {
+            attackDelay += Time.deltaTime;
+            if (target != null)
+                target.GetComponent<Player>().DecreaseHP(attackDamage);
+
+            attackDelay = 0.9f;
+        }
 
         if (Vector3.Distance(transform.position, target.transform.position) > attackRange)
         {
