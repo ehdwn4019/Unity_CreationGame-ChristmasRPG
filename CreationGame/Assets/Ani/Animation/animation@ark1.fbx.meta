@@ -220,10 +220,42 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.42553198
+      - time: 0.40687525
         functionName: Attack
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2ebb2ca001d453e4883af492bb7e3115,
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.43575916
+        functionName: AttackTrue
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.45895523
+        functionName: FindEnemy
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4850746
+        functionName: CollFalse
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9962687
+        functionName: AttackFalse
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
           type: 3}
         floatParameter: 0
         intParameter: 0

@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     protected NavMeshAgent nav;
     protected GameObject target;
     protected Rigidbody rigidbody;
+    protected SkinnedMeshRenderer renderer;
+    protected Color startColor;
 
     //스탯
     protected int currentHp;
@@ -51,6 +53,8 @@ public class Enemy : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player");
         rigidbody = GetComponent<Rigidbody>();
+        renderer = GetComponentInChildren<SkinnedMeshRenderer>();
+
         //renderer = GetComponent<Renderer>();
     }
 

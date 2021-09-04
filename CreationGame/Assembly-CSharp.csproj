@@ -114,7 +114,7 @@
     <Compile Include="Assets\Scripts\Object\Sled.cs" />
     <Compile Include="Assets\Scripts\Object\Trampolin.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerAttackColl.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerComboAttack.cs" />
     <Compile Include="Assets\Scripts\Scene\LoadingScene.cs" />
     <Compile Include="Assets\Scripts\Scene\StartScene.cs" />
     <Compile Include="Assets\Scripts\Spawn\CannonBulletSpawn.cs" />

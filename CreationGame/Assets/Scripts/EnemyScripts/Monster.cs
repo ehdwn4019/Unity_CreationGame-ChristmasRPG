@@ -24,6 +24,8 @@ public class Monster : Enemy
     Vector3 startPos;
     float attackDelay = 0.9f;
 
+    
+
     //활성화 했을 때 세팅 
     private void OnEnable()
     {
@@ -151,8 +153,11 @@ public class Monster : Enemy
 
     public override void DecreaseHP(int attackDamage)
     {
+        Debug.Log("호출");
         base.DecreaseHP(attackDamage);
         slider.value = (float)currentHp / maxHp;
+        //StartCoroutine("ChangeRendererColor");
+
         if (currentHp <= 0)
         {
             currentHp = 0;
@@ -160,6 +165,15 @@ public class Monster : Enemy
             state = EnemyState.Die;
         }
     }
+
+    //IEnumerator ChangeRendererColor()
+    //{
+    //    renderer.material.color = Color.red;
+    //
+    //    yield return new WaitForSeconds(0.25f);
+    //
+    //    renderer.material.color = startColor;
+    //}
 
     protected override void Die()
     {

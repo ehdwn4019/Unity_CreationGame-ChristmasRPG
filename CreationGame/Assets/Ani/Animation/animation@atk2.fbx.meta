@@ -182,7 +182,9 @@ ModelImporter:
       that will be discarded.\n\t'bow_joint2' has translation animation that will
       be discarded.\n\t'bow_joint3' has translation animation that will be discarded.\n\t'bow_joint3'
       has scale animation that will be discarded.\n\t'Character1_RightForeArm' has
-      translation animation that will be discarded.\n"
+      translation animation that will be discarded.\nEvent AttackFalse has a time
+      (0.583333) outside the clip's valid range (0.000000..0.583333). It will never
+      be fired"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -219,7 +221,47 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.79983026
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8221077
+        functionName: AttackTrue
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.85447764
+        functionName: FindEnemy
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.88432837
+        functionName: CollFalse
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AttackFalse
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e37a44473f3a4364295e0f78bbda7c49,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

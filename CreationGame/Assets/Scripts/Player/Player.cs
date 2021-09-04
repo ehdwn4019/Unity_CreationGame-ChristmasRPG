@@ -8,9 +8,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     GameObject resetPosition;
 
-    //[SerializeField]
-    //SphereCollider attackRangeColl;
-
     [SerializeField]
     LayerMask enemyLayer;
 
@@ -24,6 +21,7 @@ public class Player : MonoBehaviour
     Animator animator;
     Camera cam;
     JoyStickMove joyStickMove;
+    PlayerComboAttack comboAttack;
     Enemy target;
     GameObject attackColl;
 
@@ -36,11 +34,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     float jumpRange = 0.3f;
 
-    [SerializeField]
-    float attackDelay = 1.0f;
 
-    [SerializeField]
-    float attackRange = 0.5f;
 
     [SerializeField]
     float maxHp = 100f;
@@ -48,19 +42,20 @@ public class Player : MonoBehaviour
     [SerializeField]
     float currentHp;
 
-    //[SerializeField]
-    //int attackDamage;
+    
 
     bool isMove;
-    bool isAttack;
+    
     bool isJump;
     bool isGround;
     bool isDie;
 
-    bool isTouchAttackBtn;
+    
     bool isTouchJumpBtn;
 
     public bool IsDie { get { return isDie; } }
+    public bool IsMove { get { return isMove; } }
+    public bool IsJump { get { return isJump; } }
 
     
     
@@ -69,22 +64,15 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //attackRangeColl.enabled = false;
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        attackColl = GameObject.Find("PlayerAttackColl");
+        //attackColl = GameObject.Find("PlayerAttackColl");
         cam = Camera.main;
         joyStickMove = FindObjectOfType<JoyStickMove>();
+        comboAttack = GetComponent<PlayerComboAttack>();
         currentHp = maxHp;
-        attackColl.SetActive(false);
+        //attackColl.SetActive(false);
         //AnimationAddEvent(1, "Attack", 0.6f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Move();
-        Attack();
     }
 
     private void FixedUpdate()
@@ -96,7 +84,7 @@ public class Player : MonoBehaviour
     //플레이어 이동
     void Move()
     {
-        if (isAttack || isDie || (joyStickMove.isTouch && Input.GetMouseButton(1)))
+        if (comboAttack.IsAttack || isDie || (joyStickMove.isTouch && Input.GetMouseButton(1)))
             return;
 
         float h = 0;
@@ -153,7 +141,7 @@ public class Player : MonoBehaviour
     //플레이어 점프
     public void Jump()
     {
-        if (isAttack||isDie)
+        if (comboAttack.IsAttack||isDie)
             return;
 
         if(GameManager.instance.ct==GameManager.ControllType.Computer)
@@ -199,80 +187,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void TouchAttack()
-    {
-        isTouchAttackBtn = true;
-    }
-
-    //플레이어 공격
-    public void Attack()
-    {
-        if (isMove||isDie)
-            return;
-
-        if(GameManager.instance.ct == GameManager.ControllType.Computer)
-        {
-            if(Input.GetKeyDown(KeyCode.F))
-            {
-                isAttack = true;
-                animator.SetTrigger("Attack");
-                attackColl.SetActive(true);
-                //StartCoroutine("ComboAttack");
-            }
-        }
-        else
-        {
-            if(isTouchAttackBtn)
-            {
-                isAttack = true;
-                //StartCoroutine("ComboAttack");
-            }
-
-            isTouchAttackBtn = false;
-            
-        }
-
-        isAttack = false;
-    }
-
-    //3단 기본 공격
-    //IEnumerator ComboAttack()
-    //{
-    //    animator.SetTrigger("Attack");
-    //
-    //    //주변 콜라이더 탐색 
-    //    Collider[] coll = Physics.OverlapSphere(attackRangeColl.transform.position,attackRange,enemyLayer);
-    //    //attackDamage = Random.Range(3, 7);
-    //    attackDamage = 1;
-    //
-    //    foreach (Collider c in coll)
-    //    {
-    //        attackRangeColl.enabled = true;
-    //        Enemy enemy = c.GetComponent<Enemy>();
-    //        
-    //        if (enemy != null)
-    //        {
-    //            Debug.Log("공격!!");
-    //            enemy.DecreaseHP(attackDamage);
-    //        }
-    //            
-    //        yield return new WaitForSeconds(0.01f);
-    //        attackRangeColl.enabled = false;
-    //    }
-    //
-    //    yield return new WaitForSeconds(attackDelay);
-    //    isAttack = false;
-    //}
-
     public void DecreaseHP(int attackDamage)
     {
         currentHp -= attackDamage;
         hpSlider.value = currentHp / maxHp;
-        if(currentHp<=0)
+        if (currentHp <= 0)
         {
             Die();
         }
     }
+
+
 
     public void RecoveryHp()
     {
@@ -284,6 +209,7 @@ public class Player : MonoBehaviour
     {
         isDie = true;
         animator.SetTrigger("Die");
+
     }
 
     private void OnCollisionEnter(Collision collision)
