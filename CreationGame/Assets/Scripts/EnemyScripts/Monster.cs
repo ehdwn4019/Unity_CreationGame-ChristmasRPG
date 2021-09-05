@@ -97,7 +97,7 @@ public class Monster : Enemy
         questionMark.enabled = false;
         base.Move();
         nav.SetDestination(target.transform.position);
-
+        
         //이동범위보다 멀어질때 
         if (Vector3.Distance(transform.position, startPos) > moveRange)
         {
@@ -105,6 +105,7 @@ public class Monster : Enemy
             base.Move();
             state = EnemyState.Return;
         }
+
 
         //공격범위에 들어왔을 때 
         if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
@@ -145,7 +146,7 @@ public class Monster : Enemy
 
         nav.SetDestination(startPos);
 
-        if ((Vector3.Distance(startPos, transform.position) <0.1f)|| Vector3.Distance(transform.position,target.transform.position) < attackRange )
+        if ((Vector3.Distance(startPos, transform.position) <0.5f)|| Vector3.Distance(transform.position,target.transform.position) < attackRange )
         {
             state = EnemyState.Idle;
         }

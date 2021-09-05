@@ -6,7 +6,8 @@ public class HPBar : MonoBehaviour
 {
     Camera cam;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame 
+
     void Start()
     {
         cam = Camera.main;

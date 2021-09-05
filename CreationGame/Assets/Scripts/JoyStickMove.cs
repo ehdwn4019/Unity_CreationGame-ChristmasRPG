@@ -18,7 +18,8 @@ public class JoyStickMove : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,
 
     public Vector2 Value { get { return value; } }
 
-    // Start is called before the first frame update
+    // Start is called before the first frame 
+
     void Start()
     {
         //시작위치 저장

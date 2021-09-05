@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour 
 {
@@ -42,24 +43,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     float currentHp;
 
-    
-
     bool isMove;
-    
     bool isJump;
     bool isGround;
     bool isDie;
-
     
     bool isTouchJumpBtn;
 
     public bool IsDie { get { return isDie; } }
     public bool IsMove { get { return isMove; } }
     public bool IsJump { get { return isJump; } }
-
-    
-    
- 
 
     // Start is called before the first frame update
     void Start()
@@ -209,7 +202,6 @@ public class Player : MonoBehaviour
     {
         isDie = true;
         animator.SetTrigger("Die");
-
     }
 
     private void OnCollisionEnter(Collision collision)

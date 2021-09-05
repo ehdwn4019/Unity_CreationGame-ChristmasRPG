@@ -418,7 +418,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.7
+  m_StoppingDistance: 1.3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   findRange: 3
   moveRange: 2
-  attackRange: 1
+  attackRange: 1.2
   state: 0
   responeTime: 3
   lookSpeed: 10

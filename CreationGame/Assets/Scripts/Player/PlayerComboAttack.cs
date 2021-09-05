@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class PlayerComboAttack : MonoBehaviour
 {
-    Animator animator;
-    Player player;
-    bool isTouchAttackBtn;
-    bool isAttack;
-
     [SerializeField]
     float attackDelay = 1.0f;
 
@@ -22,7 +17,20 @@ public class PlayerComboAttack : MonoBehaviour
     int attackMaxDamage = 7;
 
     [SerializeField]
+    int fireDamage = 3;
+
+    [SerializeField]
     BoxCollider attackRangeColl;
+
+    [SerializeField]
+    ParticleSystem damageText; 
+
+    Animator animator;
+    Player player;
+    PlayerSkill skill;
+    Enemy enemy;
+    bool isTouchAttackBtn;
+    bool isAttack;
 
     public bool IsAttack { get { return isAttack; } }
 
@@ -30,7 +38,10 @@ public class PlayerComboAttack : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
+        skill = GetComponent<PlayerSkill>();
+        enemy = GetComponent<Enemy>();
         animator = GetComponent<Animator>();
+        damageText.Stop();
     }
 
     private void Update()
@@ -80,7 +91,10 @@ public class PlayerComboAttack : MonoBehaviour
 
             if (enemy != null)
             {
+                if (skill.IsFireBuff)
+                    attackDamage += fireDamage; 
                 enemy.DecreaseHP(attackDamage);
+                
             }
         }
     }
@@ -88,12 +102,15 @@ public class PlayerComboAttack : MonoBehaviour
     public void AttackTrue()
     {
         isAttack = true;
+        damageText.Play();
         attackRangeColl.enabled = true;
+        
     }
 
     public void CollFalse()
     {
         attackRangeColl.enabled = false;
+        //damageText.Stop();
     }
 
     public void AttackFalse()

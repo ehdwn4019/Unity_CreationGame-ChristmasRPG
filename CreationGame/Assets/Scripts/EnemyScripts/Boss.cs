@@ -9,10 +9,19 @@ public class Boss : Enemy
 
     Vector3 bossStartPos;
 
+    enum SkillState
+    {
+        None,
+        Throw,
+        Spray,
+    }
+
+    SkillState skillState = SkillState.None;
+
     protected override void Init()
     {
         base.Init();
-        state = EnemyState.Idle;
+        state = EnemyState.Move;
         bossStartPos = transform.position;
         maxHp = 100;
     }
@@ -23,25 +32,24 @@ public class Boss : Enemy
         //Debug.Log("BossHP : " + hp);
     }
 
-    protected override void Idle()
-    {
-        base.Idle();
-
-        if(Vector3.Distance(transform.position,target.transform.position)<findRange)
-        {
-            //this.transform.LookAt(target.transform);
-
-            Vector3 forward = target.transform.position - transform.position;
-            Quaternion quaternion = Quaternion.LookRotation(forward);
-            transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, Time.deltaTime * lookSpeed);
-
-            if (Vector3.Distance(transform.position, target.transform.position)< moveRange)
-            {
-                state = EnemyState.Move;
-            }
-            
-        }
-    }
+    //protected override void Idle()
+    //{
+    //    base.Idle();
+    //
+    //    if(Vector3.Distance(transform.position,target.transform.position)<findRange)
+    //    {
+    //        //this.transform.LookAt(target.transform);
+    //
+    //        Vector3 forward = target.transform.position - transform.position;
+    //        Quaternion quaternion = Quaternion.LookRotation(forward);
+    //        transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, Time.deltaTime * lookSpeed);
+    //
+    //        if (Vector3.Distance(transform.position, target.transform.position)< moveRange)
+    //        {
+    //            state = EnemyState.Move;
+    //        }
+    //    }
+    //}
 
     protected override void Move()
     {
@@ -53,10 +61,10 @@ public class Boss : Enemy
             state = EnemyState.Attack;
         }
 
-        if(Vector3.Distance(transform.position,target.transform.position) > moveRange)
-        {
-            state = EnemyState.Return;
-        }
+        //if(Vector3.Distance(transform.position,target.transform.position) > moveRange)
+        //{
+        //    state = EnemyState.Return;
+        //}
     }
 
     protected override void Attack()
@@ -64,24 +72,43 @@ public class Boss : Enemy
         transform.LookAt(target.transform);
         base.Attack();
 
+        int random = Random.Range(0, 2);
+
         if(Vector3.Distance(transform.position,target.transform.position)>attackRange)
         {
-            state = EnemyState.Move;
+            switch(random)
+            {
+                //추적
+                case 0:
+                    skillState = SkillState.None;
+                    state = EnemyState.Move;
+                    break;
+                //눈던지기
+                case 1:
+                    state = EnemyState.None;
+                    skillState = SkillState.Throw;
+                    Throw();
+                    break;
+                //눈뿌리기
+                case 2:
+                    state = EnemyState.None;
+                    skillState = SkillState.Spray;
+                    break;
+            }
+            
         }
     }
 
-    protected override void Return()
-    {
-        base.Return();
-        nav.SetDestination(bossStartPos);
-        if(Vector3.Distance(bossStartPos,transform.position)<0.2f || Vector3.Distance(this.transform.position, target.transform.position) < attackRange)
-        {
-            Debug.Log("~!");
-            state = EnemyState.Idle;
-        }
-
-        
-    }
+    //protected override void Return()
+    //{
+    //    base.Return();
+    //    nav.SetDestination(bossStartPos);
+    //    if (Vector3.Distance(bossStartPos, transform.position) < 0.2f || Vector3.Distance(this.transform.position, target.transform.position) < attackRange)
+    //    {
+    //        Debug.Log("~!");
+    //        state = EnemyState.None;
+    //    }  
+    //}
 
     public override void DecreaseHP(int attackDamage)
     {
@@ -96,6 +123,7 @@ public class Boss : Enemy
     //스킬 
     void Throw()
     {
+        transform.forward = target.transform.position - transform.position;
         animator.SetTrigger("Throw");
     }
 }
