@@ -83,7 +83,7 @@ public class PlayerComboAttack : MonoBehaviour
         int attackDamage = Random.Range(attackMinDamage, attackMaxDamage);
 
         //주변 콜라이더 탐색 
-        Collider[] coll = Physics.OverlapSphere(attackRangeColl.transform.position, attackRange*2, LayerMask.GetMask("Enemy"));
+        Collider[] coll = Physics.OverlapSphere(attackRangeColl.transform.position, attackRange*1.5f, LayerMask.GetMask("Enemy"));
 
         foreach (Collider c in coll)
         {

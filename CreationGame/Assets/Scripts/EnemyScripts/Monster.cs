@@ -22,7 +22,7 @@ public class Monster : Enemy
     Slider slider;
 
     Vector3 startPos;
-    float attackDelay = 0.9f;
+    float attackDelay = 0.89f;
 
     
 
@@ -117,9 +117,9 @@ public class Monster : Enemy
 
     protected override void Attack()
     {
-        base.Attack();
-
         transform.forward = target.transform.position - transform.position;
+
+        base.Attack();
 
         int attackDamage = Random.Range(2, 5);
 
@@ -127,11 +127,12 @@ public class Monster : Enemy
 
         if(attackDelay<=0f)
         {
-            attackDelay += Time.deltaTime;
+            //attackDelay += Time.deltaTime;
             if (target != null)
                 target.GetComponent<Player>().DecreaseHP(attackDamage);
 
-            attackDelay = 0.9f;
+            //if(attackDelay>=0.9f)
+                attackDelay = 0.89f;
         }
 
         if (Vector3.Distance(transform.position, target.transform.position) > attackRange)

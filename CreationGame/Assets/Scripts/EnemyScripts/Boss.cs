@@ -7,7 +7,8 @@ public class Boss : Enemy
     [SerializeField]
     float lookSpeed = 10f;
 
-    Vector3 bossStartPos;
+    Vector3 startPos;
+    float attackDelay = 0.9f;
 
     enum SkillState
     {
@@ -22,8 +23,9 @@ public class Boss : Enemy
     {
         base.Init();
         state = EnemyState.Move;
-        bossStartPos = transform.position;
-        maxHp = 100;
+        startPos = transform.position;
+        maxHp = 1000;
+        currentHp = maxHp;
     }
 
     protected override void Loop()
@@ -69,10 +71,22 @@ public class Boss : Enemy
 
     protected override void Attack()
     {
-        transform.LookAt(target.transform);
+        transform.forward = target.transform.position - transform.position;
+
         base.Attack();
 
         int random = Random.Range(0, 2);
+        int attackDamage = Random.Range(8, 10);
+
+        attackDelay -= Time.deltaTime;
+
+        if(attackDelay<=0f)
+        {
+            if (target != null)
+                target.GetComponent<Player>().DecreaseHP(attackDamage);
+
+            attackDelay = 0.9f;
+        }
 
         if(Vector3.Distance(transform.position,target.transform.position)>attackRange)
         {
@@ -95,7 +109,6 @@ public class Boss : Enemy
                     skillState = SkillState.Spray;
                     break;
             }
-            
         }
     }
 
@@ -113,6 +126,11 @@ public class Boss : Enemy
     public override void DecreaseHP(int attackDamage)
     {
         base.DecreaseHP(attackDamage);
+        if (currentHp <= 0)
+        {
+            state = EnemyState.Die;
+            skillState = SkillState.None;
+        }
     }
 
     protected override void Die()
