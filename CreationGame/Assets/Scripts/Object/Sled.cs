@@ -25,7 +25,7 @@ public class Sled : MonoBehaviour
         //    nav.destination = target.position;
 
         //FindStation();
-        //if(isStart)
+        if(isStart && !isStop)
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
@@ -42,6 +42,14 @@ public class Sled : MonoBehaviour
         yield return new WaitForSeconds(4.0f);
 
         isStart = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name =="BossZone")
+        {
+            isStart = true;
+        }
     }
 
     // TODO : 상태에 따라서 가야할길 분류하기 

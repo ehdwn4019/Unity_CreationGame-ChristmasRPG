@@ -24,6 +24,7 @@ public class CannonBullet : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
         rigid.drag = 10.0f;
+        rigid.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         transform.rotation = startPos.transform.rotation;
     }
 
