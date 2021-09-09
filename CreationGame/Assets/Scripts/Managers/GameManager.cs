@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
         FallBlockSpawn.instance.CreateBlock();
         RollBallSpawn.instance.CreateBall();
         CannonBulletSpawn.instance.CreateBullet();
+        ThrowBallSpawn.instance.CreateBall();
     }
 
     //public void ChangeComputer()

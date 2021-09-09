@@ -36,20 +36,15 @@ public class FollowCam : MonoBehaviour
         LookAround();
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
-
     void Rotate()
     {
         // 플레이어 방향과 카메라 방향 일치시키기
         Vector3 forward = new Vector3(camLookPos.forward.x, 0f, camLookPos.forward.z).normalized;
-        target.GetComponent<Rigidbody>().MoveRotation(transform.rotation * Quaternion.Lerp(transform.rotation, camLookPos.rotation, camSpeed * Time.fixedDeltaTime));
+        //Quaternion quaternion = Quaternion.Euler(transform.rotation.eulerAngles);
+        //target.GetComponent<Rigidbody>().MoveRotation(Quaternion.Lerp(quaternion, camLookPos.rotation, camSpeed * Time.fixedDeltaTime));
         //target.GetComponent<Rigidbody>().rotation *= Quaternion.Lerp(transform.rotation, camLookPos.rotation, camSpeed * Time.fixedDeltaTime);
         //target.rotation = Quaternion.Lerp(transform.rotation, camLookPos.rotation, camSpeed * Time.deltaTime);
-        //target.Rotate(Quaternion.Lerp(transform.rotation, camLookPos.rotation, camSpeed * Time.deltaTime).eulerAngles);
+        target.Rotate(Quaternion.Lerp(transform.rotation, camLookPos.rotation, camSpeed * Time.deltaTime).eulerAngles);
         target.forward = forward;
         //target.TransformDirection(forward);
     }

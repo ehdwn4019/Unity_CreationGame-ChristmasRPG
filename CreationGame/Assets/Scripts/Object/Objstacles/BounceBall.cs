@@ -17,9 +17,9 @@ public class BounceBall : Obstacles
         rigid = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    protected override void FixedLoop()
     {
+        base.FixedLoop();
         Bounce();
     }
 
@@ -45,10 +45,10 @@ public class BounceBall : Obstacles
         {
             float x = Random.Range(-1, 1);
             float z = 0;
-
+            
             if (x == 0)
                 z = -1;
-
+            
             //collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x,0f,z) * speed, ForceMode.Impulse);
         }

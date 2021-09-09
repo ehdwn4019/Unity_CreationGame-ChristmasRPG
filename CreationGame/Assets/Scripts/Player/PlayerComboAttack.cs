@@ -27,7 +27,7 @@ public class PlayerComboAttack : MonoBehaviour
 
     Animator animator;
     Player player;
-    PlayerSkill skill;
+    PlayerFireBuff fireBuff;
     Enemy enemy;
     bool isTouchAttackBtn;
     bool isAttack;
@@ -38,7 +38,7 @@ public class PlayerComboAttack : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-        skill = GetComponent<PlayerSkill>();
+        fireBuff = GetComponent<PlayerFireBuff>();
         enemy = GetComponent<Enemy>();
         animator = GetComponent<Animator>();
         damageText.Stop();
@@ -91,7 +91,7 @@ public class PlayerComboAttack : MonoBehaviour
 
             if (enemy != null)
             {
-                if (skill.IsFireBuff)
+                if (fireBuff.IsFireBuff)
                     attackDamage += fireDamage; 
                 enemy.DecreaseHP(attackDamage);
                 

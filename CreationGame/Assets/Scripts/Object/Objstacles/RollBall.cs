@@ -39,7 +39,7 @@ public class RollBall : Obstacles
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "RollBallStopZone" || other.gameObject.name == "RightMapZone")
+        if(other.gameObject.name == "RollBallStopZone" || other.gameObject.name == "ResponeZone")
         {
             RollBallSpawn.instance.Disappear(gameObject);
             //gameObject.SetActive(false);

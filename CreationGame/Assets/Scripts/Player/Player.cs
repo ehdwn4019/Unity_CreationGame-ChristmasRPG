@@ -18,6 +18,21 @@ public class Player : MonoBehaviour
     [SerializeField]
     Text potion;
 
+    [SerializeField]
+    float moveSpeed = 5.0f;
+
+    [SerializeField]
+    float jumpSpeed = 5.0f;
+
+    [SerializeField]
+    float jumpRange = 0.3f;
+
+    [SerializeField]
+    float maxHp = 100f;
+
+    [SerializeField]
+    float currentHp;
+
     Rigidbody rigidbody;
     Animator animator;
     Camera cam;
@@ -26,29 +41,13 @@ public class Player : MonoBehaviour
     Enemy target;
     GameObject attackColl;
 
-    [SerializeField]
-    float moveSpeed = 5.0f;
-
-    [SerializeField]
-    float jumpspeed = 5.0f;
-
-    [SerializeField]
-    float jumpRange = 0.3f;
-
-
-
-    [SerializeField]
-    float maxHp = 100f;
-
-    [SerializeField]
-    float currentHp;
-
     bool isMove;
     bool isJump;
     bool isGround;
     bool isDie;
-    
     bool isTouchJumpBtn;
+
+    
 
     public bool IsDie { get { return isDie; } }
     public bool IsMove { get { return isMove; } }
@@ -115,7 +114,6 @@ public class Player : MonoBehaviour
                 animator.SetBool("RightRun", true);
             else
                 animator.SetBool("RightRun", false);
-                
         }
         else if(movePos==Vector3.zero)
         {
@@ -139,15 +137,6 @@ public class Player : MonoBehaviour
 
         if(GameManager.instance.ct==GameManager.ControllType.Computer)
         {
-            if (Input.GetKey(KeyCode.Space) && !isJump && isGround)
-            {
-                animator.SetTrigger("Jump");
-                rigidbody.velocity = Vector3.zero;
-                rigidbody.AddForce(Vector3.up * jumpspeed, ForceMode.Impulse);
-                isJump = true;
-                isGround = false;
-            }
-
             Debug.DrawRay(transform.position, Vector3.down * jumpRange, Color.red);
 
             RaycastHit hit;
@@ -156,18 +145,19 @@ public class Player : MonoBehaviour
             {
                 isJump = false;
             }
-        }
-        else
-        {
-            if (isTouchJumpBtn && !isJump && isGround)
+
+            if (Input.GetKey(KeyCode.Space) && !isJump && isGround)
             {
                 animator.SetTrigger("Jump");
                 rigidbody.velocity = Vector3.zero;
-                rigidbody.AddForce(Vector3.up * jumpspeed, ForceMode.Impulse);
+                //rigidbody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+                rigidbody.AddForce(Vector3.up*jumpSpeed, ForceMode.Impulse);
                 isJump = true;
                 isGround = false;
             }
-
+        }
+        else
+        {
             Debug.DrawRay(transform.position, Vector3.down * jumpRange, Color.red);
 
             RaycastHit hit;
@@ -176,6 +166,15 @@ public class Player : MonoBehaviour
             {
                 isJump = false;
                 isTouchJumpBtn = false;
+            }
+
+            if (isTouchJumpBtn && !isJump && isGround)
+            {
+                animator.SetTrigger("Jump");
+                rigidbody.velocity = Vector3.zero;
+                rigidbody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+                isJump = true;
+                isGround = false;
             }
         }
     }
@@ -189,8 +188,6 @@ public class Player : MonoBehaviour
             Die();
         }
     }
-
-
 
     public void RecoveryHp()
     {
@@ -214,7 +211,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "BasicMapZone")
+        if (other.gameObject.name == "ResponeZone")
         {
             transform.position = resetPosition.transform.position;
             DecreaseHP(20);

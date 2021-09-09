@@ -11,9 +11,13 @@ public class Sled : MonoBehaviour
     bool isStart;
     bool isStop;
 
+    Rigidbody rigid;
+
     // Start is called before the first frame update
     void Start()
     {
+        rigid = GetComponent<Rigidbody>();
+
         isStart = false;
         isStop = false;
     }
@@ -25,8 +29,15 @@ public class Sled : MonoBehaviour
         //    nav.destination = target.position;
 
         //FindStation();
-        if(isStart && !isStop)
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+        //if(isStart && !isStop)
+        //    transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
+        if (isStart && !isStop)
+            rigid.MovePosition(transform.position + transform.rotation * Vector3.forward.normalized * speed * Time.fixedDeltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -48,7 +59,8 @@ public class Sled : MonoBehaviour
     {
         if(other.gameObject.name =="BossZone")
         {
-            isStart = true;
+            isStop = true;
+            isStart = false;
         }
     }
 
