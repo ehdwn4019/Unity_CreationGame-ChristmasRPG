@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     public ControllType ct = ControllType.Computer;
 
+    public bool isFightBoss;
+
     #region 프로퍼티들
 
     //public Monster Monster

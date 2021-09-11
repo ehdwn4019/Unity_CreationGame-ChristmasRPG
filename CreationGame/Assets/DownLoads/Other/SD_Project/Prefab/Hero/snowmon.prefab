@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 5482906}
   - component: {fileID: 1612472164}
   - component: {fileID: 2313948551647522129}
+  - component: {fileID: 1755033694929265242}
   - component: {fileID: 1179531340}
   - component: {fileID: 1179531344}
   m_Layer: 9
@@ -180,10 +181,13 @@ MonoBehaviour:
   findRange: 0
   moveRange: 0
   attackRange: 0
+  nav: {fileID: 0}
   state: 0
   lookSpeed: 10
   slider: {fileID: 0}
   text: {fileID: 0}
+  IceBallStopZone: {fileID: 0}
+  sphereCollider: {fileID: 0}
   skillState: 0
 --- !u!114 &2313948551647522129
 MonoBehaviour:
@@ -201,6 +205,19 @@ MonoBehaviour:
   animator: {fileID: 0}
   target: {fileID: 0}
   throwPos: {fileID: 0}
+--- !u!114 &1755033694929265242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b8c5757f592654e92389371abc23b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: 0}
 --- !u!135 &1179531340
 SphereCollider:
   m_ObjectHideFlags: 0

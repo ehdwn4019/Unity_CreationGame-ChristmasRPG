@@ -58,7 +58,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.2173913
+        functionName: CreateBall
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: af1088469eadd1c45951ae1b06bba4e4,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.47826087
+        functionName: ThrowBall
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 81d81af3a9e72954791750450ae0209e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9782608
+        functionName: End
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: af1088469eadd1c45951ae1b06bba4e4,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

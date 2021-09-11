@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     protected float attackRange;
     
     protected Animator animator;
-    protected NavMeshAgent nav;
+    public NavMeshAgent nav;
     protected GameObject target;
     protected Rigidbody rigidbody;
     //protected SkinnedMeshRenderer renderer;

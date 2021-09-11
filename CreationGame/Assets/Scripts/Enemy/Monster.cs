@@ -85,8 +85,8 @@ public class Monster : Enemy
         }
         else
         {
-            Quaternion baseQuater = Quaternion.LookRotation(Vector3.back);
-            transform.rotation = Quaternion.Lerp(transform.rotation, baseQuater, Time.deltaTime * lookSpeed);
+            Quaternion quaternion = Quaternion.LookRotation(Vector3.back);
+            transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, Time.deltaTime * lookSpeed);
             questionMark.enabled = false;
         }
     }

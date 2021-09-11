@@ -104,6 +104,7 @@
     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\Scripts\DrawGizmo.cs" />
     <Compile Include="Assets\Scripts\Enemy\Boss\Boss.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Boss\BossJumpingDownSkill.cs" />
     <Compile Include="Assets\Scripts\Enemy\Boss\BossThrowSkill.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\HPBar.cs" />

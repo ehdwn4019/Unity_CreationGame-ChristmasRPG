@@ -7,7 +7,9 @@ public class ThrowBallSpawn : MonoBehaviour
     public static ThrowBallSpawn instance = null;
 
     [SerializeField]
-    GameManager responePos;
+    GameObject responePos;
+
+    public int ballCount = 20;
 
     List<GameObject> ballPooling = new List<GameObject>();
 
@@ -25,8 +27,13 @@ public class ThrowBallSpawn : MonoBehaviour
 
     public void CreateBall()
     {
-        GameObject ball = ObjectPoolingManager.Create("ThrowBall", responePos.transform.position, Quaternion.identity);
-        ballPooling.Add(ball);
+        for(int i=0; i<ballCount; i++)
+        {
+            GameObject ball = ObjectPoolingManager.Create("ThrowBall", responePos.transform.position, Quaternion.identity);
+            ball.SetActive(false);
+            ballPooling.Add(ball);
+        }
+        
     }
 
     public void Disappear(GameObject ball)
@@ -38,5 +45,4 @@ public class ThrowBallSpawn : MonoBehaviour
     {
         return ObjectPoolingManager.TakeOut(ballPooling, startPos);
     }
-
 }

@@ -16,6 +16,11 @@ public class BossThrowSkill : MonoBehaviour
     [SerializeField]
     GameObject throwPos;
 
+    float ballCount = 5;
+    bool isThrowBall;
+
+    public bool IsThrowBall { get { return isThrowBall; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,17 +35,30 @@ public class BossThrowSkill : MonoBehaviour
 
     public void Throw()
     {
-        if ((boss.skillState != Boss.SkillState.Throw) && (boss.state == Enemy.EnemyState.None))
+        if (boss.skillState != Boss.SkillState.Throw)
             return;
 
-        transform.forward = target.transform.position - transform.position;
+        boss.nav.ResetPath();
         animator.SetTrigger("Throw");
     }
 
     public void CreateBall()
     {
-
+        for(int i=0; i<ballCount; i++)
+        {
+            GameObject go = ThrowBallSpawn.instance.Appear(throwPos.transform.position);
+        }
     }
 
+    public void ThrowBall()
+    {
+        isThrowBall = true;
+    }
+
+    public void End()
+    {
+        boss.skillState = Boss.SkillState.None;
+        boss.state = Boss.EnemyState.Idle;
+    }
 
 }

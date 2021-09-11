@@ -14,8 +14,18 @@ public class Boss : Enemy
     [SerializeField]
     Text text;
 
+    [SerializeField]
+    GameObject IceBallStopZone;
+
+    [SerializeField]
+    GameObject stormCloud;
+
+    [SerializeField]
+    SphereCollider sphereCollider;
+
     Vector3 startPos;
-    float attackDelay = 0.9f;
+    float attackDelay = 1.0f;
+    //float skillDelay = 2.0f;
 
     public enum SkillState
     {
@@ -29,7 +39,7 @@ public class Boss : Enemy
     protected override void Init()
     {
         base.Init();
-        state = EnemyState.Move;
+        state = EnemyState.Idle;
         startPos = transform.position;
         maxHp = 100;
         currentHp = maxHp;
@@ -38,15 +48,70 @@ public class Boss : Enemy
     protected override void Loop()
     {
         base.Loop();
-        //Debug.Log("BossHP : " + hp);
+        Forward();
+        AppearHPUI();
+        Debug.Log("state : "+state);
+        Debug.Log("skillstate : "+skillState);
     }
 
     protected override void Idle()
     {
         //플레이어 죽었을때 idle 상태로 돌리기 
-
         base.Idle();
-    
+
+        if (!GameManager.instance.isFightBoss)
+            return;
+
+
+        nav.ResetPath();
+
+        //skillDelay -= Time.deltaTime;
+        //Debug.Log(skillDelay);
+
+        int random = Random.Range(0, 2);
+
+        //Debug.Log(random);
+
+        if (Vector3.Distance(transform.position, target.transform.position) < moveRange)
+        {
+            //skillDelay = 4.0f;
+            state = EnemyState.Move;
+            skillState = SkillState.None;
+
+        }
+        else
+        {
+            //skillDelay = 4.0f;
+           
+
+            switch (random)
+            {
+                //눈던지기
+                case 0:
+                    state = EnemyState.None;
+                    skillState = SkillState.Throw;
+                    break;
+                //점프내려찍기
+                case 1:
+                    state = EnemyState.None;
+                    skillState = SkillState.JumpingDown;
+                    break;
+                    ////눈뿌리기
+                    //case 2:
+                    //    state = EnemyState.None;
+                    //    skillState = SkillState.Spray;
+                    //    break;
+            }
+
+        }
+
+        //if (skillDelay <=0)
+        //{
+        //
+        //}
+
+        
+
         //if(Vector3.Distance(transform.position,target.transform.position)<findRange)
         //{
         //    //this.transform.LookAt(target.transform);
@@ -67,10 +132,70 @@ public class Boss : Enemy
         base.Move();
         nav.SetDestination(target.transform.position);
 
-        if(Vector3.Distance(transform.position,target.transform.position) < attackRange)
+        if (Vector3.Distance(transform.position, target.transform.position) > moveRange)
+        {
+            state = EnemyState.Idle;
+            skillState = SkillState.None;
+        }
+
+        if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
         {
             state = EnemyState.Attack;
+            skillState = SkillState.None;
         }
+        //else if(Vector3.Distance(transform.position,target.transform.position)>attackRange && Vector3.Distance(transform.position, target.transform.position)<findRange)
+        //{
+        //    state = EnemyState.Move;
+        //    skillState = SkillState.None;
+        //}
+        
+
+            
+
+        //int random = Random.Range(0, 2);
+
+        //if (Vector3.Distance(transform.position, target.transform.position) > attackRange)
+        //{
+        //
+        //    state = EnemyState.Idle;
+        //    skillState = SkillState.None;
+        //    //switch (random)
+        //    //{
+        //    //    //추적
+        //    //    case 0:
+        //    //        skillState = SkillState.None;
+        //    //        state = EnemyState.Move;
+        //    //        break;
+        //    //    //눈던지기
+        //    //    case 1:
+        //    //        state = EnemyState.None;
+        //    //        skillState = SkillState.Throw;
+        //    //        //Throw();
+        //    //        break;
+        //    //        ////눈뿌리기
+        //    //        //case 2:
+        //    //        //    state = EnemyState.None;
+        //    //        //    skillState = SkillState.Spray;
+        //    //        //    break;
+        //    //
+        //    //        //점프내려찍기
+        //    //        //case 2:
+        //    //        //    state = EnemyState.None;
+        //    //        //    skillState = SkillState.JumpingDown;
+        //    //        //    //JumpingDown();
+        //    //        //    break;
+        //    //}
+        //}
+        //else
+        //{
+        //    state = EnemyState.Attack;
+        //    skillState = SkillState.None;
+        //}
+
+        //else
+        //{
+        //    state = EnemyState.Idle;
+        //}
 
         //if(Vector3.Distance(transform.position,target.transform.position) > moveRange)
         //{
@@ -80,11 +205,9 @@ public class Boss : Enemy
 
     protected override void Attack()
     {
-        transform.forward = target.transform.position - transform.position;
-
         base.Attack();
 
-        int random = Random.Range(0, 2);
+        
         int attackDamage = Random.Range(8, 10);
 
         attackDelay -= Time.deltaTime;
@@ -94,37 +217,12 @@ public class Boss : Enemy
             if (target != null)
                 target.GetComponent<Player>().DecreaseHP(attackDamage);
 
-            attackDelay = 0.9f;
+            attackDelay = 1.0f;
         }
 
-        if(Vector3.Distance(transform.position,target.transform.position)>attackRange)
+        if(Vector3.Distance(transform.position,target.transform.position) > attackRange)
         {
-            switch(random)
-            {
-                //추적
-                case 0:
-                    skillState = SkillState.None;
-                    state = EnemyState.Move;
-                    break;
-                //눈던지기
-                case 1:
-                    state = EnemyState.None;
-                    skillState = SkillState.Throw;
-                    //Throw();
-                    break;
-                ////눈뿌리기
-                //case 2:
-                //    state = EnemyState.None;
-                //    skillState = SkillState.Spray;
-                //    break;
-
-                //점프내려찍기
-                case 2:
-                    state = EnemyState.None;
-                    skillState = SkillState.JumpingDown;
-                    //JumpingDown();
-                    break;
-            }
+            state = EnemyState.Move;
         }
     }
 
@@ -158,7 +256,28 @@ public class Boss : Enemy
     {
         base.Die();
         //StartCoroutine("DieCoroutine");
+        sphereCollider.enabled = false;
+        IceBallStopZone.SetActive(false);
+        GameManager.instance.isFightBoss = false;
+        stormCloud.SetActive(false);
         Destroy(gameObject, 3.0f);
+    }
+
+    void Forward()
+    {
+        if (state == EnemyState.Die)
+            return;
+        Vector3 forward = target.transform.position - transform.position;
+        forward.y = 0f;
+        transform.forward = forward;
+    }
+
+    void AppearHPUI()
+    {
+        if (GameManager.instance.isFightBoss)
+            slider.gameObject.SetActive(true);
+        else
+            slider.gameObject.SetActive(false);
     }
 
     //IEnumerator DieCoroutine()

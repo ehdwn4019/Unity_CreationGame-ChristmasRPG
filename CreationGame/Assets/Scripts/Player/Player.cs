@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     Text potion;
 
     [SerializeField]
+    GameObject iceBallStopZone;
+
+    [SerializeField]
     float moveSpeed = 5.0f;
 
     [SerializeField]
@@ -216,5 +219,17 @@ public class Player : MonoBehaviour
             transform.position = resetPosition.transform.position;
             DecreaseHP(20);
         }
+
+        if(other.gameObject.name == "BossZone")
+        {
+            StartCoroutine("AppearZone");
+            GameManager.instance.isFightBoss = true;
+        }
+    }
+
+    IEnumerator AppearZone()
+    {
+        yield return new WaitForSeconds(4.0f);
+        iceBallStopZone.SetActive(true);
     }
 }
