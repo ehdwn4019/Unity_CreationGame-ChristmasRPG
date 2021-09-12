@@ -9,7 +9,7 @@ public class ThrowBallSpawn : MonoBehaviour
     [SerializeField]
     GameObject responePos;
 
-    public int ballCount = 20;
+    public int ballCount = 15;
 
     List<GameObject> ballPooling = new List<GameObject>();
 

@@ -28,8 +28,8 @@ public class Enemy : MonoBehaviour
     protected int maxHp;
     protected int attackspeed;
 
-    //Enemy enums 
-    public enum EnemyState 
+    //Monster enums 
+    public enum MosterState 
     {
         None,
         Idle,
@@ -39,7 +39,19 @@ public class Enemy : MonoBehaviour
         Die,
     }
 
-    public EnemyState state;
+    //Boss enums
+    public enum BossState
+    {
+        None,
+        Idle,
+        Move,
+        Attack,
+        FirstSkill,
+        Die,
+    }
+
+    public MosterState monsterState;
+    public BossState bossState;
 
     // Start is called before the first frame update
     private void Start()
@@ -61,7 +73,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        EnemyPattern();
+        MonsterPattern();
+        BossPattern();
         Loop();
     }
 
@@ -70,24 +83,50 @@ public class Enemy : MonoBehaviour
 
     }
 
-    //Enemy 패턴 
-    void EnemyPattern()
+    //Monster 패턴 
+    void MonsterPattern()
     {
-        switch (state)
+        switch (monsterState)
         {
-            case EnemyState.Idle:
+            case MosterState.None:
+                break;
+            case MosterState.Idle:
                 Idle();
                 break;
-            case EnemyState.Move:
+            case MosterState.Move:
                 Move();
                 break;
-            case EnemyState.Attack:
+            case MosterState.Attack:
                 Attack();
                 break;
-            case EnemyState.Return:
+            case MosterState.Return:
                 Return();
                 break;
-            case EnemyState.Die:
+            case MosterState.Die:
+                Die();
+                break;
+        }
+    }
+
+    //Boss 패턴
+    void BossPattern()
+    {
+        switch (bossState)
+        {
+            case BossState.None:
+                break;
+            case BossState.Idle:
+                Idle();
+                break;
+            case BossState.Move:
+                Move();
+                break;
+            case BossState.Attack:
+                Attack();
+                break;
+            case BossState.FirstSkill:
+                break;
+            case BossState.Die:
                 Die();
                 break;
         }

@@ -58,7 +58,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.26086956
+        functionName: Jump
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 13b8c5757f592654e92389371abc23b5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.65217394
+        functionName: LandGround
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 13b8c5757f592654e92389371abc23b5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

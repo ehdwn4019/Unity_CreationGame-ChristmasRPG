@@ -187,8 +187,8 @@ MonoBehaviour:
   slider: {fileID: 0}
   text: {fileID: 0}
   IceBallStopZone: {fileID: 0}
+  stormCloud: {fileID: 0}
   sphereCollider: {fileID: 0}
-  skillState: 0
 --- !u!114 &2313948551647522129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!135 &1179531340
 SphereCollider:
   m_ObjectHideFlags: 0

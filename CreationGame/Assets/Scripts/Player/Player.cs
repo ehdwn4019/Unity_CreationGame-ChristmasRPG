@@ -220,7 +220,7 @@ public class Player : MonoBehaviour
             DecreaseHP(20);
         }
 
-        if(other.gameObject.name == "BossZone")
+        if(other.gameObject.name == "BossStartZone")
         {
             StartCoroutine("AppearZone");
             GameManager.instance.isFightBoss = true;
@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
 
     IEnumerator AppearZone()
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(1.0f);
         iceBallStopZone.SetActive(true);
     }
 }

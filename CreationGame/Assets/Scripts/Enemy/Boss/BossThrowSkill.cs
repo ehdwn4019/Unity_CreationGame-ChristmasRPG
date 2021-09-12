@@ -5,60 +5,101 @@ using UnityEngine;
 public class BossThrowSkill : MonoBehaviour
 {
     [SerializeField]
-    Boss boss;
-
-    [SerializeField]
-    Animator animator;
-
-    [SerializeField]
     GameObject target;
 
     [SerializeField]
     GameObject throwPos;
 
-    float ballCount = 5;
-    bool isThrowBall;
+    //[SerializeField]
+    Boss boss;
 
-    public bool IsThrowBall { get { return isThrowBall; } }
+    //[SerializeField]
+    Animator animator;
 
+    GameObject go;
+    
+
+    //ThrowBall throwBall;
+
+    //List<GameObject> ball = new List<GameObject>();
+    GameObject[] ball = new GameObject[3];
+    float ballCount = 3;
+
+    bool isFollowBall;
+    bool isThrowBallSkill;
+    Vector3 dir;
+
+    public bool IsThrowBallSkill { get { return isThrowBallSkill; } }
+    public Vector3 Dir { get { return dir; } }
     // Start is called before the first frame update
     void Start()
     {
         boss = GetComponent<Boss>();
+        animator = GetComponent<Animator>();
+        //throwBall = FindObjectOfType<ThrowBall>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Throw();
+        //ThrowBall();
+        //go.transform.position = rightHand.transform.position;
+        //CreateBall();
+        FollowBall();
     }
 
     public void Throw()
     {
-        if (boss.skillState != Boss.SkillState.Throw)
-            return;
-
-        boss.nav.ResetPath();
-        animator.SetTrigger("Throw");
+        //boss.nav.ResetPath();
+        animator.SetBool("Throw",true);
     }
 
     public void CreateBall()
     {
-        for(int i=0; i<ballCount; i++)
-        {
-            GameObject go = ThrowBallSpawn.instance.Appear(throwPos.transform.position);
-        }
+        //for(int i=0; i<ballCount; i++)
+        //{
+        //    go = ThrowBallSpawn.instance.Appear(rightHand.transform.position);
+        //    
+        //    //ball.Add(ThrowBallSpawn.instance.Appear(throwPos.transform.position));
+        //}
+
+        go = ThrowBallSpawn.instance.Appear(throwPos.transform.position);
+        isFollowBall = true;
+    }
+
+    public void FollowBall()
+    {
+        if(isFollowBall && go != null)
+            go.transform.position = throwPos.transform.position;
     }
 
     public void ThrowBall()
     {
-        isThrowBall = true;
+        isFollowBall = false;
+        //throwBall.Throw();
+        isThrowBallSkill = true;
+
+        
+        //dir = boss.transform.forward;
+        //for(int i=0; i<ballCount; i++)
+        //{
+        //    //ball[i].transform.Translate(boss.transform.forward * 8.0f *Time.deltaTime);
+        //    ball[i].GetComponent<Rigidbody>().AddForce(Vector3.forward * 20.0f,ForceMode.Impulse);
+        //}
     }
+
+    //public void GetDir()
+    //{
+    //    dir = boss.transform.position - target.transform.position;
+    //    dir.y = 0f;
+    //    Debug.Log(dir);
+    //}
 
     public void End()
     {
-        boss.skillState = Boss.SkillState.None;
-        boss.state = Boss.EnemyState.Idle;
+        //animator.ResetTrigger("Throw");
+        //boss.skillState = Boss.SkillState.None;
+        animator.SetBool("Throw", false);
+        boss.bossState = Boss.BossState.Idle;
     }
-
 }

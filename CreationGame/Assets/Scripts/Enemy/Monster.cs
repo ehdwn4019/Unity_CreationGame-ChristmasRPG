@@ -29,7 +29,7 @@ public class Monster : Enemy
     //활성화 했을 때 세팅 
     private void OnEnable()
     {
-        state = EnemyState.Idle;
+        monsterState = MosterState.Idle;
         maxHp = 50;
         currentHp = 50;
         attackspeed = 3;
@@ -80,7 +80,7 @@ public class Monster : Enemy
             //이동 범위에 들어올 때
             if (Vector3.Distance(transform.position, target.transform.position) < moveRange)
             {
-                state = EnemyState.Move;
+                monsterState = MosterState.Move;
             }
         }
         else
@@ -103,14 +103,14 @@ public class Monster : Enemy
         {
             questionMark.enabled = false;
             base.Move();
-            state = EnemyState.Return;
+            monsterState = MosterState.Return;
         }
 
 
         //공격범위에 들어왔을 때 
         if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
         {
-            state = EnemyState.Attack;
+            monsterState = MosterState.Attack;
         }
 
     }
@@ -137,7 +137,7 @@ public class Monster : Enemy
 
         if (Vector3.Distance(transform.position, target.transform.position) > attackRange)
         {
-            state = EnemyState.Move;
+            monsterState = MosterState.Move;
         }
     }
 
@@ -149,7 +149,7 @@ public class Monster : Enemy
 
         if ((Vector3.Distance(startPos, transform.position) <0.5f)|| Vector3.Distance(transform.position,target.transform.position) < attackRange )
         {
-            state = EnemyState.Idle;
+            monsterState = MosterState.Idle;
         }
     }
 
@@ -163,8 +163,8 @@ public class Monster : Enemy
         if (currentHp <= 0)
         {
             currentHp = 0;
-            
-            state = EnemyState.Die;
+
+            monsterState = MosterState.Die;
         }
     }
 
