@@ -10,42 +10,46 @@ public class BossThrowSkill : MonoBehaviour
     [SerializeField]
     GameObject throwPos;
 
-    //[SerializeField]
+    [SerializeField]
+    float speed = 10.0f;
+
     Boss boss;
-
-    //[SerializeField]
     Animator animator;
-
+    ThrowBall throwBall;
     GameObject go;
-    
+    Vector3 dir;
+    float x;
 
-    //ThrowBall throwBall;
+    GameObject[] gos = new GameObject[3];
 
     //List<GameObject> ball = new List<GameObject>();
-    GameObject[] ball = new GameObject[3];
+    //GameObject[] ball = new GameObject[3];
     float ballCount = 3;
 
     bool isFollowBall;
-    bool isThrowBallSkill;
-    Vector3 dir;
 
-    public bool IsThrowBallSkill { get { return isThrowBallSkill; } }
-    public Vector3 Dir { get { return dir; } }
     // Start is called before the first frame update
     void Start()
     {
         boss = GetComponent<Boss>();
         animator = GetComponent<Animator>();
-        //throwBall = FindObjectOfType<ThrowBall>();
+        throwBall = FindObjectOfType<ThrowBall>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ThrowBall();
+        FollowBall();
+        ThrowBall();
         //go.transform.position = rightHand.transform.position;
         //CreateBall();
-        FollowBall();
+        
+    }
+
+
+    private void FixedUpdate()
+    {
+        //ThrowBall();
     }
 
     public void Throw()
@@ -73,11 +77,27 @@ public class BossThrowSkill : MonoBehaviour
             go.transform.position = throwPos.transform.position;
     }
 
-    public void ThrowBall()
+    public void NotFollowBall()
     {
         isFollowBall = false;
+    }
+
+    public void ThrowBall()
+    {
+        //isFollowBall = false;
         //throwBall.Throw();
-        isThrowBallSkill = true;
+        //isThrowBallSkill = true;
+        //throwBall.Throw();
+
+        dir = target.transform.position - transform.position;
+
+        if (go != null && !isFollowBall)
+            go.transform.Translate(dir * speed * Time.deltaTime);
+            
+
+        //StartCoroutine("ThrowDelay");
+            //go.transform.Translate(dir * 10.0f *Time.deltaTime);
+        //go.GetComponent<Rigidbody>().AddForce(dir * 10.0f);
 
         
         //dir = boss.transform.forward;
@@ -88,17 +108,8 @@ public class BossThrowSkill : MonoBehaviour
         //}
     }
 
-    //public void GetDir()
-    //{
-    //    dir = boss.transform.position - target.transform.position;
-    //    dir.y = 0f;
-    //    Debug.Log(dir);
-    //}
-
     public void End()
     {
-        //animator.ResetTrigger("Throw");
-        //boss.skillState = Boss.SkillState.None;
         animator.SetBool("Throw", false);
         boss.bossState = Boss.BossState.Idle;
     }

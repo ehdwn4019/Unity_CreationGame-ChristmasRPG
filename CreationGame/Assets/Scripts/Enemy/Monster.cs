@@ -35,7 +35,6 @@ public class Monster : Enemy
         attackspeed = 3;
         slider.value = 1;
         collider.enabled = true;
-        
     }
 
     protected override void Init()

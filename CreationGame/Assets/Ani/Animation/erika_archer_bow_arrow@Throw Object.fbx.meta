@@ -67,7 +67,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.47826087
+      - time: 0.51766974
         functionName: ThrowBall
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 81d81af3a9e72954791750450ae0209e,
@@ -77,6 +77,14 @@ ModelImporter:
         messageOptions: 0
       - time: 0.9782608
         functionName: End
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 81d81af3a9e72954791750450ae0209e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.47826087
+        functionName: NotFollowBall
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 81d81af3a9e72954791750450ae0209e,
           type: 3}

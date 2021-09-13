@@ -128,6 +128,7 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerComboAttack.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerFireBuff.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\PotionColorChange.cs" />
     <Compile Include="Assets\Scripts\Scene\LoadingScene.cs" />
     <Compile Include="Assets\Scripts\Scene\StartScene.cs" />

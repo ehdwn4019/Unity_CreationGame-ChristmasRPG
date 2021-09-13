@@ -88,32 +88,34 @@ public class Boss : Enemy
         }
         else
         {
+            bossState = BossState.FirstSkill;
+            throwSkill.Throw();
+
             //skillDelay = 4.0f;
-        
+
             //Invoke로 랜덤값 조정하기 
-            int random = Random.Range(0, 2);
-        
-            switch (0)
-            {
-                //눈던지기
-                case 0:
-                    //bossState = BossState.None;
-                    //skillState = SkillState.Throw;
-                    bossState = BossState.FirstSkill;
-                    throwSkill.Throw();
-                    break;
-                //점프내려찍기
-                //case 1:
-                //    state = EnemyState.None;
-                //    skillState = SkillState.JumpingDown;
-                //    jumpingDownSkill.JumpingDown();
-                //    break;
-                //    ////눈뿌리기
-                //    //case 2:
-                //    //    state = EnemyState.None;
-                //    //    skillState = SkillState.Spray;
-                //    //    break;
-            }
+            //int random = Random.Range(0, 2);
+            //
+            //switch (0)
+            //{
+            //    //눈던지기
+            //    case 0:
+            //        //bossState = BossState.None;
+            //        //skillState = SkillState.Throw;
+            //        
+            //        break;
+            //    //점프내려찍기
+            //    //case 1:
+            //    //    state = EnemyState.None;
+            //    //    skillState = SkillState.JumpingDown;
+            //    //    jumpingDownSkill.JumpingDown();
+            //    //    break;
+            //    //    ////눈뿌리기
+            //    //    //case 2:
+            //    //    //    state = EnemyState.None;
+            //    //    //    skillState = SkillState.Spray;
+            //    //    //    break;
+            //}
         
         }
     }
