@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Stop
   - FxTemporaire
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - FallBlock
   - Enemy
   - ThrowBall
-  - 
+  - Portal
   - 
   - 
   - 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] Boss boss;
     //[SerializeField] Player player;
 
+    Action playerDie;
     
     public enum ControllType
     {
@@ -70,6 +72,8 @@ public class GameManager : MonoBehaviour
         RollBallSpawn.instance.CreateBall();
         CannonBulletSpawn.instance.CreateBullet();
         ThrowBallSpawn.instance.CreateBall();
+
+        //playerDie.Invoke();
     }
 
     //public void ChangeComputer()

@@ -22,7 +22,6 @@ public class PotionColorChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //img.color = new Color(r/255, g/255, b/255);
         img.color = new Color(r/255, g/255, b/255);
 
         //Debug.Log("r : " + r  + "  g : " + g  + "  b : " + b );
@@ -66,7 +65,5 @@ public class PotionColorChange : MonoBehaviour
             //Debug.Log("6");
             b -= speed * Time.deltaTime;
         }
-
-
     }
 }

@@ -22,6 +22,18 @@ public class Player : MonoBehaviour
     GameObject iceBallStopZone;
 
     [SerializeField]
+    GameObject basePos;
+
+    [SerializeField]
+    GameObject leftPlayerPos;
+
+    [SerializeField]
+    GameObject rightPlayerPos;
+
+    [SerializeField]
+    GameObject bossPlayerPos;
+
+    [SerializeField]
     float moveSpeed = 5.0f;
 
     [SerializeField]
@@ -168,7 +180,7 @@ public class Player : MonoBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hit, jumpRange))
             {
                 isJump = false;
-                isTouchJumpBtn = false;
+                
             }
 
             if (isTouchJumpBtn && !isJump && isGround)
@@ -179,6 +191,8 @@ public class Player : MonoBehaviour
                 isJump = true;
                 isGround = false;
             }
+
+            isTouchJumpBtn = false;
         }
     }
 
@@ -222,8 +236,24 @@ public class Player : MonoBehaviour
 
         if(other.gameObject.name == "BossStartZone")
         {
+            resetPosition.transform.position = bossPlayerPos.transform.position;
             StartCoroutine("AppearZone");
             GameManager.instance.isFightBoss = true;
+        }
+
+        if (other.gameObject.name == "LeftStartZone")
+        {
+            resetPosition.transform.position = leftPlayerPos.transform.position;
+        }
+
+        if (other.gameObject.name == "RightStartZone")
+        {
+            resetPosition.transform.position = rightPlayerPos.transform.position;
+        }
+
+        if (other.gameObject.tag == "Portal")
+        {
+            transform.position = basePos.transform.position;
         }
     }
 

@@ -46,7 +46,6 @@ public class FollowCam : MonoBehaviour
         //target.rotation = Quaternion.Lerp(transform.rotation, camLookPos.rotation, camSpeed * Time.deltaTime);
         target.Rotate(Quaternion.Lerp(transform.rotation, camLookPos.rotation, camSpeed * Time.deltaTime).eulerAngles);
         target.forward = forward;
-        //target.TransformDirection(forward);
     }
 
     //카메라 회전
@@ -95,7 +94,5 @@ public class FollowCam : MonoBehaviour
                 camLookPos.rotation = Quaternion.Euler(camStopPos);
             }
         }
-
-        
     }
 }

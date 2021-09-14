@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\Enemy\HPBar.cs" />
     <Compile Include="Assets\Scripts\Enemy\Monster.cs" />
     <Compile Include="Assets\Scripts\FollowCam.cs" />
+    <Compile Include="Assets\Scripts\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\JoyStick\JoyStickMove.cs" />
     <Compile Include="Assets\Scripts\JoyStick\JoyStickRotate.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
@@ -118,10 +119,12 @@
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\NPC\Santa.cs" />
     <Compile Include="Assets\Scripts\Object\CannonBullet.cs" />
+    <Compile Include="Assets\Scripts\Object\Key.cs" />
     <Compile Include="Assets\Scripts\Object\Objstacles\BounceBall.cs" />
     <Compile Include="Assets\Scripts\Object\Objstacles\FallBlock.cs" />
     <Compile Include="Assets\Scripts\Object\Objstacles\Obstacles.cs" />
     <Compile Include="Assets\Scripts\Object\Objstacles\RollBall.cs" />
+    <Compile Include="Assets\Scripts\Object\Portal.cs" />
     <Compile Include="Assets\Scripts\Object\Sled.cs" />
     <Compile Include="Assets\Scripts\Object\ThrowBall.cs" />
     <Compile Include="Assets\Scripts\Object\Trampolin.cs" />
