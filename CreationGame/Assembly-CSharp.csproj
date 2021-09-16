@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\Enemy\HPBar.cs" />
     <Compile Include="Assets\Scripts\Enemy\Monster.cs" />
     <Compile Include="Assets\Scripts\FollowCam.cs" />
+    <Compile Include="Assets\Scripts\IItem.cs" />
     <Compile Include="Assets\Scripts\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\JoyStick\JoyStickMove.cs" />
     <Compile Include="Assets\Scripts\JoyStick\JoyStickRotate.cs" />

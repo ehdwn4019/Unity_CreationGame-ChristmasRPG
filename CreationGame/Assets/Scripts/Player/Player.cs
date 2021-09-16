@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     GameObject bossPlayerPos;
 
     [SerializeField]
+    GameObject bossPos;
+
+    [SerializeField]
     float moveSpeed = 5.0f;
 
     [SerializeField]
@@ -48,6 +51,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     float currentHp;
 
+    [SerializeField]
+    int amountPotion = 20;
+
     Rigidbody rigidbody;
     Animator animator;
     Camera cam;
@@ -61,12 +67,13 @@ public class Player : MonoBehaviour
     bool isGround;
     bool isDie;
     bool isTouchJumpBtn;
-
-    
+    bool isTouchPotionBtn;
+    bool isPlayerFall;
 
     public bool IsDie { get { return isDie; } }
     public bool IsMove { get { return isMove; } }
     public bool IsJump { get { return isJump; } }
+    public bool IsPlayerFall { get { return isPlayerFall; } }
 
     // Start is called before the first frame update
     void Start()
@@ -80,6 +87,12 @@ public class Player : MonoBehaviour
         currentHp = maxHp;
         //attackColl.SetActive(false);
         //AnimationAddEvent(1, "Attack", 0.6f);
+    }
+
+    private void Update()
+    {
+        //GameManager.instance.playerDie += () => { Debug.Log("GG"); };
+        RecoveryHp();
     }
 
     private void FixedUpdate()
@@ -206,9 +219,30 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void TouchPotion()
+    {
+        isTouchPotionBtn = true;
+    }
+
     public void RecoveryHp()
     {
-        //potion.text -= 
+        if (isDie)
+            return;
+
+        if(isTouchPotionBtn || Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            //Debug.Log("회복!");
+            currentHp += amountPotion;
+            hpSlider.value = currentHp/maxHp;
+        }
+            
+        if(currentHp>=maxHp)
+        {
+            currentHp = maxHp;
+            hpSlider.value = currentHp/maxHp;
+        }
+
+        isTouchPotionBtn = false;
     }
 
     //플레이어 사망
@@ -232,6 +266,8 @@ public class Player : MonoBehaviour
         {
             transform.position = resetPosition.transform.position;
             DecreaseHP(20);
+            isPlayerFall = true;
+            StartCoroutine("PlayerFall");
         }
 
         if(other.gameObject.name == "BossStartZone")
@@ -239,6 +275,11 @@ public class Player : MonoBehaviour
             resetPosition.transform.position = bossPlayerPos.transform.position;
             StartCoroutine("AppearZone");
             GameManager.instance.isFightBoss = true;
+        }
+
+        if(other.gameObject.name == "BossZone")
+        {
+            resetPosition.transform.position = bossPos.transform.position;
         }
 
         if (other.gameObject.name == "LeftStartZone")
@@ -261,5 +302,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         iceBallStopZone.SetActive(true);
+    }
+
+    IEnumerator PlayerFall()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isPlayerFall = false;
     }
 }

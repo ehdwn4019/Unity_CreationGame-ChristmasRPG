@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class BounceBall : Obstacles
 {
-    Rigidbody rigid;
-    bool isJump;
-
     [SerializeField]
     float speed;
+
+    Rigidbody rigid;
+
+    bool isJump;
 
     protected override void Init()
     {
@@ -48,8 +49,7 @@ public class BounceBall : Obstacles
             
             if (x == 0)
                 z = -1;
-            
-            //collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
             collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x,0f,z) * speed, ForceMode.Impulse);
         }
     }

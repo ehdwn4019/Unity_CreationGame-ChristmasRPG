@@ -6,10 +6,15 @@ using UnityEngine.AI;
 public class Sled : MonoBehaviour
 {
     [SerializeField]
+    Player player;
+
+    [SerializeField]
     float speed;
 
     bool isStart;
     bool isStop;
+
+    Vector3 startPos;
 
     Rigidbody rigid;
 
@@ -18,6 +23,7 @@ public class Sled : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
 
+        startPos = transform.position;
         isStart = false;
         isStop = false;
     }
@@ -32,9 +38,28 @@ public class Sled : MonoBehaviour
 
         //if(isStart && !isStop)
         //    transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        
+
+        Debug.Log(player.IsPlayerFall);
+        Debug.Log("isStart : "+isStart);
+        Debug.Log("isStop : "+isStop);
     }
 
     private void FixedUpdate()
+    {
+        ResetPos();
+        Move();
+    }
+
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.gameObject.name == "Player")
+    //    {
+    //        StartCoroutine("WaitStart");
+    //    }
+    //}
+
+    void Move()
     {
         if (isStart && !isStop)
             rigid.MovePosition(transform.position + transform.rotation * Vector3.forward.normalized * speed * Time.fixedDeltaTime);
@@ -50,8 +75,8 @@ public class Sled : MonoBehaviour
 
     IEnumerator WaitStart()
     {
-        yield return new WaitForSeconds(4.0f);
-
+        yield return new WaitForSeconds(3.0f);
+    
         isStart = true;
     }
 
@@ -61,6 +86,18 @@ public class Sled : MonoBehaviour
         {
             isStop = true;
             isStart = false;
+        }
+    }
+
+    void ResetPos()
+    {
+        if (isStart == true && player.IsPlayerFall)
+        {
+            transform.position = startPos;
+            isStart = false;
+            isStop = false;
+
+            //isStart = false;
         }
     }
 

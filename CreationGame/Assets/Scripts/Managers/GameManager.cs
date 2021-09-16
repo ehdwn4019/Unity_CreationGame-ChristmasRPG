@@ -8,11 +8,14 @@ public class GameManager : MonoBehaviour
     //싱글톤
     public static GameManager instance = null;
 
+    [SerializeField]
+    Player player;
+
     //[SerializeField] Monster monster;
     //[SerializeField] Boss boss;
     //[SerializeField] Player player;
 
-    Action playerDie;
+    public Action playerDie;
     
     public enum ControllType
     {
@@ -73,6 +76,9 @@ public class GameManager : MonoBehaviour
         CannonBulletSpawn.instance.CreateBullet();
         ThrowBallSpawn.instance.CreateBall();
 
+        if (playerDie != null)
+            playerDie.Invoke();
+        //playerDie.Invoke();
         //playerDie.Invoke();
     }
 
@@ -106,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     void EndGame()
     {
+        
         //if(player.IsDie)
         //{
         //    //SceneManager.LoadScene("TEST");

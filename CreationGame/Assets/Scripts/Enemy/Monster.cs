@@ -146,7 +146,7 @@ public class Monster : Enemy
 
         nav.SetDestination(startPos);
 
-        if ((Vector3.Distance(startPos, transform.position) <0.5f)|| Vector3.Distance(transform.position,target.transform.position) < attackRange )
+        if ((Vector3.Distance(startPos, transform.position) <0.55f)|| Vector3.Distance(transform.position,target.transform.position) < attackRange )
         {
             monsterState = MosterState.Idle;
         }
