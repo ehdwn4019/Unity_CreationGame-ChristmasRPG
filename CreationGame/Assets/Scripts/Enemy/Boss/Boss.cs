@@ -161,7 +161,7 @@ public class Boss : Enemy
         if(attackDelay<=0f)
         {
             if (target != null)
-                target.GetComponent<Player>().DecreaseHP(attackDamage);
+                target.GetComponent<IDamageable>().DecreaseHP(attackDamage);
 
             attackDelay = 1.0f;
         }

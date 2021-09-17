@@ -128,7 +128,7 @@ public class Monster : Enemy
         {
             //attackDelay += Time.deltaTime;
             if (target != null)
-                target.GetComponent<Player>().DecreaseHP(attackDamage);
+                target.GetComponent<IDamageable>().DecreaseHP(attackDamage);
 
             //if(attackDelay>=0.9f)
                 attackDelay = 0.89f;

@@ -87,14 +87,26 @@ public class PlayerComboAttack : MonoBehaviour
 
         foreach (Collider c in coll)
         {
-            Enemy enemy = c.GetComponent<Enemy>();
+            //Enemy enemy = c.GetComponent<Enemy>();
 
-            if (enemy != null)
+            //if (enemy != null)
+            //{
+            //    if (fireBuff.IsFireBuff)
+            //        attackDamage += fireDamage; 
+            //    enemy.DecreaseHP(attackDamage);
+            //    
+            //}
+
+            IDamageable damage = c.GetComponent<IDamageable>();
+
+            if(damage != null)
             {
                 if (fireBuff.IsFireBuff)
-                    attackDamage += fireDamage; 
-                enemy.DecreaseHP(attackDamage);
-                
+                {
+                    attackDamage += fireDamage;
+                }
+
+                damage.DecreaseHP(attackDamage);
             }
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-public class Player : MonoBehaviour 
+public class Player : MonoBehaviour , IDamageable
 {
     [SerializeField]
     GameObject resetPosition;
@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
         currentHp = maxHp;
         //attackColl.SetActive(false);
         //AnimationAddEvent(1, "Attack", 0.6f);
+        
     }
 
     private void Update()
@@ -219,6 +220,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    //public void DecreaseHP(int attackDamage)
+    //{
+    //    currentHp -= attackDamage;
+    //    hpSlider.value = currentHp / maxHp;
+    //    if (currentHp <= 0)
+    //    {
+    //        Die();
+    //    }
+    //}
+
     public void TouchPotion()
     {
         isTouchPotionBtn = true;
@@ -309,4 +320,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         isPlayerFall = false;
     }
+
+    
 }

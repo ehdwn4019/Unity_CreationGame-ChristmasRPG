@@ -9,6 +9,7 @@ TagManager:
   - Stop
   - FxTemporaire
   - Portal
+  - FieldItem
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 0
+    uniqueID: 3800304197
+    locked: 0
+  - name: 1
+    uniqueID: 2162537661
     locked: 0

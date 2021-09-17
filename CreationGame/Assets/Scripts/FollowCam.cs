@@ -38,6 +38,9 @@ public class FollowCam : MonoBehaviour
 
     void Rotate()
     {
+        if (target.GetComponent<Player>().IsDie)
+            return;
+
         // 플레이어 방향과 카메라 방향 일치시키기
         Vector3 forward = new Vector3(camLookPos.forward.x, 0f, camLookPos.forward.z).normalized;
         //Quaternion quaternion = Quaternion.Euler(transform.rotation.eulerAngles);
