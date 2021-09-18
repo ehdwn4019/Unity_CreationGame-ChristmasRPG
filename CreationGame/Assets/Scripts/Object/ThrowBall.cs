@@ -24,16 +24,7 @@ public class ThrowBall : MonoBehaviour
         //startPos = transform.position;
 
         rigid = GetComponent<Rigidbody>();
-
-        Debug.Log(startPos);
-        Debug.Log(startRotation);
     }
-
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //    
-    //}
 
     private void OnEnable()
     {
@@ -42,18 +33,6 @@ public class ThrowBall : MonoBehaviour
         //if (throwSkill.isThrowBallSkill)
         //    isThrowBall = true;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Throw();
-        //transform.forward = boss.transform.forward;
-    }
-
-    //private void FixedUpdate()
-    //{
-    //    Throw();
-    //}
 
     public void Throw()
     {

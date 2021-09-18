@@ -261,14 +261,14 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="JMOAssets_CartoonFXFreeWelcome">
+      <HintPath>C:/Users/HOME/Desktop/Unity_CreationGame/CreationGame/Assets/DownLoads/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
+    </Reference>
     <Reference Include="AssetStoreToolsExtra">
       <HintPath>C:/Users/HOME/Desktop/Unity_CreationGame/CreationGame/Assets/DownLoads/Other/Items&amp;Props Pack/Materials/Editor/AssetStoreToolsExtra.dll</HintPath>
     </Reference>
     <Reference Include="JMOAssets">
       <HintPath>C:/Users/HOME/Desktop/Unity_CreationGame/CreationGame/Assets/DownLoads/Other/SD_Project/JMO Assets/Editor/JMOAssets.dll</HintPath>
-    </Reference>
-    <Reference Include="JMOAssets_CartoonFXFreeWelcome">
-      <HintPath>C:/Users/HOME/Desktop/Unity_CreationGame/CreationGame/Assets/DownLoads/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:/Users/HOME/Desktop/Unity_CreationGame/CreationGame/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>

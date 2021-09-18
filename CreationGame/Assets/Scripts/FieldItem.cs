@@ -15,6 +15,8 @@ public class FieldItem : MonoBehaviour
         fieldItem.itemType = item.itemType;
         fieldItem.itemName = item.itemName;
         fieldItem.itemImg = item.itemImg;
+        fieldItem.itemCount = item.itemCount;
+        fieldItem.effects = item.effects;
 
         //fieldItemImg.sprite = item.itemImg;
     }

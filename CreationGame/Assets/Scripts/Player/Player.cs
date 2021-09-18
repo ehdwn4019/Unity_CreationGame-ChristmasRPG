@@ -94,6 +94,7 @@ public class Player : MonoBehaviour , IDamageable
     {
         //GameManager.instance.playerDie += () => { Debug.Log("GG"); };
         RecoveryHp();
+        //Debug.Log("제발... : " + invenSlot.IsTouchSlotBtn);
     }
 
     private void FixedUpdate()
@@ -233,19 +234,33 @@ public class Player : MonoBehaviour , IDamageable
     public void TouchPotion()
     {
         isTouchPotionBtn = true;
+        //InventorySlot a = inven.GetSlotIndex().;
     }
 
-    public void RecoveryHp()
+    public void RecoveryHp(int recovery = 0)
     {
+        Debug.Log("11111111111111");
+
         if (isDie)
             return;
 
-        if(isTouchPotionBtn || Input.GetKeyDown(KeyCode.LeftAlt))
+        if(recovery == 0)
         {
-            //Debug.Log("회복!");
-            currentHp += amountPotion;
-            hpSlider.value = currentHp/maxHp;
+            if (isTouchPotionBtn || Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                Debug.Log("회복!");
+                currentHp += amountPotion;
+                hpSlider.value = currentHp / maxHp;
+            }
         }
+        else
+        {
+            Debug.Log("회복!");
+            currentHp += amountPotion;
+            hpSlider.value = currentHp / maxHp;
+        }
+
+        
             
         if(currentHp>=maxHp)
         {

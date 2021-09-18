@@ -114,6 +114,8 @@
     <Compile Include="Assets\Scripts\IDamageable.cs" />
     <Compile Include="Assets\Scripts\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\ItemEffect.cs" />
+    <Compile Include="Assets\Scripts\ItemHealingEffect.cs" />
     <Compile Include="Assets\Scripts\JoyStick\JoyStickMove.cs" />
     <Compile Include="Assets\Scripts\JoyStick\JoyStickRotate.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />

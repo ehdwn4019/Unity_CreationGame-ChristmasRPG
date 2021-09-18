@@ -20,6 +20,7 @@ public class PlayerInventory : MonoBehaviour
 
     Action<int> slotCountChange;
     Action changeItem;
+    InventorySlot slot;
 
     bool isTouchInventoryBtn;
     bool activeInventory;
@@ -35,7 +36,6 @@ public class PlayerInventory : MonoBehaviour
             slotCountChange.Invoke(slotCount);
         }
     }
-    
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +46,8 @@ public class PlayerInventory : MonoBehaviour
         slotCountChange += SlotChange;
         slotCountChange.Invoke(slotCount);
         changeItem += UpdateSlotItem;
-        
+
+        slot = FindObjectOfType<InventorySlot>();
     }
 
     // Update is called once per frame
@@ -80,6 +81,8 @@ public class PlayerInventory : MonoBehaviour
     {
         for(int i=0; i<inventorySlots.Length; i++)
         {
+            inventorySlots[i].index = i;
+
             if(i<slotCount)
             {
                 inventorySlots[i].gameObject.SetActive(true);
@@ -103,7 +106,26 @@ public class PlayerInventory : MonoBehaviour
     {
         if(items.Count < slotCount)
         {
+            for(int i=0; i<inventorySlots.Length; i++)
+            {
+                if(inventorySlots[i].item != null)
+                {
+                    if(inventorySlots[i].item.itemName == item.itemName)
+                    {
+                        inventorySlots[i].SetSlotCount(item.itemCount);
+                    }
+                }
+            }
+
             items.Add(item);
+
+            //for(int i=0; i<inventorySlots.Length; i++)
+            //{
+            //    if(inventorySlots[i].item == null)
+            //    {
+            //        items.Add(item);
+            //    }
+            //}
 
             if(changeItem != null)
             {
@@ -115,6 +137,12 @@ public class PlayerInventory : MonoBehaviour
 
         return false;
     }
+
+    public void RemoveItem(int index)
+    {
+        items.RemoveAt(index);
+        changeItem.Invoke();
+    }
     
     void UpdateSlotItem()
     {
@@ -123,12 +151,36 @@ public class PlayerInventory : MonoBehaviour
             inventorySlots[i].RemoveSlot();
         }
 
+        //for(int i=0; i<inventorySlots.Length; i++)
+        //{
+        //    for(int j=0; j<inventorySlots.Length; j++)
+        //    {
+        //        if(inventorySlots[i].item != null)
+        //        {
+        //            if (inventorySlots[i].item.itemName == items[j].itemName)
+        //            {
+        //                inventorySlots[i].SetSlotCount(items[j].itemCount);
+        //                break;
+        //            }
+        //        }
+        //        
+        //    }
+        //    
+        //}
+
         for(int i=0; i<items.Count; i++)
         {
             inventorySlots[i].item = items[i];
             inventorySlots[i].UpdateSlotUI();
         }
     }
+
+    //public InventorySlot GetSlotIndex()
+    //{
+    //    
+    //
+    //    return inventorySlots[slot.GetPotionIndex()];
+    //}
 
     #endregion
 

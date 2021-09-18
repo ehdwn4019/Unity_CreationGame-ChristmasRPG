@@ -31,11 +31,6 @@ public class ItemManager : MonoBehaviour
         InsertData();
     }
 
-    private void Update()
-    {
-        Debug.Log("length" + fieldItem.Length);
-    }
-
     void InsertData()
     {
         if(fieldItem != null)
