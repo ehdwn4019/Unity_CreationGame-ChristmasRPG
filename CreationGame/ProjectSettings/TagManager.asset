@@ -10,6 +10,7 @@ TagManager:
   - FxTemporaire
   - Portal
   - FieldItem
+  - Item
   layers:
   - Default
   - TransparentFX

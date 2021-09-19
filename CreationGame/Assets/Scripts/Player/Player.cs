@@ -16,9 +16,6 @@ public class Player : MonoBehaviour , IDamageable
     Slider hpSlider;
 
     [SerializeField]
-    Text potion;
-
-    [SerializeField]
     GameObject iceBallStopZone;
 
     [SerializeField]
@@ -35,6 +32,8 @@ public class Player : MonoBehaviour , IDamageable
 
     [SerializeField]
     GameObject bossPos;
+
+    public Text potionCountText;
 
     [SerializeField]
     float moveSpeed = 5.0f;
@@ -61,6 +60,8 @@ public class Player : MonoBehaviour , IDamageable
     PlayerComboAttack comboAttack;
     Enemy target;
     GameObject attackColl;
+    PlayerInventory inven;
+    InventorySlot invenSlot;
 
     bool isMove;
     bool isJump;
@@ -69,11 +70,18 @@ public class Player : MonoBehaviour , IDamageable
     bool isTouchJumpBtn;
     bool isTouchPotionBtn;
     bool isPlayerFall;
+    //int count;
 
     public bool IsDie { get { return isDie; } }
     public bool IsMove { get { return isMove; } }
     public bool IsJump { get { return isJump; } }
     public bool IsPlayerFall { get { return isPlayerFall; } }
+    public bool IsTouchPotionBtn { get { return isTouchPotionBtn; } }
+
+    [SerializeField]
+    GameObject slotsParent;
+
+    InventorySlot[] slots;
 
     // Start is called before the first frame update
     void Start()
@@ -85,9 +93,8 @@ public class Player : MonoBehaviour , IDamageable
         joyStickMove = FindObjectOfType<JoyStickMove>();
         comboAttack = GetComponent<PlayerComboAttack>();
         currentHp = maxHp;
-        //attackColl.SetActive(false);
-        //AnimationAddEvent(1, "Attack", 0.6f);
-        
+        inven = GetComponent<PlayerInventory>();
+        slots = slotsParent.GetComponentsInChildren<InventorySlot>();
     }
 
     private void Update()
@@ -95,6 +102,8 @@ public class Player : MonoBehaviour , IDamageable
         //GameManager.instance.playerDie += () => { Debug.Log("GG"); };
         RecoveryHp();
         //Debug.Log("제발... : " + invenSlot.IsTouchSlotBtn);
+        //Debug.Log("invenTEst : " + invenSlot.index);
+        Debug.Log(isTouchPotionBtn);
     }
 
     private void FixedUpdate()
@@ -248,9 +257,31 @@ public class Player : MonoBehaviour , IDamageable
         {
             if (isTouchPotionBtn || Input.GetKeyDown(KeyCode.LeftAlt))
             {
-                Debug.Log("회복!");
-                currentHp += amountPotion;
-                hpSlider.value = currentHp / maxHp;
+
+                for(int i=0; i<slots.Length; i++)
+                {
+                    if(slots[i].item !=null)
+                    {
+                        if(slots[i].item.itemType == Item.ItemType.Potion)
+                        {
+                            Debug.Log("회복!");
+                            slots[i].SetPotionCount();
+                            currentHp += amountPotion;
+                            hpSlider.value = currentHp / maxHp;
+                        }
+                    }
+                }
+
+                
+                
+                
+                //potionCountText.text 
+                //invenSlot.itemCountText.text = invenSlot.itemCount.ToString();
+                //invenSlot.SetSlotCountPlayer(-1);
+
+                //포션 텍스트 바꾸기
+                
+                //인벤 텍스트 바꾸기
             }
         }
         else
@@ -259,8 +290,6 @@ public class Player : MonoBehaviour , IDamageable
             currentHp += amountPotion;
             hpSlider.value = currentHp / maxHp;
         }
-
-        
             
         if(currentHp>=maxHp)
         {
@@ -270,6 +299,16 @@ public class Player : MonoBehaviour , IDamageable
 
         isTouchPotionBtn = false;
     }
+
+    //public int ReturnTouchCount()
+    //{
+    //    return count;
+    //}
+
+    //public void GetSlotIndex(int index)
+    //{
+    //    this.index = index;
+    //}
 
     //플레이어 사망
     void Die()
@@ -322,6 +361,14 @@ public class Player : MonoBehaviour , IDamageable
         {
             transform.position = basePos.transform.position;
         }
+
+        if(other.gameObject.tag == "Item")
+        {
+            Item item = other.gameObject.GetComponent<ItemPickUp>().item;
+
+            inven.AcquireItem(item);
+            Destroy(other.gameObject);
+        }
     }
 
     IEnumerator AppearZone()
@@ -335,6 +382,4 @@ public class Player : MonoBehaviour , IDamageable
         yield return new WaitForSeconds(0.5f);
         isPlayerFall = false;
     }
-
-    
 }
