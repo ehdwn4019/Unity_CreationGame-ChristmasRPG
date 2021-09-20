@@ -33,6 +33,11 @@ public class Player : MonoBehaviour , IDamageable
     [SerializeField]
     GameObject bossPos;
 
+    [SerializeField]
+    GameObject slotsParent;
+
+    
+
     public Text potionCountText;
 
     [SerializeField]
@@ -62,6 +67,7 @@ public class Player : MonoBehaviour , IDamageable
     GameObject attackColl;
     PlayerInventory inven;
     InventorySlot invenSlot;
+    InventorySlot[] slots;
 
     bool isMove;
     bool isJump;
@@ -75,13 +81,10 @@ public class Player : MonoBehaviour , IDamageable
     public bool IsDie { get { return isDie; } }
     public bool IsMove { get { return isMove; } }
     public bool IsJump { get { return isJump; } }
-    public bool IsPlayerFall { get { return isPlayerFall; } }
+    public bool IsPlayerFall { get { return isPlayerFall;} set { isPlayerFall = value; } }
     public bool IsTouchPotionBtn { get { return isTouchPotionBtn; } }
 
-    [SerializeField]
-    GameObject slotsParent;
-
-    InventorySlot[] slots;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -337,8 +340,8 @@ public class Player : MonoBehaviour , IDamageable
 
         if(other.gameObject.name == "BossStartZone")
         {
-            resetPosition.transform.position = bossPlayerPos.transform.position;
             StartCoroutine("AppearZone");
+            resetPosition.transform.position = bossPlayerPos.transform.position;
             GameManager.instance.isFightBoss = true;
         }
 
@@ -379,7 +382,7 @@ public class Player : MonoBehaviour , IDamageable
 
     IEnumerator PlayerFall()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         isPlayerFall = false;
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5385090540163316396}
   - component: {fileID: 4127448022212279773}
-  - component: {fileID: 5248351018793334002}
+  - component: {fileID: 5561441689026160278}
   m_Layer: 9
   m_Name: HPBar
   m_TagString: Untagged
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5248351018793334002
+--- !u!114 &5561441689026160278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3508869967976511791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82046f5e86bfc804bb2832186714cae9, type: 3}
+  m_Script: {fileID: 11500000, guid: da310a0fe7272594eb404680b2ccea24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4034612399912203417
@@ -441,7 +441,9 @@ MonoBehaviour:
   findRange: 3
   moveRange: 2
   attackRange: 1.2
-  state: 0
+  nav: {fileID: 0}
+  monsterState: 0
+  bossState: 0
   responeTime: 3
   lookSpeed: 10
   collider: {fileID: 6850969789462114972}

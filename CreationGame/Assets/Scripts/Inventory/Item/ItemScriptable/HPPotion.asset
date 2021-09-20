@@ -15,5 +15,6 @@ MonoBehaviour:
   itemType: 0
   itemName: HPPotion
   itemImg: {fileID: 21300000, guid: 965262c3dff350f4bb76e4ce028abd9d, type: 3}
+  itemPrice: 100
   itemPrefab: {fileID: 6772600249179361458, guid: 838d99343a6234445a4bdbc57221c977,
     type: 3}

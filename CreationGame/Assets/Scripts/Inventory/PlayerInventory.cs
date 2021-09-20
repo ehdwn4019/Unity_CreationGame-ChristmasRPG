@@ -10,12 +10,21 @@ public class PlayerInventory : MonoBehaviour
     GameObject inventory;
 
     [SerializeField]
+    Store store;
+
+    [SerializeField]
     GameObject slotsParent;
+
+    [SerializeField]
+    Text moneyText;
 
     bool activeInventory;
     bool isTouchInventoryBtn;
-    int slotCount = 4;
+    int slotCount = 3;
     int index;
+
+    int money = 1000;
+    
 
     Action slotCountChange;
     InventorySlot[] slots;
@@ -36,6 +45,7 @@ public class PlayerInventory : MonoBehaviour
         slotCountChange += SlotChange;
         slotCountChange.Invoke();
         player = GetComponent<Player>();
+        moneyText.text = money.ToString() + " 원";
     }
 
     // Update is called once per frame
@@ -52,11 +62,17 @@ public class PlayerInventory : MonoBehaviour
     #region 인벤토리 UI
     public void TouchInveontory()
     {
+        if (store.IsInSotre)
+            return;
+
         isTouchInventoryBtn = true;
     }
 
     void InventoryOnOff()
     {
+        if (store.IsInSotre)
+            return;
+
         if(Input.GetKeyDown(KeyCode.I) || isTouchInventoryBtn)
         {
             activeInventory = !activeInventory;
@@ -90,7 +106,7 @@ public class PlayerInventory : MonoBehaviour
     
     public void AddSlot()
     {
-        slotCount += 4;
+        slotCount += 3;
         slotCountChange.Invoke();
     }
 
@@ -119,6 +135,39 @@ public class PlayerInventory : MonoBehaviour
                 slots[i].AddItem(item, count);
                 //items.Add(item);
                 
+                return;
+            }
+        }
+    }
+
+    public void BuyItem(int count = 1)
+    {
+        //돈없으면 못사게
+        if (store.item.itemPrice > money)
+            return;
+
+        money -= store.item.itemPrice;
+        moneyText.text = money.ToString() + " 원";
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item != null)
+            {
+                if (slots[i].item.itemName == store.item.itemName)
+                {
+                    slots[i].SetSlotCount(count);
+                    //items[i].itemCount++;
+                    return;
+                }
+            }
+        }
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null)
+            {
+                slots[i].AddItem(store.item, count);
+                //items.Add(item);
                 return;
             }
         }

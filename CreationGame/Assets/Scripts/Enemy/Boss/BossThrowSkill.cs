@@ -89,10 +89,14 @@ public class BossThrowSkill : MonoBehaviour
         //isThrowBallSkill = true;
         //throwBall.Throw();
 
-        dir = target.transform.position - transform.position;
+        
 
         if (go != null && !isFollowBall)
+        {
+            dir = target.transform.position - transform.position;
             go.transform.Translate(dir * speed * Time.deltaTime);
+        }
+            
             
 
         //StartCoroutine("ThrowDelay");
