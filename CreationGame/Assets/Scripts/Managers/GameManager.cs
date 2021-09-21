@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
         RollBallSpawn.instance.CreateBall();
         CannonBulletSpawn.instance.CreateBullet();
         ThrowBallSpawn.instance.CreateBall();
+        QuestProgressSpawn.instance.CreateText();
 
         //if (playerDie != null)
         //    playerDie.Invoke();

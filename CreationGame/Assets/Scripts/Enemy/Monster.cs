@@ -184,9 +184,7 @@ public class Monster : Enemy
         nav.enabled = false;
         collider.enabled = false;
         slider.gameObject.SetActive(false);
-
         StartCoroutine("Hide");
-        
     }
 
     IEnumerator Hide()

@@ -27,21 +27,6 @@ public class MonsterSpawn : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //CreateMonster();
-
-        //InvokeRepeating("TakeOut", 6, 4);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //random = Random.Range(1, objectPooling.Count);
-        
-    }
-
     //몬스터 미리 생성 
     public void CreateMonster()
     {
