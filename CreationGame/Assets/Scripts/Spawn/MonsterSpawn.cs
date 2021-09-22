@@ -11,6 +11,9 @@ public class MonsterSpawn : MonoBehaviour
 
     GameObject monster;
 
+    [SerializeField]
+    GameObject monsters;
+
     //public Queue<GameObject> objectPooling = new Queue<GameObject>();
 
     public List<GameObject> monsterPooling = new List<GameObject>(); // 오브젝트 풀링 List
@@ -33,6 +36,7 @@ public class MonsterSpawn : MonoBehaviour
         for (int i=0; i<responePos.Length; i++)
         {
             GameObject mon = ObjectPoolingManager.Create("Monster", responePos[i].transform.position, Quaternion.Euler(0,180f,0));
+            mon.transform.SetParent(monsters.transform);
             monsterPooling.Add(mon);
             //objectPooing.Add(mon);
             //mon.SetActive(true);

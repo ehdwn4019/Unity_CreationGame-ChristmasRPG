@@ -11,6 +11,9 @@ public class FallBlockSpawn : MonoBehaviour
 
     List<GameObject> blockPooling = new List<GameObject>();
 
+    [SerializeField]
+    GameObject fallBlocks;
+
     private void Awake()
     {
         if (instance == null)
@@ -43,6 +46,7 @@ public class FallBlockSpawn : MonoBehaviour
         for(int i=0; i<responePos.Length; i++)
         {
             GameObject block = ObjectPoolingManager.Create("FallBlock", responePos[i].transform.position, Quaternion.identity);
+            block.transform.SetParent(fallBlocks.transform);
             blockPooling.Add(block);
         }
     }

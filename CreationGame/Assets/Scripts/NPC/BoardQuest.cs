@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System;
 
 //id = 1001
 
@@ -11,7 +13,7 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
     BoxCollider boxCollider;
 
     [SerializeField]
-    GameObject questBoard;
+    GameObject questInfo;
 
     [SerializeField]
     Quest quest;
@@ -19,23 +21,46 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
     QuestData npcData;
     Canvas canvas;
 
-    public string questName;
-    public string[] questInfo;
-    public string questReward;
+    [SerializeField]
+    GameObject inGameCanvas;
+
+    [SerializeField]
+    GameObject questNameObj;
+
+    [SerializeField]
+    GameObject questCurrentObj;
+
+    //[SerializeField]
+    //Monster monster;
+
+    public Action<int> monsterQuest; 
+
+    Text questNameText;
+    Text questCurrentText;
+
+    public string questName = "몬스터 퇴치";
+    //public string[] questInfo;
+    //public string questReward;
+
+    public int maxKillMonster = 5;
+    public int currentKillMonster = 4;
 
     // Start is called before the first frame update
     void Start()
     {
         canvas = GetComponentInChildren<Canvas>();
         npcData = GetComponent<QuestData>();
+        questNameText = questNameObj.GetComponent<Text>();
+        questCurrentText = questCurrentObj.GetComponent<Text>();
         canvas.enabled = false;
+        monsterQuest += SetQuestText;
         SetQuestInfo();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //SetQuestText();
+        questNameText.text = questName;
+        questCurrentText.text = currentKillMonster + " /  " + maxKillMonster;
+        //monster.monsterQuest += SetQuestText;
+        //SetQuestText(1);
+        //QuestProgressSpawn.instance.Appear(inGameCanvas.transform.position,name);
     }
 
     private void OnTriggerStay(Collider other)
@@ -54,7 +79,8 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
         {
             boxCollider.enabled = false;
             canvas.enabled = false;
-            questBoard.SetActive(false);
+            if(questInfo != null)
+                questInfo.SetActive(false);
             quest.talkIndex = 0;
             quest.acceptQuestBtn.interactable = false;
         }
@@ -64,7 +90,8 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
     {
         if (boxCollider.enabled == true)
         {
-            questBoard.SetActive(true);
+            if (questInfo != null)
+                questInfo.SetActive(true);
         }
     }
 
@@ -79,5 +106,45 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
         //questInfo[2] = "제발요";
         //questInfo[3] = "ㅠㅠ";
         //questReward = "1000원";
+    }
+
+    public void SetQuestText(int count = 1)
+    {
+        //Debug.Log("action call");
+        float x = UnityEngine.Random.Range(-45f, 45f);
+        currentKillMonster += count;
+        GameObject goName = QuestProgressSpawn.instance.ApeearName(inGameCanvas.transform.position + new Vector3(x, 50.0f, 0f));
+        GameObject goCurrent = QuestProgressSpawn.instance.AppearCurrent(inGameCanvas.transform.position + new Vector3(x, 20.0f, 0f));
+        goName.GetComponent<Text>().text = questName;
+
+        if (currentKillMonster < maxKillMonster)
+            goCurrent.GetComponent<Text>().text = currentKillMonster + " /  " + maxKillMonster;
+        else
+        {
+            goCurrent.GetComponent<Text>().text = "퀘스트 클리어!";
+            quest.getRewardBtn.interactable = true;
+            //GetReward();
+        }
+
+        //if(currentKillMonster < maxKillMonster)
+        //{
+        //    Debug.Log("action call");
+        //    currentKillMonster += count;
+        //    GameObject goName = QuestProgressSpawn.instance.ApeearName(inGameCanvas.transform.position + new Vector3(0f, 50.0f, 0f));
+        //    GameObject goCurrent = QuestProgressSpawn.instance.AppearCurrent(inGameCanvas.transform.position + new Vector3(0f, 20.0f, 0f));
+        //    goName.GetComponent<Text>().text = questName;
+        //    goCurrent.GetComponent<Text>().text = currentKillMonster + " /  " + maxKillMonster; ;
+        //}
+        //else
+        //{
+        //    GameObject goName = QuestProgressSpawn.instance.ApeearName(inGameCanvas.transform.position + new Vector3(0f, 50.0f, 0f));
+        //    goName.GetComponent<Text>().text = "퀘스트 클리어!";
+        //}
+        
+    }
+
+    public bool IsTouchRewardBtn()
+    {
+        return quest.getRewardBtn.interactable;
     }
 }

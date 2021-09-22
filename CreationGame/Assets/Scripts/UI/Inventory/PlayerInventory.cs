@@ -18,20 +18,23 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField]
     Text moneyText;
 
+    [SerializeField]
+    Item grayKey;
+
     bool activeInventory;
     bool isTouchInventoryBtn;
     int slotCount = 3;
     int index;
 
-    int money = 1000;
-    
+    public int money = 1000;
 
     Action slotCountChange;
+    public Action<int> moneyChange; 
     InventorySlot[] slots;
     Player player;
 
-    //[SerializeField]
-    //List<Item> items;
+    //[ser]
+    Dictionary<string,int> items = new Dictionary<string, int>();
 
     //[SerializeField]
     //List<ItemPickUp> test;
@@ -42,6 +45,7 @@ public class PlayerInventory : MonoBehaviour
         slots = slotsParent.GetComponentsInChildren<InventorySlot>();
         inventory.SetActive(false);
         activeInventory = false;
+        moneyChange += MoneyUpdate;
         slotCountChange += SlotChange;
         slotCountChange.Invoke();
         player = GetComponent<Player>();
@@ -57,6 +61,12 @@ public class PlayerInventory : MonoBehaviour
         //Debug.Log("player" + player.isTouchPotionBtn);
         //if (slot == null)
         //    Debug.Log("아 ㅋㅋ");
+
+        foreach(KeyValuePair<string , int> dic in items)
+        {
+            Debug.Log("아이템 이름 : " + dic.Key + " 개수 : " + dic.Value);
+        }
+        
     }
 
     #region 인벤토리 UI
@@ -122,6 +132,9 @@ public class PlayerInventory : MonoBehaviour
                 if (slots[i].item.itemName == item.itemName)
                 {
                     slots[i].SetSlotCount(count);
+                    int itemValue = items[store.item.itemName];
+                    items[store.item.itemName] = itemValue + count;
+                    
                     //items[i].itemCount++;
                     return;
                 }
@@ -133,8 +146,9 @@ public class PlayerInventory : MonoBehaviour
             if (slots[i].item == null)
             {
                 slots[i].AddItem(item, count);
+                items.Add(item.itemName, count);
                 //items.Add(item);
-                
+
                 return;
             }
         }
@@ -146,8 +160,11 @@ public class PlayerInventory : MonoBehaviour
         if (store.item.itemPrice > money)
             return;
 
-        money -= store.item.itemPrice;
-        moneyText.text = money.ToString() + " 원";
+        int price = store.item.itemPrice;
+        moneyChange.Invoke(-price);
+
+        //money -= store.item.itemPrice;
+        //moneyText.text = money.ToString() + " 원";
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -156,6 +173,8 @@ public class PlayerInventory : MonoBehaviour
                 if (slots[i].item.itemName == store.item.itemName)
                 {
                     slots[i].SetSlotCount(count);
+                    int itemValue = items[store.item.itemName];
+                    items[store.item.itemName] = itemValue + count;
                     //items[i].itemCount++;
                     return;
                 }
@@ -167,10 +186,56 @@ public class PlayerInventory : MonoBehaviour
             if (slots[i].item == null)
             {
                 slots[i].AddItem(store.item, count);
+                items.Add(store.item.itemName, count);
                 //items.Add(item);
                 return;
             }
         }
+    }
+
+    public void GetRewardGrayKey(int count)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item != null)
+            {
+                if (slots[i].item.itemName == grayKey.itemName)
+                {
+                    slots[i].SetSlotCount(count);
+                    int itemValue = items[grayKey.itemName];
+                    items[grayKey.itemName] = itemValue + count;
+                    //items[i].itemCount++;
+                    return;
+                }
+            }
+        }
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null)
+            {
+                slots[i].AddItem(grayKey, count);
+                items.Add(grayKey.itemName, count);
+                //items.Add(item);
+                return;
+            }
+        }
+
+        //if (items.ContainsKey("GrayKey"))
+        //{
+        //    int count = items["GrayKey"];
+        //    items["GrayKey"] = count + value;
+        //}
+        //else
+        //{
+        //    items.Add("GrayKey", value);
+        //}
+    }
+
+    void MoneyUpdate(int price)
+    {
+        money += price;
+        moneyText.text = money.ToString() + " 원";
     }
 
     //public void FindPotion()

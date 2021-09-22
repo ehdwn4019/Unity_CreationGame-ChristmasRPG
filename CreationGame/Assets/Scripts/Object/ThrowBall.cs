@@ -10,6 +10,7 @@ public class ThrowBall : MonoBehaviour
     Vector3 startPos;
     Quaternion startRotation;
     bool isThrowBall;
+    float speed = 8.0f;
     //float angle = 360 / ThrowBallSpawn.instance.ballCount;
 
     Rigidbody rigid;
@@ -28,6 +29,7 @@ public class ThrowBall : MonoBehaviour
 
     private void OnEnable()
     {
+        //rigid.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         transform.position = startPos;
         transform.rotation = startRotation;
         //if (throwSkill.isThrowBallSkill)
@@ -40,11 +42,25 @@ public class ThrowBall : MonoBehaviour
             StartCoroutine("ThrowDelay");
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.name == "Player" || collision.gameObject.name == "IceBallStopZone")
+    //    {
+    //        isThrowBall = false;
+    //        //rigid.velocity = Vector3.zero;
+    //        //speed = 0f;
+    //        //throwSkill.isThrowBallSkill = false;
+    //        ThrowBallSpawn.instance.Disappear(gameObject);
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.name == "Player" || collision.gameObject.name == "IceBallStopZone")
+        if (other.gameObject.name == "Player" || other.gameObject.name == "IceBallStopZone")
         {
             isThrowBall = false;
+            //rigid.velocity = Vector3.zero;
+            //speed = 0f;
             //throwSkill.isThrowBallSkill = false;
             ThrowBallSpawn.instance.Disappear(gameObject);
         }
@@ -53,8 +69,8 @@ public class ThrowBall : MonoBehaviour
     IEnumerator ThrowDelay()
     {
         yield return new WaitForSeconds(1.5f);
-        transform.Translate(transform.right* 8.0f * Time.deltaTime);
-        //rigid.AddForce(boss.transform.forward * 8.0f);
+        //transform.Translate(transform.right* speed * Time.deltaTime);
+        rigid.AddForce(transform.right  * speed);
         Debug.Log(boss.transform.forward);
     }
 }

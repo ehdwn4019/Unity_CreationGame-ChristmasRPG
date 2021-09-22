@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+//using System;
 
 public class Monster : Enemy
 {
@@ -20,9 +21,15 @@ public class Monster : Enemy
 
     [SerializeField]
     Slider slider;
+    
+    BoardQuest boardQuest;
+    //GameObject inGameCanvas;
 
+    
     Vector3 startPos;
+    //public event Action<int> monsterQuest;
     float attackDelay = 0.89f;
+    bool isHpZero;
 
     
 
@@ -40,6 +47,8 @@ public class Monster : Enemy
     protected override void Init()
     {
         base.Init();
+        boardQuest = FindObjectOfType<BoardQuest>();
+        //inGameCanvas = GameObject.Find("InGameCanvas");
         startPos = transform.position;
         questionMark.enabled = false;
     }
@@ -51,6 +60,16 @@ public class Monster : Enemy
         //탐지범위 접근시 물음표 이미지 회전
         if (questionMark.enabled == true)
             RotateQuestionMark();
+
+        //MonsterQuest();
+
+        //if (monsterQuest != null)
+        //{
+        //    Debug.Log("AAAAAAAAAAAA");
+        //    monsterQuest.Invoke(1);
+        //}
+        //else
+        //    Debug.Log("대체왜ㅑ애ㅔ에에에에");
 
         //Debug.Log("HP : " + currentHp);
         //Debug.Log("Slider Value : " + slider.value);
@@ -120,7 +139,7 @@ public class Monster : Enemy
 
         base.Attack();
 
-        int attackDamage = Random.Range(2, 5);
+        int attackDamage = Random.Range(2, 5); //UnityEngine.Random.Range(2, 5);
 
         attackDelay -= Time.deltaTime;
 
@@ -162,8 +181,28 @@ public class Monster : Enemy
         if (currentHp <= 0)
         {
             currentHp = 0;
+            isHpZero = true;
+            //boardQuest.SetQuestText(1);
+            //StartCoroutine("HpZeroDelay");
+            //boardQuest.currentKillMonster++;
+            //boardQuest.SetQuestText(1);
+
+            if(boardQuest.IsTouchRewardBtn() == false)
+                StartCoroutine("MonsterQuest");
+            //Invoke("MonsterQuest", 3.0f);
 
             monsterState = MosterState.Die;
+        }
+    }
+
+    IEnumerator MonsterQuest()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        if (boardQuest.monsterQuest != null && isHpZero)
+        {
+            boardQuest.monsterQuest.Invoke(1);
+            isHpZero = false;
         }
     }
 
@@ -181,6 +220,7 @@ public class Monster : Enemy
         base.Die();
         //잘 안되면 이걸로 사용해보기
         //nav.isStopped = true;
+        
         nav.enabled = false;
         collider.enabled = false;
         slider.gameObject.SetActive(false);
@@ -193,6 +233,7 @@ public class Monster : Enemy
 
         MonsterSpawn.instance.Disappear(gameObject);
 
+        //isHpZero = false;
         Invoke("ReturnPos", 3.0f);
     }
 
@@ -211,4 +252,10 @@ public class Monster : Enemy
         Vector3 eulerRotation = rotation.eulerAngles;
         questionMark.transform.Rotate(eulerRotation);
     }
+
+    //void MonsterQuest()
+    //{
+    //    if (boardQuest.monsterQuest != null)
+    //        boardQuest.monsterQuest.Invoke(1);
+    //}
 }

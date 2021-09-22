@@ -9,6 +9,9 @@ public class ThrowBallSpawn : MonoBehaviour
     [SerializeField]
     GameObject responePos;
 
+    [SerializeField]
+    GameObject throwBalls;
+
     public int ballCount = 15;
 
     List<GameObject> ballPooling = new List<GameObject>();
@@ -30,6 +33,7 @@ public class ThrowBallSpawn : MonoBehaviour
         for(int i=0; i<ballCount; i++)
         {
             GameObject ball = ObjectPoolingManager.Create("ThrowBall", responePos.transform.position, Quaternion.identity);
+            ball.transform.SetParent(throwBalls.transform);
             ball.SetActive(false);
             ballPooling.Add(ball);
         }

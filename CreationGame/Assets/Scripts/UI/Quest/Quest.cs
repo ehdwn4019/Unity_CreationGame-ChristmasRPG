@@ -15,6 +15,9 @@ public class Quest : MonoBehaviour
     public Text questInfoText;
     public Text questRewardText;
 
+    public PlayerInventory inven;
+    public GameObject questInfo;
+
     public int talkIndex;
 
     public void Start()
@@ -26,14 +29,11 @@ public class Quest : MonoBehaviour
         talkIndexMinusBtn.onClick.AddListener(() => { talkIndex--; });
         talkIndexPlusBtn.onClick.AddListener(() => { talkIndex++; });
         acceptQuestBtn.onClick.AddListener(delegate { AcceptQuest(); });
+        getRewardBtn.onClick.AddListener(delegate { GetReward(); });
     }
 
     public void SetQuest(GameObject npc)
     {
-        //this.scanObj = scanObj;
-        //questNameText.text = npc.name;
-        //questInfoText.text = "Test2";
-        //questRewardText.text = "Test3";
         QuestData npcData = npc.GetComponent<QuestData>();
         questNameText.text = npcData.questName;
         questRewardText.text = npcData.questReward;
@@ -66,12 +66,8 @@ public class Quest : MonoBehaviour
 
     void GetReward()
     {
-
-    }
-
-    void QuestProgress()
-    {
-        
-        //ObjectPoolingManager.Create("QuestProgress", target.transform.position + new Vector3(0f, 15f, 0f), Quaternion.identity, false); ;
+        inven.moneyChange.Invoke(5000);
+        inven.GetRewardGrayKey(1);
+        Destroy(questInfo);
     }
 }

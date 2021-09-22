@@ -20,7 +20,6 @@ public class InventorySlot : MonoBehaviour , IPointerClickHandler// , IBeginDrag
 
     ItemEffect itemEffect;
 
-
     Player player;
     PlayerInventory inven;
     //Text itemCountText;
@@ -109,7 +108,7 @@ public class InventorySlot : MonoBehaviour , IPointerClickHandler// , IBeginDrag
         }
     }
 
-    public void SetSlotCountPlayer(int count)
+    public void SetSlotPotionCount(int count)
     {
         itemCount += count;
         itemCountText.text = itemCount.ToString();
