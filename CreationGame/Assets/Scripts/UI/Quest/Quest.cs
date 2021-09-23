@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 //questManager
 public class Quest : MonoBehaviour
@@ -20,6 +21,8 @@ public class Quest : MonoBehaviour
 
     public int talkIndex;
 
+    Action quest;
+
     public void Start()
     {
         acceptQuestBtn.interactable = false;
@@ -29,7 +32,21 @@ public class Quest : MonoBehaviour
         talkIndexMinusBtn.onClick.AddListener(() => { talkIndex--; });
         talkIndexPlusBtn.onClick.AddListener(() => { talkIndex++; });
         acceptQuestBtn.onClick.AddListener(delegate { AcceptQuest(); });
-        getRewardBtn.onClick.AddListener(delegate { GetReward(); });
+        getRewardBtn.onClick.AddListener(delegate{ GetRewardKey(); });
+        getRewardBtn.onClick.AddListener(delegate { GetRewardUseSled(); });
+        getRewardBtn.onClick.AddListener(delegate { GetRewardClearGame(); });
+    }
+
+    public void SetQuestClear()
+    {
+        questNameText.text = "";
+        questInfoText.text = "";
+        questRewardText.text = "";
+        acceptQuestBtn.gameObject.SetActive(true);
+        acceptQuestBtn.interactable = false;
+        getRewardBtn.gameObject.SetActive(false);
+        getRewardBtn.interactable = false;
+        //AcceptQuest();
     }
 
     public void SetQuest(GameObject npc)
@@ -38,6 +55,38 @@ public class Quest : MonoBehaviour
         questNameText.text = npcData.questName;
         questRewardText.text = npcData.questReward;
         SetTalk(npcData.id);
+
+        //if(isTalk == true)
+        //{
+        //    QuestData npcData = npc.GetComponent<QuestData>();
+        //    questNameText.text = npcData.questName;
+        //    questRewardText.text = npcData.questReward;
+        //    SetTalk(npcData.id);
+        //}
+        //else
+        //{
+        //    QuestData npcData = npc.GetComponent<QuestData>();
+        //    questNameText.text = npcData.questName;
+        //    questRewardText.text = npcData.questReward;
+        //}
+
+
+        //if(isClear == true)
+        //{
+        //    questNameText.text = "";
+        //    QuestData npcData = npc.GetComponent<QuestData>();
+        //    //QuestManger.instance.talkData[npcData.id] = new string[] {"","",""};
+        //    questInfoText.text = "";
+        //    //QuestManger.instance.talkData.Remove(npcData.id);
+        //    questRewardText.text = "";
+        //}
+        //else
+        //{
+        //    QuestData npcData = npc.GetComponent<QuestData>();
+        //    questNameText.text = npcData.questName;
+        //    questRewardText.text = npcData.questReward;
+        //    SetTalk(npcData.id);
+        //}
     }
 
     void SetTalk(int id)
@@ -57,17 +106,34 @@ public class Quest : MonoBehaviour
         questInfoText.text = talkData;
     }
 
-    void AcceptQuest()
+    public void AcceptQuest()
     {
         acceptQuestBtn.gameObject.SetActive(false);
         getRewardBtn.gameObject.SetActive(true);
         getRewardBtn.interactable = false;
     }
 
-    void GetReward()
+    void GetRewardKey()
     {
         inven.moneyChange.Invoke(5000);
         inven.GetRewardGrayKey(1);
-        Destroy(questInfo);
+        getRewardBtn.interactable = false;
+        getRewardBtn.onClick.RemoveListener(delegate { GetRewardKey(); });
+        //Destroy(questInfo);
     }
+
+    void GetRewardUseSled()
+    {
+        getRewardBtn.interactable = false;
+    }
+
+    void GetRewardClearGame()
+    {
+        getRewardBtn.interactable = false;
+    }
+
+    //public bool IsTouchRewardBtn()
+    //{
+    //    return getRewardBtn.interactable;
+    //}
 }

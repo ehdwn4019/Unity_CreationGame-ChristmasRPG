@@ -9,6 +9,9 @@ public class Sled : MonoBehaviour
     Player player;
 
     [SerializeField]
+    Santa santa;
+
+    [SerializeField]
     float speed;
 
     bool isStart;
@@ -42,7 +45,7 @@ public class Sled : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.gameObject.name == "Player" && santa.QuestClear())
         {
             StartCoroutine("WaitStart");
         }

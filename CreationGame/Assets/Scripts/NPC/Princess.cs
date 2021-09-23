@@ -38,6 +38,7 @@ public class Princess : MonoBehaviour
         {
             boxCollider.enabled = false;
             canvas.enabled = false;
+            //quest.talkIndex = 0;
         }
     }
 }

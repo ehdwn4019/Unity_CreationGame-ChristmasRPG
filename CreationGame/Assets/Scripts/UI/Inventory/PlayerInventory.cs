@@ -34,7 +34,7 @@ public class PlayerInventory : MonoBehaviour
     Player player;
 
     //[ser]
-    Dictionary<string,int> items = new Dictionary<string, int>();
+    public Dictionary<string,int> items = new Dictionary<string, int>();
 
     //[SerializeField]
     //List<ItemPickUp> test;
@@ -132,8 +132,8 @@ public class PlayerInventory : MonoBehaviour
                 if (slots[i].item.itemName == item.itemName)
                 {
                     slots[i].SetSlotCount(count);
-                    int itemValue = items[store.item.itemName];
-                    items[store.item.itemName] = itemValue + count;
+                    int itemValue = items[item.itemName];
+                    items[item.itemName] = itemValue + count;
                     
                     //items[i].itemCount++;
                     return;

@@ -17,9 +17,9 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
 
     [SerializeField]
     Quest quest;
-
-    QuestData npcData;
+    
     Canvas canvas;
+    QuestData npcData;
 
     [SerializeField]
     GameObject inGameCanvas;
@@ -69,7 +69,16 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
         {
             boxCollider.enabled = true;
             canvas.enabled = true;
-            quest.SetQuest(gameObject);
+
+            if(IsTouchRewardBtn()== false && currentKillMonster >= maxKillMonster)
+            {
+                quest.SetQuestClear();
+                //quest.SetQuest(gameObject , true);
+            }
+            else
+            {
+                quest.SetQuest(gameObject);
+            }
         }
     }
 
@@ -79,8 +88,12 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
         {
             boxCollider.enabled = false;
             canvas.enabled = false;
-            if(questInfo != null)
-                questInfo.SetActive(false);
+            questInfo.SetActive(false);
+            //if(questInfo != null)
+            //{
+            //    questInfo.SetActive(false);
+            //}
+
             quest.talkIndex = 0;
             quest.acceptQuestBtn.interactable = false;
         }
@@ -90,16 +103,23 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
     {
         if (boxCollider.enabled == true)
         {
-            if (questInfo != null)
-                questInfo.SetActive(true);
+            questInfo.SetActive(true);
+
+
+            //if (questInfo != null)
+            //{
+            //    questInfo.SetActive(true);
+            //}
+
         }
     }
 
     void SetQuestInfo()
     {
         npcData.questName = "몬스터 처치";
-        QuestManger.instance.talkData.Add(npcData.id, new string[] {
-            "몬스터가 난동을 부립니다.","몬스터 좀 잡아주세요","10마리면 될것같아요"
+        QuestManger.instance.talkData.Add(npcData.id, new string[] 
+        {
+            "몬스터가 난동을 부립니다.","몬스터 좀 잡아주세요!","10마리면 될것같아요!"
         });
         npcData.questReward = "보상 : 1000원 , 열쇠 1개";
         //questInfo[1] = "몬스터 좀 잡아주세요";
