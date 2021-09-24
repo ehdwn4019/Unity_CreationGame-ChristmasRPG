@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Events;
 
 //questManager
 public class Quest : MonoBehaviour
 {
+    [SerializeField]
+    GameObject sledZone;
+
     public Button talkIndexMinusBtn;
     public Button talkIndexPlusBtn;
     public Button acceptQuestBtn;
+
     public Button getRewardBtn;
 
     public Text questNameText;
@@ -19,12 +24,18 @@ public class Quest : MonoBehaviour
     public PlayerInventory inven;
     public GameObject questInfo;
 
+    
+
     public int talkIndex;
 
-    Action quest;
+    QuestData data;
+    string npcName;
 
     public void Start()
     {
+        data = GetComponent<QuestData>();
+
+        sledZone.SetActive(true);
         acceptQuestBtn.interactable = false;
         getRewardBtn.gameObject.SetActive(false);
 
@@ -32,9 +43,6 @@ public class Quest : MonoBehaviour
         talkIndexMinusBtn.onClick.AddListener(() => { talkIndex--; });
         talkIndexPlusBtn.onClick.AddListener(() => { talkIndex++; });
         acceptQuestBtn.onClick.AddListener(delegate { AcceptQuest(); });
-        getRewardBtn.onClick.AddListener(delegate{ GetRewardKey(); });
-        getRewardBtn.onClick.AddListener(delegate { GetRewardUseSled(); });
-        getRewardBtn.onClick.AddListener(delegate { GetRewardClearGame(); });
     }
 
     public void SetQuestClear()
@@ -52,6 +60,9 @@ public class Quest : MonoBehaviour
     public void SetQuest(GameObject npc)
     {
         QuestData npcData = npc.GetComponent<QuestData>();
+
+        npcName = npc.name;
+
         questNameText.text = npcData.questName;
         questRewardText.text = npcData.questReward;
         SetTalk(npcData.id);
@@ -89,6 +100,7 @@ public class Quest : MonoBehaviour
         //}
     }
 
+
     void SetTalk(int id)
     {
         if(talkIndex <= 0)
@@ -101,39 +113,58 @@ public class Quest : MonoBehaviour
             acceptQuestBtn.interactable = true;
         }
 
-        //int questTalkIndex = questManager.GetQuestTalkIndex(id);
         string talkData = QuestManger.instance.GetTalk(id, talkIndex);
         questInfoText.text = talkData;
     }
 
+    //퀘스트 수락
     public void AcceptQuest()
     {
         acceptQuestBtn.gameObject.SetActive(false);
         getRewardBtn.gameObject.SetActive(true);
         getRewardBtn.interactable = false;
+        SetReward();
     }
 
+    public void SetReward()
+    {
+        //NPC 이름에 따라 버튼 이벤트 적용
+        switch(npcName)
+        {
+            case "BoardQuest":
+                getRewardBtn.onClick.RemoveAllListeners();
+                getRewardBtn.onClick.AddListener(delegate { GetRewardKey(); });
+                break;
+            case "Santa":
+                getRewardBtn.onClick.RemoveAllListeners();
+                getRewardBtn.onClick.AddListener(delegate { GetRewardUseSled(); });
+                break;
+            case "Princess":
+                getRewardBtn.onClick.RemoveAllListeners();
+                getRewardBtn.onClick.AddListener(delegate { GetRewardClearGame(); });
+                break;
+        }
+    }
+
+    //게시판퀘스트 클리어
     void GetRewardKey()
     {
         inven.moneyChange.Invoke(5000);
         inven.GetRewardGrayKey(1);
         getRewardBtn.interactable = false;
         getRewardBtn.onClick.RemoveListener(delegate { GetRewardKey(); });
-        //Destroy(questInfo);
     }
 
+    //산타퀘스트 클리어
     void GetRewardUseSled()
     {
+        sledZone.SetActive(false);
         getRewardBtn.interactable = false;
     }
 
+    //공주퀘스트 클리어
     void GetRewardClearGame()
     {
         getRewardBtn.interactable = false;
     }
-
-    //public bool IsTouchRewardBtn()
-    //{
-    //    return getRewardBtn.interactable;
-    //}
 }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Potion UI 무지개색 
 public class PotionColorChange : MonoBehaviour
 {
+    Image img;
+
     [SerializeField]
     float speed;
 
-    Image img;
     float r = 255.0f;
     float g = 1.0f;
     float b = 1.0f;

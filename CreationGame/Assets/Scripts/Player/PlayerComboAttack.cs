@@ -5,6 +5,17 @@ using UnityEngine;
 public class PlayerComboAttack : MonoBehaviour
 {
     [SerializeField]
+    BoxCollider attackRangeColl;
+
+    [SerializeField]
+    ParticleSystem damageText;
+
+    Animator animator;
+    Player player;
+    PlayerFireBuff fireBuff;
+    Enemy enemy;
+
+    [SerializeField]
     float attackDelay = 1.0f;
 
     [SerializeField]
@@ -19,16 +30,6 @@ public class PlayerComboAttack : MonoBehaviour
     [SerializeField]
     int fireDamage = 3;
 
-    [SerializeField]
-    BoxCollider attackRangeColl;
-
-    [SerializeField]
-    ParticleSystem damageText; 
-
-    Animator animator;
-    Player player;
-    PlayerFireBuff fireBuff;
-    Enemy enemy;
     bool isTouchAttackBtn;
     bool isAttack;
 
@@ -49,6 +50,7 @@ public class PlayerComboAttack : MonoBehaviour
         Attack();
     }
 
+    //어택 버튼 터치
     public void TouchAttack()
     {
         isTouchAttackBtn = true;
@@ -78,6 +80,7 @@ public class PlayerComboAttack : MonoBehaviour
         }
     }
 
+    //Enemy 찾기 
     public void FindEnemy()
     {
         int attackDamage = Random.Range(attackMinDamage, attackMaxDamage);
@@ -87,20 +90,12 @@ public class PlayerComboAttack : MonoBehaviour
 
         foreach (Collider c in coll)
         {
-            //Enemy enemy = c.GetComponent<Enemy>();
-
-            //if (enemy != null)
-            //{
-            //    if (fireBuff.IsFireBuff)
-            //        attackDamage += fireDamage; 
-            //    enemy.DecreaseHP(attackDamage);
-            //    
-            //}
-
+            //주변 Enemy damage interface 가져오기 
             IDamageable damage = c.GetComponent<IDamageable>();
 
             if(damage != null)
             {
+                //데미지 증가
                 if (fireBuff.IsFireBuff)
                 {
                     attackDamage += fireDamage;
@@ -114,15 +109,13 @@ public class PlayerComboAttack : MonoBehaviour
     public void AttackTrue()
     {
         isAttack = true;
-        damageText.Play();
+        //damageText.Play();
         attackRangeColl.enabled = true;
-        
     }
 
     public void CollFalse()
     {
         attackRangeColl.enabled = false;
-        //damageText.Stop();
     }
 
     public void AttackFalse()

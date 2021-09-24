@@ -10,17 +10,16 @@ public class FollowCam : MonoBehaviour
     [SerializeField]
     Transform camLookPos;
 
+    JoyStickRotate joyStickRotate;
+    JoyStickMove joyStickMove;
+    Vector3 camStopPos;
+
     [SerializeField]
     float camSpeed;
 
     float camX;
     float camY;
     float camZ;
-    Vector3 camStopPos;
-
-    JoyStickRotate joyStickRotate;
-    JoyStickMove joyStickMove;
-
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +42,7 @@ public class FollowCam : MonoBehaviour
 
         // 플레이어 방향과 카메라 방향 일치시키기
         Vector3 forward = new Vector3(camLookPos.forward.x, 0f, camLookPos.forward.z).normalized;
+
         //Quaternion quaternion = Quaternion.Euler(transform.rotation.eulerAngles);
         //target.GetComponent<Rigidbody>().MoveRotation(Quaternion.Lerp(quaternion, camLookPos.rotation, camSpeed * Time.fixedDeltaTime));
         //target.GetComponent<Rigidbody>().rotation *= Quaternion.Lerp(transform.rotation, camLookPos.rotation, camSpeed * Time.fixedDeltaTime);

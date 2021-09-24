@@ -6,6 +6,10 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour , IDamageable
 {
     //Enemy Type 공통 변수 
+    public NavMeshAgent nav;
+    protected Animator animator;
+    protected GameObject target;
+    protected Rigidbody rigidbody;
 
     [SerializeField]
     protected float findRange;
@@ -15,13 +19,6 @@ public class Enemy : MonoBehaviour , IDamageable
 
     [SerializeField]
     protected float attackRange;
-    
-    protected Animator animator;
-    public NavMeshAgent nav;
-    protected GameObject target;
-    protected Rigidbody rigidbody;
-    //protected SkinnedMeshRenderer renderer;
-    //protected Color startColor;
 
     //스탯
     protected int currentHp;
@@ -65,9 +62,6 @@ public class Enemy : MonoBehaviour , IDamageable
         nav = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player");
         rigidbody = GetComponent<Rigidbody>();
-        //renderer = GetComponentInChildren<SkinnedMeshRenderer>();
-
-        //renderer = GetComponent<Renderer>();
     }
 
     // Update is called once per frame

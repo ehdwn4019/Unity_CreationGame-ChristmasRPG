@@ -21,6 +21,7 @@ public class LoadingScene : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync("InGameScene");
         operation.allowSceneActivation = false;
 
+        //준비 될때까지 반복
         while (!operation.isDone)
         {
             yield return null;
@@ -35,6 +36,7 @@ public class LoadingScene : MonoBehaviour
 
             if (loadingSlider.value >= 1f && operation.progress >= 0.9f)
             {
+                SoundManager.instance.PlaySoundBgm("인게임");
                 operation.allowSceneActivation = true;
             }
         }

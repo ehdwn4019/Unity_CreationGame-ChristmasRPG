@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CannonBullet : MonoBehaviour
 {
-    [SerializeField]
-    float speed;
-
     Rigidbody rigid;
     GameObject startPos;
+
+    [SerializeField]
+    float speed;
 
     float x;
 
@@ -19,7 +19,6 @@ public class CannonBullet : MonoBehaviour
 
     private void OnEnable()
     {
-        //if(rigid == null)
         rigid = gameObject.AddComponent<Rigidbody>();
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
@@ -45,20 +44,15 @@ public class CannonBullet : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            //other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * bulletSpeed, ForceMode.Impulse);
             float x = Random.Range(-1, 1);
             float z = 0;
     
             if (x == 0)
+            {
                 z = -1;
+            }
 
-            //Vector3 dir = new Vector3(x, 0f, z);
-
-            //other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x, 0f, z) * speed, ForceMode.Impulse);
-            //CannonBulletSpawn.instance.Disappear(gameObject);
-            //Destroy(rigid);
-            //Invoke("ReturnPos", 2.0f);
         }
     
         if(other.gameObject.name == "CannonBulletStopZone"|| other.gameObject.name == "ResponeZone")
@@ -69,34 +63,8 @@ public class CannonBullet : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.name == "Player")
-    //    {
-    //        //other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * bulletSpeed, ForceMode.Impulse);
-    //        float x = Random.Range(-1, 1);
-    //        float z = 0;
-    //
-    //        if (x == 0)
-    //            z = -1;
-    //        collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-    //        collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x, 0f, z) * speed, ForceMode.Impulse);
-    //        CannonBulletSpawn.instance.Disappear(gameObject);
-    //        Destroy(rigid);
-    //        Invoke("ReturnPos", 2.0f);
-    //    }
-    //
-    //    if (collision.gameObject.name == "CannonBulletStopZone" || collision.gameObject.name == "RightMapZone")
-    //    {
-    //        CannonBulletSpawn.instance.Disappear(gameObject);
-    //        Destroy(rigid);
-    //        Invoke("ReturnPos", 2.0f);
-    //    }
-    //}
-
     void ReturnPos()
     {
-        
         CannonBulletSpawn.instance.Appear(startPos.transform.position);
     }
 }

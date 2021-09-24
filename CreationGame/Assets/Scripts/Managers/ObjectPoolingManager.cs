@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectPoolingManager : MonoBehaviour
 {
+    //풀 생성 
     public static GameObject Create(string name, Vector3 pos, Quaternion rotation)
     {
         Object obj = Resources.Load("Prefab/Pooling/" + name);

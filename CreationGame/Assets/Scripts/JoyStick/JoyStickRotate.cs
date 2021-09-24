@@ -18,20 +18,12 @@ public class JoyStickRotate : MonoBehaviour,IPointerDownHandler,IPointerUpHandle
 
     public Vector2 Value { get { return value; } }
 
-    
-
     // Start is called before the first frame update
     void Start()
     {
         startPos = stick.transform.position;
 
         radius = bg.rect.width * 0.5f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -47,9 +39,6 @@ public class JoyStickRotate : MonoBehaviour,IPointerDownHandler,IPointerUpHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //if (Input.GetMouseButton(1))
-        //    return;
-
         isTouch = true;
     }
 

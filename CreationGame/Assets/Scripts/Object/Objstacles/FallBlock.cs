@@ -6,7 +6,6 @@ public class FallBlock : Obstacles
 {
     Vector3 startPos;
     Quaternion startRotation;
-    //float startMass;
     Rigidbody rigid;
     bool isFalling;
 
@@ -16,26 +15,23 @@ public class FallBlock : Obstacles
         startPos = transform.position;
         startRotation = transform.rotation;
     }
-
+    
     private void OnEnable()
     {
         if(rigid == null)
             rigid = gameObject.AddComponent<Rigidbody>();
+
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
         transform.position = startPos;
         gameObject.transform.rotation = startRotation;
-        //rigid.mass = startMass;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "Player")
         {
-            //rigid.useGravity = true;
             rigid.useGravity = true;
-            //transform.Translate(Vector3.down * 10.0f);
-            //rigid.mass = 20.0f;
         }
     }
 
@@ -44,7 +40,10 @@ public class FallBlock : Obstacles
         if(other.gameObject.name == "ResponeZone")
         {
             FallBlockSpawn.instance.Disappear(gameObject);
+
+            //Rigidbody 삭제
             Destroy(rigid);
+
             Invoke("ReturnPos", 3.0f);
         }
     }

@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//아이템의 정보
 [System.Serializable]
-//문제되면 class로 바꾸기
 public struct ItemEffectData
 {
     public string itemName;
-    //public string part;
     public int amountPotion;
 }
 
+//아이템 획득시 플레이어에게 적용될 효과
 public class ItemEffect : MonoBehaviour
 {
-    //public abstract bool ExcuteRole();
     [SerializeField]
     ItemEffectData[] itemEffectDatas;
 

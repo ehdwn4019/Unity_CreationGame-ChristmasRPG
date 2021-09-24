@@ -29,13 +29,6 @@ public class JoyStickMove : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,
         radius = bg.rect.width * 0.5f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
     public void OnDrag(PointerEventData eventData)
     {
         //마우스 좌표에서 조이스틱 백그라운드 이미지의 좌표 빼기 
@@ -53,9 +46,6 @@ public class JoyStickMove : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //if (Input.GetMouseButton(1))
-        //    return;
-
         isTouch = true;
     }
 

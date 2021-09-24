@@ -30,9 +30,10 @@ public class RollBall : Obstacles
             float z = 0;
 
             if (x == 0)
+            {
                 z = -1;
+            }
 
-            //collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x,0f,z) * speed, ForceMode.Impulse);
         }
     }
@@ -42,7 +43,6 @@ public class RollBall : Obstacles
         if(other.gameObject.name == "RollBallStopZone" || other.gameObject.name == "ResponeZone")
         {
             RollBallSpawn.instance.Disappear(gameObject);
-            //gameObject.SetActive(false);
             Invoke("ReturnPos", 1.0f);
         }
     }
@@ -51,6 +51,5 @@ public class RollBall : Obstacles
     void ReturnPos()
     {
         RollBallSpawn.instance.Appear(startPos.transform.position);
-        //gameObject.SetActive(true);
     }
 }

@@ -6,15 +6,6 @@ using UnityEngine.UI;
 public class PlayerFireBuff : MonoBehaviour
 {
     [SerializeField]
-    float coolTime = 15.0f;
-
-    [SerializeField]
-    float buffTime = 10.0f;
-
-    [SerializeField]
-    float currentCoolTime = 0;
-
-    [SerializeField]
     ParticleSystem fireEffectSword;
 
     [SerializeField]
@@ -27,6 +18,15 @@ public class PlayerFireBuff : MonoBehaviour
     GameObject fireEffectBodyObj;
 
     Player player;
+
+    [SerializeField]
+    float coolTime = 15.0f;
+
+    [SerializeField]
+    float buffTime = 10.0f;
+
+    [SerializeField]
+    float currentCoolTime = 0;
 
     bool gageDown;
     bool isFireBuff;
@@ -50,16 +50,19 @@ public class PlayerFireBuff : MonoBehaviour
         BuffCoolTime();
     }
 
+    //스킬 버튼 터치
     public void TouchSkill()
     {
         isTouchFireBuff = true;
     }
 
+    //화염 버프
     public void FireBuff()
     {
         if (player.IsDie)
             return;
 
+        //컴퓨터 모드
         if(GameManager.instance.ct == GameManager.ControllType.Computer)
         {
             if(Input.GetKeyDown(KeyCode.LeftControl) && !isFireBuff && !gageDown)
@@ -84,6 +87,7 @@ public class PlayerFireBuff : MonoBehaviour
         }
     }
 
+    //버프 적용 
     IEnumerator FireBuffON()
     {
         fireEffectSword.Play();
@@ -97,6 +101,7 @@ public class PlayerFireBuff : MonoBehaviour
         fireEffectBody.Stop();
     }
 
+    //버프 사용후 쿨타임 
     void BuffCoolTime()
     {
         if(gageDown)

@@ -37,7 +37,6 @@ public class ThrowBallSpawn : MonoBehaviour
             ball.SetActive(false);
             ballPooling.Add(ball);
         }
-        
     }
 
     public void Disappear(GameObject ball)

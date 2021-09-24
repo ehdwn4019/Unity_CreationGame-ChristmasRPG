@@ -9,14 +9,12 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     GameObject option;
-
+    
     [SerializeField]
     GameObject computer;
-
+    
     [SerializeField]
     GameObject phone;
-
-
 
     private void Awake()
     {
@@ -30,11 +28,6 @@ public class UIManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Update()
-    {
-        ChangeControllerUI();
     }
 
     public void ClickMenu()
@@ -58,8 +51,8 @@ public class UIManager : MonoBehaviour
         option.SetActive(false);
         Time.timeScale = 1;
     }
-
-    void ChangeControllerUI()
+    
+    public void ChangeControllerUI()
     {
         if(GameManager.instance.ct == GameManager.ControllType.Computer)
         {
@@ -71,10 +64,5 @@ public class UIManager : MonoBehaviour
             computer.SetActive(false);
             phone.SetActive(true);
         }
-    }
-
-    public void EndUI()
-    {
-
     }
 }

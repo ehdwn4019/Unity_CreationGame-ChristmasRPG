@@ -15,18 +15,18 @@ public class Santa : MonoBehaviour , IPointerClickHandler
     Quest quest;
 
     [SerializeField]
-    GameObject sledZone;
-
-    [SerializeField]
     PlayerInventory inven;
 
     [SerializeField]
     Item grayKey;
 
-    int needKey = 3;
-
     Canvas canvas;
     QuestData npcData;
+
+    int needKey = 3;
+    bool isClearQuest;
+
+    public bool IsClearQuest { get { return isClearQuest; } }
 
     // Start is called before the first frame update
     void Start()
@@ -34,14 +34,13 @@ public class Santa : MonoBehaviour , IPointerClickHandler
         canvas = GetComponentInChildren<Canvas>();
         npcData = GetComponent<QuestData>();
         canvas.enabled = false;
-        sledZone.SetActive(true);
+        isClearQuest = false;
         SetQuestInfo();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(npcData.id);
+        QuestClear();
     }
 
     private void OnTriggerStay(Collider other)
@@ -51,9 +50,9 @@ public class Santa : MonoBehaviour , IPointerClickHandler
             boxCollider.enabled = true;
             canvas.enabled = true;
 
-            if(QuestClear() && IsTouchRewardBtn() == false)
+            if(isClearQuest && IsTouchRewardBtn() == false)
             {
-                sledZone.SetActive(false);
+                //sledZone.SetActive(false);
                 quest.SetQuestClear();
             }
             else
@@ -79,41 +78,39 @@ public class Santa : MonoBehaviour , IPointerClickHandler
         if(boxCollider.enabled == true)
         {
             questInfo.SetActive(true);
-
-            //if(questInfo != null)
-            //{
-            //    questInfo.SetActive(true);
-            //}
         }
     }
 
+    //퀘스트 대화정보 셋팅 
     public void SetQuestInfo()
     {
         npcData.questName = "썰매 타기";
-        QuestManger.instance.talkData.Add(npcData.id, new string[]
+
+        if(!QuestManger.instance.talkData.ContainsKey(npcData.id))
         {
-            "썰매를 타고 싶나요?","썰매를 타면 스노우몬에게 갈수 있어요!","열쇠가 3개가 필요해요!"
-        });
+            QuestManger.instance.talkData.Add(npcData.id, new string[]
+            {
+                "썰매를 타고 공주를 구해주세요!","썰매를 타면 스노우몬에게 갈수 있어요!","썰매를 타려면 열쇠가 3개가 필요해요!","열쇠는 퀘스트를 완료하고 장애물을 통과하면 얻을 수 있어요!"
+            });
+        }
+        
         npcData.questReward = "보상 : 썰매이용";
     }
 
-    public bool QuestClear()
+    //퀘스트 클리어 조건 
+    public void QuestClear()
     {
+        if (isClearQuest)
+            return;
+
         if(inven.items.ContainsKey(grayKey.itemName))
         {
-            if (inven.items[grayKey.itemName] == needKey)
+            if (inven.items[grayKey.itemName] >= needKey)
             {
                 quest.getRewardBtn.interactable = true;
-                return true;
+                isClearQuest = true;
             }
-            else
-            {
-                return false;
-            }
-                
         }
-
-        return false;
     }
 
     public bool IsTouchRewardBtn()

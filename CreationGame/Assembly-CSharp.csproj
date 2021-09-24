@@ -102,9 +102,9 @@
     <Compile Include="Assets\DownLoads\Particle\Standard Assets\ParticleSystems\Scripts\ParticleSystemMultiplier.cs" />
     <Compile Include="Assets\DownLoads\Particle\Standard Assets\ParticleSystems\Scripts\SmokeParticles.cs" />
     <Compile Include="Assets\DownLoads\Particle\Standard Assets\ParticleSystems\Scripts\WaterHoseParticles.cs" />
+    <Compile Include="Assets\Scripts\BossPortal.cs" />
     <Compile Include="Assets\Scripts\DrawGizmo.cs" />
     <Compile Include="Assets\Scripts\Enemy\Boss\Boss.cs" />
-    <Compile Include="Assets\Scripts\Enemy\Boss\BossJumpingDownSkill.cs" />
     <Compile Include="Assets\Scripts\Enemy\Boss\BossThrowSkill.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\HPBar.cs" />
@@ -118,8 +118,8 @@
     <Compile Include="Assets\Scripts\Managers\ObjectPoolingManager.cs" />
     <Compile Include="Assets\Scripts\Managers\QuestManger.cs" />
     <Compile Include="Assets\Scripts\Managers\SceneController.cs" />
+    <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\asd.cs" />
     <Compile Include="Assets\Scripts\NPC\BoardQuest.cs" />
     <Compile Include="Assets\Scripts\NPC\Princess.cs" />
     <Compile Include="Assets\Scripts\NPC\Santa.cs" />
@@ -128,7 +128,6 @@
     <Compile Include="Assets\Scripts\Object\Objstacles\FallBlock.cs" />
     <Compile Include="Assets\Scripts\Object\Objstacles\Obstacles.cs" />
     <Compile Include="Assets\Scripts\Object\Objstacles\RollBall.cs" />
-    <Compile Include="Assets\Scripts\Object\Portal.cs" />
     <Compile Include="Assets\Scripts\Object\Sled.cs" />
     <Compile Include="Assets\Scripts\Object\ThrowBall.cs" />
     <Compile Include="Assets\Scripts\Object\Trampolin.cs" />
@@ -136,7 +135,6 @@
     <Compile Include="Assets\Scripts\Player\PlayerComboAttack.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerFireBuff.cs" />
     <Compile Include="Assets\Scripts\PotionColorChange.cs" />
-    <Compile Include="Assets\Scripts\QuestData.cs" />
     <Compile Include="Assets\Scripts\Scene\LoadingScene.cs" />
     <Compile Include="Assets\Scripts\Scene\StartScene.cs" />
     <Compile Include="Assets\Scripts\Spawn\CannonBulletSpawn.cs" />
@@ -152,8 +150,8 @@
     <Compile Include="Assets\Scripts\UI\Inventory\Item\ItemRotate.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\UI\Quest\Quest.cs" />
+    <Compile Include="Assets\Scripts\UI\Quest\QuestData.cs" />
     <Compile Include="Assets\Scripts\UI\Quest\QuestProgress.cs" />
-    <Compile Include="Assets\Scripts\UI\Quest\QuestSlot.cs" />
     <Compile Include="Assets\Scripts\UI\Store.cs" />
     <None Include="Assets\DownLoads\Other\SD_Project\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Tonemapper.shader" />
     <None Include="Assets\DownLoads\Other\SD_Project\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />

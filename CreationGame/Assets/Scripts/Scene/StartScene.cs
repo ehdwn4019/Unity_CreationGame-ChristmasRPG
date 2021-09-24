@@ -9,7 +9,6 @@ public class StartScene : MonoBehaviour
     public void StartBtn()
     {
         SceneManager.LoadScene("LoadingScene");
-        //GameManager.instance.CreateManagers();
     }
 
     //나가기 버튼 클릭시 

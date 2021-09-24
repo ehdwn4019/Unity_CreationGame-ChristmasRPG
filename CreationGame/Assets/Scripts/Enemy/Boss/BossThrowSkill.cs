@@ -10,22 +10,18 @@ public class BossThrowSkill : MonoBehaviour
     [SerializeField]
     GameObject throwPos;
 
-    [SerializeField]
-    float speed = 10.0f;
-
     Boss boss;
     Animator animator;
     ThrowBall throwBall;
     GameObject go;
     Vector3 dir;
-    float x;
-
     GameObject[] gos = new GameObject[3];
 
-    //List<GameObject> ball = new List<GameObject>();
-    //GameObject[] ball = new GameObject[3];
-    float ballCount = 3;
+    [SerializeField]
+    float speed = 10.0f;
 
+    float x;
+    float ballCount = 3;
     bool isFollowBall;
 
     // Start is called before the first frame update
@@ -41,11 +37,7 @@ public class BossThrowSkill : MonoBehaviour
     {
         FollowBall();
         ThrowBall();
-        //go.transform.position = rightHand.transform.position;
-        //CreateBall();
-        
     }
-
 
     private void FixedUpdate()
     {
@@ -54,23 +46,16 @@ public class BossThrowSkill : MonoBehaviour
 
     public void Throw()
     {
-        //boss.nav.ResetPath();
         animator.SetBool("Throw",true);
     }
 
     public void CreateBall()
     {
-        //for(int i=0; i<ballCount; i++)
-        //{
-        //    go = ThrowBallSpawn.instance.Appear(rightHand.transform.position);
-        //    
-        //    //ball.Add(ThrowBallSpawn.instance.Appear(throwPos.transform.position));
-        //}
-
         go = ThrowBallSpawn.instance.Appear(throwPos.transform.position);
         isFollowBall = true;
     }
 
+    //애니메이션에 맞춰 공이 보스 손에 따라가기
     public void FollowBall()
     {
         if(isFollowBall && go != null)
@@ -84,32 +69,11 @@ public class BossThrowSkill : MonoBehaviour
 
     public void ThrowBall()
     {
-        //isFollowBall = false;
-        //throwBall.Throw();
-        //isThrowBallSkill = true;
-        //throwBall.Throw();
-
-        
-
         if (go != null && !isFollowBall)
         {
             dir = target.transform.position - transform.position;
             go.transform.Translate(dir * speed * Time.deltaTime);
         }
-            
-            
-
-        //StartCoroutine("ThrowDelay");
-            //go.transform.Translate(dir * 10.0f *Time.deltaTime);
-        //go.GetComponent<Rigidbody>().AddForce(dir * 10.0f);
-
-        
-        //dir = boss.transform.forward;
-        //for(int i=0; i<ballCount; i++)
-        //{
-        //    //ball[i].transform.Translate(boss.transform.forward * 8.0f *Time.deltaTime);
-        //    ball[i].GetComponent<Rigidbody>().AddForce(Vector3.forward * 20.0f,ForceMode.Impulse);
-        //}
     }
 
     public void End()

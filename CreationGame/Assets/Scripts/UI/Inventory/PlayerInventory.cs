@@ -6,6 +6,9 @@ using System;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public Action<int> moneyChange;
+    public Dictionary<string, int> items = new Dictionary<string, int>();
+
     [SerializeField]
     GameObject inventory;
 
@@ -21,34 +24,26 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField]
     Item grayKey;
 
+    Action slotCountChange;
+    InventorySlot[] slots;
+    Player player;
+
+    public int money = 1000;
     bool activeInventory;
     bool isTouchInventoryBtn;
     int slotCount = 3;
     int index;
 
-    public int money = 1000;
-
-    Action slotCountChange;
-    public Action<int> moneyChange; 
-    InventorySlot[] slots;
-    Player player;
-
-    //[ser]
-    public Dictionary<string,int> items = new Dictionary<string, int>();
-
-    //[SerializeField]
-    //List<ItemPickUp> test;
-
     // Start is called before the first frame update
     void Start()
     {
         slots = slotsParent.GetComponentsInChildren<InventorySlot>();
+        player = GetComponent<Player>();
         inventory.SetActive(false);
         activeInventory = false;
         moneyChange += MoneyUpdate;
         slotCountChange += SlotChange;
         slotCountChange.Invoke();
-        player = GetComponent<Player>();
         moneyText.text = money.ToString() + " 원";
     }
 
@@ -56,11 +51,6 @@ public class PlayerInventory : MonoBehaviour
     void Update()
     {
         InventoryOnOff();
-        //FindPotion();
-
-        //Debug.Log("player" + player.isTouchPotionBtn);
-        //if (slot == null)
-        //    Debug.Log("아 ㅋㅋ");
 
         foreach(KeyValuePair<string , int> dic in items)
         {
@@ -70,6 +60,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
     #region 인벤토리 UI
+    //상점에 있는경우 인벤토리가 자동으로 열리기 때문에 직접열기 불가능
     public void TouchInveontory()
     {
         if (store.IsInSotre)
@@ -78,6 +69,7 @@ public class PlayerInventory : MonoBehaviour
         isTouchInventoryBtn = true;
     }
 
+    //인벤토리 온오프
     void InventoryOnOff()
     {
         if (store.IsInSotre)
@@ -96,12 +88,12 @@ public class PlayerInventory : MonoBehaviour
 
     #region 인벤토리 슬롯
 
+    //추가된 슬롯에 따라서 슬롯 활성화
     public void SlotChange()
     {
         for(int i=0; i<slots.Length; i++)
         {
             slots[i].index = i;
-            //slots[i].i
 
             if(i<slotCount)
             {
@@ -114,6 +106,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
     
+    //슬롯 추가하기
     public void AddSlot()
     {
         slotCount += 3;
@@ -125,30 +118,29 @@ public class PlayerInventory : MonoBehaviour
     #region 인벤토리 아이템
     public void AcquireItem(Item item, int count = 1)
     {
+        //슬롯에 아이템이 있는경우 
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item != null)
             {
+                //슬롯아이템과 획득한 아이템이 같은 경우
                 if (slots[i].item.itemName == item.itemName)
                 {
                     slots[i].SetSlotCount(count);
                     int itemValue = items[item.itemName];
                     items[item.itemName] = itemValue + count;
-                    
-                    //items[i].itemCount++;
                     return;
                 }
             }
         }
 
+        //슬롯에 아이템이 없는 경우
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item == null)
             {
                 slots[i].AddItem(item, count);
                 items.Add(item.itemName, count);
-                //items.Add(item);
-
                 return;
             }
         }
@@ -156,120 +148,79 @@ public class PlayerInventory : MonoBehaviour
 
     public void BuyItem(int count = 1)
     {
-        //돈없으면 못사게
+        //머니가 부족한 경우
         if (store.item.itemPrice > money)
             return;
 
+        //머니 획득시 보유머니 최신화
         int price = store.item.itemPrice;
         moneyChange.Invoke(-price);
 
-        //money -= store.item.itemPrice;
-        //moneyText.text = money.ToString() + " 원";
-
+        //슬롯에 아이템이 있는 경우
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item != null)
             {
+                //슬롯아이템과 상점 아이템이 같은 경우
                 if (slots[i].item.itemName == store.item.itemName)
                 {
                     slots[i].SetSlotCount(count);
                     int itemValue = items[store.item.itemName];
                     items[store.item.itemName] = itemValue + count;
-                    //items[i].itemCount++;
                     return;
                 }
             }
         }
 
+        //슬롯에 아이템이 없는 경우
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item == null)
             {
                 slots[i].AddItem(store.item, count);
                 items.Add(store.item.itemName, count);
-                //items.Add(item);
                 return;
             }
         }
     }
 
+
     public void GetRewardGrayKey(int count)
     {
+        //슬롯에 아이템이 있는 경우 (퀘스트 보상 획득시 , 장애물 통과후 획득시)
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item != null)
             {
+                //슬롯에 아이템이 키와 같은 경우
                 if (slots[i].item.itemName == grayKey.itemName)
                 {
                     slots[i].SetSlotCount(count);
                     int itemValue = items[grayKey.itemName];
                     items[grayKey.itemName] = itemValue + count;
-                    //items[i].itemCount++;
                     return;
                 }
             }
         }
 
+        //슬롯에 아이템이 없는 경우 
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item == null)
             {
                 slots[i].AddItem(grayKey, count);
                 items.Add(grayKey.itemName, count);
-                //items.Add(item);
                 return;
             }
         }
-
-        //if (items.ContainsKey("GrayKey"))
-        //{
-        //    int count = items["GrayKey"];
-        //    items["GrayKey"] = count + value;
-        //}
-        //else
-        //{
-        //    items.Add("GrayKey", value);
-        //}
     }
 
+    //MoneyChange Action에 추가된 함수 , 보유 머니 최신화
     void MoneyUpdate(int price)
     {
         money += price;
         moneyText.text = money.ToString() + " 원";
     }
-
-    //public void FindPotion()
-    //{
-    //    if (!player.IsTouchPotionBtn)
-    //        return;
-    //
-    //    for(int i=0; i<slots.Length; i++)
-    //    {
-    //        if(slots[i].item != null)
-    //        {
-    //            if(slots[i].item.itemType == Item.ItemType.Potion)
-    //            {
-    //                slot = slots[i];
-    //                return;
-    //            }
-    //        }
-    //    }
-    //}
-    //
-    //public InventorySlot ReturnSlot()
-    //{
-    //    return slot;
-    //}
-
-    //public InventorySlot ReturnSlot()
-    //{
-    //    return slots[index];
-    //}
-
-    //public void GetSlotIndex(int index)
-    //{
-    //    this.index = index;
-    //}
 
     #endregion
 }

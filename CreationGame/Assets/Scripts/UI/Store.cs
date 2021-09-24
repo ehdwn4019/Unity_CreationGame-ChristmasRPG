@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class Store : MonoBehaviour , IPointerClickHandler 
 {
-    //[SerializeField]
-    //PlayerInventory inven;
     [SerializeField]
     GameObject inventory;
 
@@ -27,10 +25,6 @@ public class Store : MonoBehaviour , IPointerClickHandler
     Text itemPrice;
 
     public Item item;
-
-    //[SerializeField]
-    //Button itemBuyBtn;
-
     Canvas canvas;
 
     bool isInSotre;
@@ -47,12 +41,7 @@ public class Store : MonoBehaviour , IPointerClickHandler
         SetItemList();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    //상점 아이템 셋팅
     void SetItemList()
     {
         itemImg.sprite = item.itemImg;
@@ -89,6 +78,5 @@ public class Store : MonoBehaviour , IPointerClickHandler
             store.SetActive(true);
             inventory.SetActive(true);
         }
-            
     }
 }

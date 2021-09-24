@@ -11,21 +11,19 @@ public class Sled : MonoBehaviour
     [SerializeField]
     Santa santa;
 
+    Vector3 startPos;
+    Rigidbody rigid;
+
     [SerializeField]
     float speed;
 
     bool isStart;
     bool isStop;
 
-    Vector3 startPos;
-
-    Rigidbody rigid;
-
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
-
         startPos = transform.position;
         isStart = false;
         isStop = false;
@@ -45,7 +43,7 @@ public class Sled : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Player" && santa.QuestClear())
+        if (collision.gameObject.name == "Player" && santa.IsClearQuest)
         {
             StartCoroutine("WaitStart");
         }

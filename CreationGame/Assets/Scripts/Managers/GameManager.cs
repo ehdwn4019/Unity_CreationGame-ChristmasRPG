@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //싱글톤
+    //싱글톤 
     public static GameManager instance = null;
 
-    [SerializeField]
     Player player;
 
-    //[SerializeField] Monster monster;
-    //[SerializeField] Boss boss;
-    //[SerializeField] Player player;
-    
     public enum ControllType
     {
         Computer,
@@ -23,32 +18,6 @@ public class GameManager : MonoBehaviour
     public ControllType ct = ControllType.Computer;
 
     public bool isFightBoss;
-
-    #region 프로퍼티들
-
-    //public Monster Monster
-    //{
-    //    get
-    //    {
-    //        return monster;
-    //    }
-    //}
-    //public Boss Boss
-    //{
-    //    get
-    //    {
-    //        return boss;
-    //    }
-    //}
-    //public Player Player
-    //{
-    //    get
-    //    {
-    //        return player;
-    //    }
-    //}
-
-    #endregion
 
     private void Awake()
     {
@@ -60,39 +29,20 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<Player>();
+
         MonsterSpawn.instance.CreateMonster();
         FallBlockSpawn.instance.CreateBlock();
         RollBallSpawn.instance.CreateBall();
         CannonBulletSpawn.instance.CreateBullet();
         ThrowBallSpawn.instance.CreateBall();
         QuestProgressSpawn.instance.CreateText();
-
-        //if (playerDie != null)
-        //    playerDie.Invoke();
-        //playerDie.Invoke();
-        //playerDie.Invoke();
     }
-
-    //public void ChangeComputer()
-    //{
-    //    ct = ControllType.Phone;
-    //    computer.SetActive(false);
-    //    phone.SetActive(true);
-    //}
-    //
-    //public void ChangePhone()
-    //{
-    //    ct = ControllType.Computer;
-    //    computer.SetActive(true);
-    //    phone.SetActive(false);
-    //}
 
     public void ControllerChange()
     {
@@ -100,21 +50,13 @@ public class GameManager : MonoBehaviour
         {
             case ControllType.Computer:
                 ct = ControllType.Phone;
+                UIManager.instance.ChangeControllerUI();
                 break;
     
             case ControllType.Phone:
                 ct = ControllType.Computer;
+                UIManager.instance.ChangeControllerUI();
                 break;
         }
-    }
-
-    void EndGame()
-    {
-        
-        //if(player.IsDie)
-        //{
-        //    //SceneManager.LoadScene("TEST");
-        //    SceneController.instance.GoStartScene();
-        //}
     }
 }
