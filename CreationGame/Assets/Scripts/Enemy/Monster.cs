@@ -35,6 +35,7 @@ public class Monster : Enemy
         currentHp = 50;
         attackspeed = 3;
         slider.value = 1;
+        isDie = false;
         collider.enabled = true;
     }
 
@@ -124,8 +125,14 @@ public class Monster : Enemy
 
         if(attackDelay<=0f)
         {
-            if (target != null)
+            Player player = target.GetComponent<Player>();
+
+            if (target != null && !player.IsDie)
+            {
+                SoundManager.instance.PlaySoundEffect("몬스터공격");
                 target.GetComponent<IDamageable>().DecreaseHP(attackDamage);
+            }
+                
 
             attackDelay = 0.89f;
         }
@@ -159,6 +166,7 @@ public class Monster : Enemy
         {
             currentHp = 0;
             isHpZero = true;
+            isDie = true;
 
             if(boardQuest.IsTouchRewardBtn() == false)
             {

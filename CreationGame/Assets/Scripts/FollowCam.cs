@@ -35,6 +35,7 @@ public class FollowCam : MonoBehaviour
         LookAround();
     }
 
+    //플레이어 회전
     void Rotate()
     {
         if (target.GetComponent<Player>().IsDie)
@@ -54,11 +55,13 @@ public class FollowCam : MonoBehaviour
     //카메라 회전
     void LookAround()
     {
+        // 나중에 이거 지우고 빌드해서 테스트해보기 동시터치 될수도 
         if((joyStickRotate.isTouch && Input.GetMouseButton(1)) || (joyStickMove.isTouch && Input.GetMouseButton(1))) 
         {
             return;
         }
 
+        //컴퓨터 모드 
         if (GameManager.instance.ct == GameManager.ControllType.Computer)
         {
             if (Input.GetMouseButton(1))
@@ -66,6 +69,7 @@ public class FollowCam : MonoBehaviour
                 camX += Input.GetAxis("Mouse X");
                 camY += Input.GetAxis("Mouse Y") * -1;
 
+                //카메라 Y값 제한 
                 camY = Mathf.Clamp(camY, -3.5f, 2f);
 
                 Vector3 camPos = new Vector3(camLookPos.rotation.x + camY, camLookPos.rotation.y + camX, 0) * camSpeed;

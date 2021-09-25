@@ -35,6 +35,6 @@ public class SceneController : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        SoundManager.instance.PlaySoundBgm("인게임");
+        SoundManager.instance.PlaySoundBgm("게임");
     }
 }

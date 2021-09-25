@@ -14,7 +14,6 @@ public class Quest : MonoBehaviour
     public Button talkIndexMinusBtn;
     public Button talkIndexPlusBtn;
     public Button acceptQuestBtn;
-
     public Button getRewardBtn;
 
     public Text questNameText;
@@ -24,11 +23,11 @@ public class Quest : MonoBehaviour
     public PlayerInventory inven;
     public GameObject questInfo;
 
-    
+    QuestData data;
 
     public int talkIndex;
 
-    QuestData data;
+    
     string npcName;
 
     public void Start()
@@ -42,9 +41,17 @@ public class Quest : MonoBehaviour
         // 프리팹 버튼에 버튼 이벤트 추가 
         talkIndexMinusBtn.onClick.AddListener(() => { talkIndex--; });
         talkIndexPlusBtn.onClick.AddListener(() => { talkIndex++; });
+        
         acceptQuestBtn.onClick.AddListener(delegate { AcceptQuest(); });
+
+        // 버튼 사운드 추가
+        talkIndexMinusBtn.onClick.AddListener(() => { SoundManager.instance.PlaySoundEffect("퀘스트버튼"); });
+        talkIndexPlusBtn.onClick.AddListener(() => { SoundManager.instance.PlaySoundEffect("퀘스트버튼"); });
+        acceptQuestBtn.onClick.AddListener(() => { SoundManager.instance.PlaySoundEffect("퀘스트버튼"); });
+        getRewardBtn.onClick.AddListener(() => { SoundManager.instance.PlaySoundEffect("퀘스트버튼"); });
     }
 
+    //퀘스트 클리어
     public void SetQuestClear()
     {
         questNameText.text = "";
@@ -54,9 +61,9 @@ public class Quest : MonoBehaviour
         acceptQuestBtn.interactable = false;
         getRewardBtn.gameObject.SetActive(false);
         getRewardBtn.interactable = false;
-        //AcceptQuest();
     }
 
+    //퀘스트 세팅
     public void SetQuest(GameObject npc)
     {
         QuestData npcData = npc.GetComponent<QuestData>();
@@ -66,43 +73,12 @@ public class Quest : MonoBehaviour
         questNameText.text = npcData.questName;
         questRewardText.text = npcData.questReward;
         SetTalk(npcData.id);
-
-        //if(isTalk == true)
-        //{
-        //    QuestData npcData = npc.GetComponent<QuestData>();
-        //    questNameText.text = npcData.questName;
-        //    questRewardText.text = npcData.questReward;
-        //    SetTalk(npcData.id);
-        //}
-        //else
-        //{
-        //    QuestData npcData = npc.GetComponent<QuestData>();
-        //    questNameText.text = npcData.questName;
-        //    questRewardText.text = npcData.questReward;
-        //}
-
-
-        //if(isClear == true)
-        //{
-        //    questNameText.text = "";
-        //    QuestData npcData = npc.GetComponent<QuestData>();
-        //    //QuestManger.instance.talkData[npcData.id] = new string[] {"","",""};
-        //    questInfoText.text = "";
-        //    //QuestManger.instance.talkData.Remove(npcData.id);
-        //    questRewardText.text = "";
-        //}
-        //else
-        //{
-        //    QuestData npcData = npc.GetComponent<QuestData>();
-        //    questNameText.text = npcData.questName;
-        //    questRewardText.text = npcData.questReward;
-        //    SetTalk(npcData.id);
-        //}
     }
 
-
+    //퀘스트 내용 세팅
     void SetTalk(int id)
     {
+        //페이지 넘기기 
         if(talkIndex <= 0)
         {
             talkIndex = 0;

@@ -118,6 +118,8 @@ public class PlayerInventory : MonoBehaviour
     #region 인벤토리 아이템
     public void AcquireItem(Item item, int count = 1)
     {
+        SoundManager.instance.PlaySoundEffect("아이템획득");
+
         //슬롯에 아이템이 있는경우 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -155,6 +157,8 @@ public class PlayerInventory : MonoBehaviour
         //머니 획득시 보유머니 최신화
         int price = store.item.itemPrice;
         moneyChange.Invoke(-price);
+
+        SoundManager.instance.PlaySoundEffect("아이템구매");
 
         //슬롯에 아이템이 있는 경우
         for (int i = 0; i < slots.Length; i++)

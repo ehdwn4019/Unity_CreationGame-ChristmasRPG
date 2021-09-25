@@ -28,6 +28,12 @@ public class ThrowBall : MonoBehaviour
             isThrowBall = false;
             Player player = other.GetComponent<Player>();
             player.DecreaseHP(30);
+
+            if(!player.IsDie)
+            {
+                SoundManager.instance.PlaySoundEffect("공맞았을때");
+            }
+            
             ThrowBallSpawn.instance.Disappear(gameObject);
         }
 

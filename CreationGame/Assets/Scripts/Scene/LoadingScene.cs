@@ -36,7 +36,7 @@ public class LoadingScene : MonoBehaviour
 
             if (loadingSlider.value >= 1f && operation.progress >= 0.9f)
             {
-                SoundManager.instance.PlaySoundBgm("인게임");
+                SoundManager.instance.PlaySoundBgm("게임");
                 operation.allowSceneActivation = true;
             }
         }

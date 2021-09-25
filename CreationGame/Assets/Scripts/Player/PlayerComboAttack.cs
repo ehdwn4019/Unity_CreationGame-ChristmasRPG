@@ -62,9 +62,10 @@ public class PlayerComboAttack : MonoBehaviour
         if (player.IsMove || player.IsDie)
             return;
 
+        //컴퓨터 모드 
         if (GameManager.instance.ct == GameManager.ControllType.Computer)
         {
-            if (Input.GetKeyDown(KeyCode.Z)) // 나중에 f키로 바꾸기 
+            if (Input.GetKeyDown(KeyCode.Z)) 
             {
                 animator.SetTrigger("Attack");
             }
@@ -92,8 +93,9 @@ public class PlayerComboAttack : MonoBehaviour
         {
             //주변 Enemy damage interface 가져오기 
             IDamageable damage = c.GetComponent<IDamageable>();
+            Enemy enemy = c.GetComponent<Enemy>();
 
-            if(damage != null)
+            if(damage != null && !enemy.IsDie)
             {
                 //데미지 증가
                 if (fireBuff.IsFireBuff)
@@ -101,6 +103,9 @@ public class PlayerComboAttack : MonoBehaviour
                     attackDamage += fireDamage;
                 }
 
+                damageText.transform.position = enemy.transform.position+new Vector3(Random.Range(0,1) == 0 ? 25:-25 ,enemy.GetComponent<SphereCollider>().radius*3,0f);
+                damageText.Play();
+                SoundManager.instance.PlaySoundEffect("플레이어공격");
                 damage.DecreaseHP(attackDamage);
             }
         }
@@ -109,7 +114,6 @@ public class PlayerComboAttack : MonoBehaviour
     public void AttackTrue()
     {
         isAttack = true;
-        //damageText.Play();
         attackRangeColl.enabled = true;
     }
 

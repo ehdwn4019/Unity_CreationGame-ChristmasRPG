@@ -131,6 +131,7 @@
     <Compile Include="Assets\Scripts\Object\Sled.cs" />
     <Compile Include="Assets\Scripts\Object\ThrowBall.cs" />
     <Compile Include="Assets\Scripts\Object\Trampolin.cs" />
+    <Compile Include="Assets\Scripts\Particle.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerComboAttack.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerFireBuff.cs" />

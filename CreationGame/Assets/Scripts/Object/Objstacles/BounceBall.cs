@@ -52,6 +52,7 @@ public class BounceBall : Obstacles
                 z = -1;
             }
 
+            SoundManager.instance.PlaySoundEffect("공맞았을때");
             collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x,0f,z) * speed, ForceMode.Impulse);
         }
     }

@@ -25,6 +25,10 @@ public class Enemy : MonoBehaviour , IDamageable
     protected int maxHp;
     protected int attackspeed;
 
+    protected bool isDie;
+
+    public bool IsDie { get { return isDie; } }
+
     //Monster enums 
     public enum MosterState 
     {
@@ -171,7 +175,6 @@ public class Enemy : MonoBehaviour , IDamageable
         //attack
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-
     }
 
     //hp 감소 함수

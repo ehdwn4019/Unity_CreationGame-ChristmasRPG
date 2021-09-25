@@ -16,6 +16,4 @@ public class ItemRotate : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, y, 0f);
         
     }
-
-
 }

@@ -27,6 +27,7 @@ public class ItemEffect : MonoBehaviour
             {
                 if(itemEffectDatas[i].itemName == item.itemName)
                 {
+                    SoundManager.instance.PlaySoundEffect("포션");
                     player.RecoveryHp(itemEffectDatas[i].amountPotion);
                 }
             }

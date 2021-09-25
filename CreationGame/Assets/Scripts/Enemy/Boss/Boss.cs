@@ -29,9 +29,7 @@ public class Boss : Enemy
     float lookSpeed = 10f;
 
     float attackDelay = 1.0f;
-    bool isDie;
-
-    public bool IsDie { get { return isDie; } }
+    
     
     protected override void Init()
     {
@@ -96,8 +94,14 @@ public class Boss : Enemy
 
         if(attackDelay<=0f)
         {
-            if (target != null)
+            Player player = target.GetComponent<Player>();
+
+            if (target != null && !player.IsDie)
+            {
+                SoundManager.instance.PlaySoundEffect("보스공격");
                 target.GetComponent<IDamageable>().DecreaseHP(attackDamage);
+            }
+                
 
             attackDelay = 1.0f;
         }
@@ -119,17 +123,18 @@ public class Boss : Enemy
         {
             text.text = "0%";
             bossState = BossState.Die;
+            isDie = true;
         }
     }
 
     protected override void Die()
     {
         base.Die();
+        SoundManager.instance.PlaySoundBgm("겜끝");
         sphereCollider.enabled = false;
         IceBallStopZone.SetActive(false);
         GameManager.instance.isFightBoss = false;
         stormCloud.SetActive(false);
-        isDie = true;
         Destroy(gameObject, 3.0f);
     }
 

@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour , IDamageable
 {
+    public Text potionCountText;
+
     [SerializeField]
     GameObject resetPosition;
 
@@ -34,11 +36,7 @@ public class Player : MonoBehaviour , IDamageable
     GameObject bossPos;
 
     [SerializeField]
-    GameObject slotsParent;
-
-    
-
-    public Text potionCountText;
+    GameObject slotsParent; 
 
     [SerializeField]
     float moveSpeed = 5.0f;
@@ -76,7 +74,6 @@ public class Player : MonoBehaviour , IDamageable
     bool isTouchJumpBtn;
     bool isTouchPotionBtn;
     bool isPlayerFall;
-    //int count;
 
     public bool IsDie { get { return isDie; } }
     public bool IsMove { get { return isMove; } }
@@ -84,29 +81,22 @@ public class Player : MonoBehaviour , IDamageable
     public bool IsPlayerFall { get { return isPlayerFall;} set { isPlayerFall = value; } }
     public bool IsTouchPotionBtn { get { return isTouchPotionBtn; } }
 
-    
-
     // Start is called before the first frame update
     void Start()
     {
+        joyStickMove = FindObjectOfType<JoyStickMove>();
+        slots = slotsParent.GetComponentsInChildren<InventorySlot>();
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        //attackColl = GameObject.Find("PlayerAttackColl");
-        cam = Camera.main;
-        joyStickMove = FindObjectOfType<JoyStickMove>();
         comboAttack = GetComponent<PlayerComboAttack>();
-        currentHp = maxHp;
         inven = GetComponent<PlayerInventory>();
-        slots = slotsParent.GetComponentsInChildren<InventorySlot>();
+        cam = Camera.main;
+        currentHp = maxHp;
     }
 
     private void Update()
     {
-        //GameManager.instance.playerDie += () => { Debug.Log("GG"); };
         RecoveryHp();
-        //Debug.Log("제발... : " + invenSlot.IsTouchSlotBtn);
-        //Debug.Log("invenTEst : " + invenSlot.index);
-        Debug.Log(isTouchPotionBtn);
     }
 
     private void FixedUpdate()
@@ -124,6 +114,7 @@ public class Player : MonoBehaviour , IDamageable
         float h = 0;
         float v = 0;
 
+        //컴퓨터 모드
         if(GameManager.instance.ct == GameManager.ControllType.Phone)
         {
             if(joyStickMove.isTouch)
@@ -137,9 +128,21 @@ public class Player : MonoBehaviour , IDamageable
             h = Input.GetAxis("Horizontal");
             v = Input.GetAxis("Vertical");
         }
-        
+
         Vector3 movePos = new Vector3(h, 0, v);
+
+        Debug.DrawRay(transform.position, Vector3.forward * 0.3f, Color.red);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, Vector3.forward, out hit, 0.3f))
+        {
+            Debug.Log("호호호호호");
+            //movePos = Vector3.zero;
+        }
+        
         rigidbody.MovePosition(transform.position+transform.rotation * movePos.normalized * moveSpeed * Time.fixedDeltaTime);
+
 
         if (movePos!=Vector3.zero)
         {
@@ -147,6 +150,7 @@ public class Player : MonoBehaviour , IDamageable
 
             animator.SetBool("Run", true);
 
+            //방향에 따라 이동 애니메이션 변경
             if (h < 0)
                 animator.SetBool("LeftRun", true);
             else
@@ -157,6 +161,7 @@ public class Player : MonoBehaviour , IDamageable
             else
                 animator.SetBool("RightRun", false);
         }
+        //움직이지 않을때 
         else if(movePos==Vector3.zero)
         {
             isMove = false;
@@ -166,6 +171,7 @@ public class Player : MonoBehaviour , IDamageable
         }
     }
 
+    //점프 버튼 터치
     public void TouchJump()
     {
         isTouchJumpBtn = true;
@@ -188,11 +194,12 @@ public class Player : MonoBehaviour , IDamageable
                 isJump = false;
             }
 
+            //점프
             if (Input.GetKey(KeyCode.Space) && !isJump && isGround)
             {
+                SoundManager.instance.PlaySoundEffect("플레이어점프");
                 animator.SetTrigger("Jump");
                 rigidbody.velocity = Vector3.zero;
-                //rigidbody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
                 rigidbody.AddForce(Vector3.up*jumpSpeed, ForceMode.Impulse);
                 isJump = true;
                 isGround = false;
@@ -212,6 +219,7 @@ public class Player : MonoBehaviour , IDamageable
 
             if (isTouchJumpBtn && !isJump && isGround)
             {
+                SoundManager.instance.PlaySoundEffect("플레이어점프");
                 animator.SetTrigger("Jump");
                 rigidbody.velocity = Vector3.zero;
                 rigidbody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
@@ -223,6 +231,7 @@ public class Player : MonoBehaviour , IDamageable
         }
     }
 
+    //Hp감소
     public void DecreaseHP(int attackDamage)
     {
         currentHp -= attackDamage;
@@ -233,63 +242,45 @@ public class Player : MonoBehaviour , IDamageable
         }
     }
 
-    //public void DecreaseHP(int attackDamage)
-    //{
-    //    currentHp -= attackDamage;
-    //    hpSlider.value = currentHp / maxHp;
-    //    if (currentHp <= 0)
-    //    {
-    //        Die();
-    //    }
-    //}
-
+    //포션 버튼 터치
     public void TouchPotion()
     {
         isTouchPotionBtn = true;
-        //InventorySlot a = inven.GetSlotIndex().;
     }
 
+    //Hp회복
     public void RecoveryHp(int recovery = 0)
     {
-        Debug.Log("11111111111111");
-
         if (isDie)
             return;
 
+        //포션 버튼이나 회복키 클릭
         if(recovery == 0)
         {
             if (isTouchPotionBtn || Input.GetKeyDown(KeyCode.LeftAlt))
             {
 
+                //인벤토리에서도 개수 변경 
                 for(int i=0; i<slots.Length; i++)
                 {
                     if(slots[i].item !=null)
                     {
                         if(slots[i].item.itemType == Item.ItemType.Potion)
                         {
-                            Debug.Log("회복!");
+                            SoundManager.instance.PlaySoundEffect("포션");
                             slots[i].SetPotionCount();
                             currentHp += amountPotion;
                             hpSlider.value = currentHp / maxHp;
                         }
                     }
                 }
-
-                
-                
-                
-                //potionCountText.text 
-                //invenSlot.itemCountText.text = invenSlot.itemCount.ToString();
-                //invenSlot.SetSlotCountPlayer(-1);
-
-                //포션 텍스트 바꾸기
-                
-                //인벤 텍스트 바꾸기
             }
         }
+        //슬롯 클릭해서 회복
         else
         {
             Debug.Log("회복!");
+            SoundManager.instance.PlaySoundEffect("포션");
             currentHp += amountPotion;
             hpSlider.value = currentHp / maxHp;
         }
@@ -302,16 +293,6 @@ public class Player : MonoBehaviour , IDamageable
 
         isTouchPotionBtn = false;
     }
-
-    //public int ReturnTouchCount()
-    //{
-    //    return count;
-    //}
-
-    //public void GetSlotIndex(int index)
-    //{
-    //    this.index = index;
-    //}
 
     //플레이어 사망
     void Die()
@@ -332,6 +313,7 @@ public class Player : MonoBehaviour , IDamageable
     {
         if (other.gameObject.name == "ResponeZone")
         {
+            SoundManager.instance.PlaySoundBgm("게임");
             transform.position = resetPosition.transform.position;
             DecreaseHP(20);
             isPlayerFall = true;
@@ -340,6 +322,7 @@ public class Player : MonoBehaviour , IDamageable
 
         if(other.gameObject.name == "BossStartZone")
         {
+            SoundManager.instance.PlaySoundBgm("보스");
             StartCoroutine("AppearZone");
             resetPosition.transform.position = bossPlayerPos.transform.position;
             GameManager.instance.isFightBoss = true;
@@ -365,12 +348,20 @@ public class Player : MonoBehaviour , IDamageable
             transform.position = basePos.transform.position;
         }
 
+        //필드 아이템 획득
         if(other.gameObject.tag == "Item")
         {
             Item item = other.gameObject.GetComponent<ItemPickUp>().item;
+            Particle effect = other.gameObject.GetComponent<Particle>();
+            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            if (particle != null)
+                particle.Play();
+            //other.gameObject.GetComponent<ParticleSystem>();
 
             inven.AcquireItem(item);
-            Destroy(other.gameObject);
+            //if(effect.particle.duration <=0)
+            //    Destroy(other.gameObject);
+            Destroy(other.gameObject,particle.duration);
         }
     }
 

@@ -38,7 +38,11 @@ public class Sled : MonoBehaviour
     void Move()
     {
         if (isStart && !isStop)
+        {
+            SoundManager.instance.PlaySoundEffect("썰매");
             rigid.MovePosition(transform.position + transform.rotation * Vector3.forward.normalized * speed * Time.fixedDeltaTime);
+        }
+            
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -59,6 +63,7 @@ public class Sled : MonoBehaviour
     {
         if(other.gameObject.name =="BossZone")
         {
+            SoundManager.instance.StopAllSoundEffect();
             isStop = true;
             isStart = false;
         }

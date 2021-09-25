@@ -67,6 +67,7 @@ public class PlayerFireBuff : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.LeftControl) && !isFireBuff && !gageDown)
             {
+                SoundManager.instance.PlaySoundEffect("플레이어스킬");
                 isFireBuff = true;
                 gageDown = true;
                 slider.transform.SetAsLastSibling();
@@ -77,6 +78,7 @@ public class PlayerFireBuff : MonoBehaviour
         {
             if(!isFireBuff && !gageDown && isTouchFireBuff)
             {
+                SoundManager.instance.PlaySoundEffect("플레이어스킬");
                 isFireBuff = true;
                 gageDown = true;
                 slider.transform.SetAsLastSibling();
