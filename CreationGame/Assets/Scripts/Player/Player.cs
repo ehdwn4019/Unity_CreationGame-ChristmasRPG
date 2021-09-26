@@ -108,7 +108,7 @@ public class Player : MonoBehaviour , IDamageable
     //플레이어 이동
     void Move()
     {
-        if (comboAttack.IsAttack || isDie || (joyStickMove.isTouch && Input.GetMouseButton(1)))
+        if (comboAttack.IsAttack || isDie) // || (joyStickMove.isTouch && Input.GetMouseButton(1))
             return;
 
         float h = 0;
@@ -130,16 +130,6 @@ public class Player : MonoBehaviour , IDamageable
         }
 
         Vector3 movePos = new Vector3(h, 0, v);
-
-        Debug.DrawRay(transform.position, Vector3.forward * 0.3f, Color.red);
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, Vector3.forward, out hit, 0.3f))
-        {
-            Debug.Log("호호호호호");
-            //movePos = Vector3.zero;
-        }
         
         rigidbody.MovePosition(transform.position+transform.rotation * movePos.normalized * moveSpeed * Time.fixedDeltaTime);
 
@@ -313,10 +303,10 @@ public class Player : MonoBehaviour , IDamageable
     {
         if (other.gameObject.name == "ResponeZone")
         {
-            SoundManager.instance.PlaySoundBgm("게임");
             transform.position = resetPosition.transform.position;
             DecreaseHP(20);
             isPlayerFall = true;
+            rigidbody.velocity = Vector3.zero;
             StartCoroutine("PlayerFall");
         }
 
@@ -352,16 +342,8 @@ public class Player : MonoBehaviour , IDamageable
         if(other.gameObject.tag == "Item")
         {
             Item item = other.gameObject.GetComponent<ItemPickUp>().item;
-            Particle effect = other.gameObject.GetComponent<Particle>();
-            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-            if (particle != null)
-                particle.Play();
-            //other.gameObject.GetComponent<ParticleSystem>();
-
             inven.AcquireItem(item);
-            //if(effect.particle.duration <=0)
-            //    Destroy(other.gameObject);
-            Destroy(other.gameObject,particle.duration);
+            Destroy(other.gameObject);
         }
     }
 

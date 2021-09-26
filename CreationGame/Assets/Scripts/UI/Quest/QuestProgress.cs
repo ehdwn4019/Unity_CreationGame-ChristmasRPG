@@ -27,6 +27,7 @@ public class QuestProgress : MonoBehaviour
         TextMove();
     }
 
+    //퀘스트 텍스트 이동
     void TextMove()
     {
         transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);

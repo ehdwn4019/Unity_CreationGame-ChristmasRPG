@@ -107,11 +107,11 @@ public class BoardQuest : MonoBehaviour , IPointerClickHandler
         {
             QuestManger.instance.talkData.Add(npcData.id, new string[]
             {
-                "몬스터가 난동을 부립니다.","몬스터 좀 잡아주세요!","10마리면 될것같아요!"
+                "몬스터가 난동을 부립니다.","몬스터 좀 잡아주세요!","5마리면 될것같아요!"
             });
         }
 
-        npcData.questReward = "보상 : 1000원 , 열쇠 1개";
+        npcData.questReward = "보상 : 5000원 , 열쇠 1개";
     }
 
     //퀘스트 클리어 조건 및 퀘스트 진행상황 텍스트

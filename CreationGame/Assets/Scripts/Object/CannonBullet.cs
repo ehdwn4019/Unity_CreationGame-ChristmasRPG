@@ -19,7 +19,11 @@ public class CannonBullet : MonoBehaviour
 
     private void OnEnable()
     {
-        rigid = gameObject.AddComponent<Rigidbody>();
+        if(rigid == null)
+        {
+            rigid = gameObject.AddComponent<Rigidbody>();
+        }
+        
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
         rigid.drag = 10.0f;
@@ -37,7 +41,6 @@ public class CannonBullet : MonoBehaviour
         rigid.AddForce(Vector3.left * speed, ForceMode.Impulse);
         x += 360.0f * 5.0f* Time.fixedDeltaTime;
         rigid.MoveRotation(Quaternion.Euler(x, 0f, 0f));
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,7 +56,17 @@ public class CannonBullet : MonoBehaviour
             }
 
             SoundManager.instance.PlaySoundEffect("공맞았을때");
-            other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x, 0f, z) * speed, ForceMode.Impulse);
+            //충돌 이펙트 생성 
+            GameObject go = Instantiate(Resources.Load("Prefab/NotPooling/Particle/CannonBulletEffect"),
+                                            transform.position + new Vector3(other.gameObject.GetComponent<CapsuleCollider>().radius*-5, other.gameObject.GetComponent<CapsuleCollider>().radius, 0f),
+                                            Quaternion.identity) as GameObject;
+            go.GetComponent<ParticleSystem>().Play();
+
+            other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(x, 0f, z) * speed*2, ForceMode.Impulse);
+
+            CannonBulletSpawn.instance.Disappear(gameObject);
+            Destroy(rigid);
+            Invoke("ReturnPos", 2.0f);
         }
     
         if(other.gameObject.name == "CannonBulletStopZone"|| other.gameObject.name == "ResponeZone")

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BounceBall : Obstacles
 {
+    [SerializeField]
+    ParticleSystem coll;
+
     Rigidbody rigid;
 
     [SerializeField]
@@ -28,6 +31,7 @@ public class BounceBall : Obstacles
     {
         if(!isJump)
         {
+            coll.Play();
             float value = Random.Range(6.0f, 9.0f);
             rigid.velocity = Vector3.zero;
             rigid.AddForce(Vector3.up * value, ForceMode.Impulse);

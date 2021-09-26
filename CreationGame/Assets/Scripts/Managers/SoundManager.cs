@@ -80,7 +80,7 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
-
+    
     public void PlaySoundBgm(string Bgm)
     {
         for (int i = 0; i < bgmSounds.Length; i++)

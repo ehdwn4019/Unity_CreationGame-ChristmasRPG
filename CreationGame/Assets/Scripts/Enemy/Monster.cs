@@ -61,9 +61,14 @@ public class Monster : Enemy
         base.Idle();
 
         //Hp 회복
-        if (currentHp != maxHp)
+        if (currentHp <= maxHp && slider.value<=1.0f)
         {
             currentHp++;
+            if(currentHp>=maxHp)
+            {
+                currentHp = maxHp;
+            }
+
             slider.value += Time.deltaTime;
         }
 

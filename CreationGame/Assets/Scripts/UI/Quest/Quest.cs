@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.Events;
 
-//questManager
 public class Quest : MonoBehaviour
 {
     [SerializeField]

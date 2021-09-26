@@ -19,6 +19,7 @@ public class ItemEffect : MonoBehaviour
     [SerializeField]
     Player player;
 
+    //아이템 사용
     public void UseItem(Item item)
     {
         if(item.itemType == Item.ItemType.Potion)

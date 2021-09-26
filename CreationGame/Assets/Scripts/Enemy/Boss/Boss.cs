@@ -21,6 +21,9 @@ public class Boss : Enemy
     SphereCollider sphereCollider;
 
     [SerializeField]
+    BoxCollider boxCollider;
+
+    [SerializeField]
     BossThrowSkill throwSkill;
 
     Vector3 startPos;
@@ -37,7 +40,7 @@ public class Boss : Enemy
         bossState = BossState.Idle;
         startPos = transform.position;
         isDie = false;
-        maxHp = 100;
+        maxHp = 200;
         currentHp = maxHp;
     }
 
@@ -132,6 +135,7 @@ public class Boss : Enemy
         base.Die();
         SoundManager.instance.PlaySoundBgm("겜끝");
         sphereCollider.enabled = false;
+        boxCollider.enabled = false;
         IceBallStopZone.SetActive(false);
         GameManager.instance.isFightBoss = false;
         stormCloud.SetActive(false);

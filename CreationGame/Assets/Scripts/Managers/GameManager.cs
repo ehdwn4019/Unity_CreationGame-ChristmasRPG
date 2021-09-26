@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
 
+        //미리 생성 
         MonsterSpawn.instance.CreateMonster();
         FallBlockSpawn.instance.CreateBlock();
         RollBallSpawn.instance.CreateBall();

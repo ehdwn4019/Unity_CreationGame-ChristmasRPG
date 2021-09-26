@@ -55,11 +55,10 @@ public class FollowCam : MonoBehaviour
     //카메라 회전
     void LookAround()
     {
-        // 나중에 이거 지우고 빌드해서 테스트해보기 동시터치 될수도 
-        if((joyStickRotate.isTouch && Input.GetMouseButton(1)) || (joyStickMove.isTouch && Input.GetMouseButton(1))) 
-        {
-            return;
-        }
+        //if((joyStickRotate.isTouch && Input.GetMouseButton(1)) || (joyStickMove.isTouch && Input.GetMouseButton(1))) 
+        //{
+        //    return;
+        //}
 
         //컴퓨터 모드 
         if (GameManager.instance.ct == GameManager.ControllType.Computer)

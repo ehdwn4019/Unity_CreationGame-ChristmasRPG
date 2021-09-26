@@ -95,7 +95,6 @@ public class PlayerFireBuff : MonoBehaviour
         fireEffectSword.Play();
         fireEffectBodyObj.SetActive(true);
         fireEffectBody.Play();
-        Debug.Log("쿨타임");
         yield return new WaitForSeconds(buffTime);
         isFireBuff = false;
         fireEffectSword.Stop();

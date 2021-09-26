@@ -103,8 +103,12 @@ public class PlayerComboAttack : MonoBehaviour
                     attackDamage += fireDamage;
                 }
 
-                damageText.transform.position = enemy.transform.position+new Vector3(Random.Range(0,1) == 0 ? 25:-25 ,enemy.GetComponent<SphereCollider>().radius*3,0f);
+                Random.InitState(100);
+
+                //충돌 이펙트 생성 
+                damageText.transform.position = enemy.transform.position+new Vector3(0f,enemy.GetComponent<SphereCollider>().radius*2,enemy.GetComponent<SphereCollider>().radius*-4.0f);
                 damageText.Play();
+
                 SoundManager.instance.PlaySoundEffect("플레이어공격");
                 damage.DecreaseHP(attackDamage);
             }

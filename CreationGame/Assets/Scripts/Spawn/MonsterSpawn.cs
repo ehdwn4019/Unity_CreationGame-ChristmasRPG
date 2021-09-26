@@ -14,7 +14,8 @@ public class MonsterSpawn : MonoBehaviour
     [SerializeField]
     GameObject monsters;
 
-    public List<GameObject> monsterPooling = new List<GameObject>(); // 오브젝트 풀링 List
+    // 오브젝트 풀링 List
+    public List<GameObject> monsterPooling = new List<GameObject>(); 
 
     private void Awake()
     {

@@ -129,8 +129,11 @@ public class PlayerInventory : MonoBehaviour
                 if (slots[i].item.itemName == item.itemName)
                 {
                     slots[i].SetSlotCount(count);
-                    int itemValue = items[item.itemName];
-                    items[item.itemName] = itemValue + count;
+                    if(items.ContainsKey(item.itemName))
+                    {
+                        int itemValue = items[item.itemName];
+                        items[item.itemName] = itemValue + count;
+                    }
                     return;
                 }
             }
@@ -142,7 +145,10 @@ public class PlayerInventory : MonoBehaviour
             if (slots[i].item == null)
             {
                 slots[i].AddItem(item, count);
-                items.Add(item.itemName, count);
+                if(!items.ContainsKey(item.itemName))
+                {
+                    items.Add(item.itemName, count);
+                }
                 return;
             }
         }
@@ -169,8 +175,11 @@ public class PlayerInventory : MonoBehaviour
                 if (slots[i].item.itemName == store.item.itemName)
                 {
                     slots[i].SetSlotCount(count);
-                    int itemValue = items[store.item.itemName];
-                    items[store.item.itemName] = itemValue + count;
+                    if(items.ContainsKey(store.item.itemName))
+                    {
+                        int itemValue = items[store.item.itemName];
+                        items[store.item.itemName] = itemValue + count;
+                    }
                     return;
                 }
             }
@@ -182,7 +191,10 @@ public class PlayerInventory : MonoBehaviour
             if (slots[i].item == null)
             {
                 slots[i].AddItem(store.item, count);
-                items.Add(store.item.itemName, count);
+                if(!items.ContainsKey(store.item.itemName))
+                {
+                    items.Add(store.item.itemName, count);
+                }
                 return;
             }
         }
@@ -200,8 +212,11 @@ public class PlayerInventory : MonoBehaviour
                 if (slots[i].item.itemName == grayKey.itemName)
                 {
                     slots[i].SetSlotCount(count);
-                    int itemValue = items[grayKey.itemName];
-                    items[grayKey.itemName] = itemValue + count;
+                    if(items.ContainsKey(grayKey.itemName))
+                    {
+                        int itemValue = items[grayKey.itemName];
+                        items[grayKey.itemName] = itemValue + count;
+                    }
                     return;
                 }
             }
@@ -213,7 +228,10 @@ public class PlayerInventory : MonoBehaviour
             if (slots[i].item == null)
             {
                 slots[i].AddItem(grayKey, count);
-                items.Add(grayKey.itemName, count);
+                if(!items.ContainsKey(grayKey.itemName))
+                {
+                    items.Add(grayKey.itemName, count);
+                }
                 return;
             }
         }
