@@ -9,10 +9,11 @@ public class MonsterSpawn : MonoBehaviour
     [SerializeField]
     GameObject[] responePos;
 
-    GameObject monster;
-
+    //몬스터 부모 오브젝트
     [SerializeField]
     GameObject monsters;
+
+    GameObject monster;
 
     // 오브젝트 풀링 List
     public List<GameObject> monsterPooling = new List<GameObject>(); 
@@ -35,7 +36,7 @@ public class MonsterSpawn : MonoBehaviour
         for (int i=0; i<responePos.Length; i++)
         {
             GameObject mon = ObjectPoolingManager.Create("Monster", responePos[i].transform.position, Quaternion.Euler(0,180f,0));
-            mon.transform.SetParent(monsters.transform);
+            mon.transform.SetParent(monsters.transform); // 부모 오브젝트에 자식으로 세팅
             monsterPooling.Add(mon);
         }
     }
