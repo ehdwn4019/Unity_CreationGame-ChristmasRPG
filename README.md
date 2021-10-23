@@ -2,7 +2,8 @@
  
 ## Unity를 사용하여 Christmas를 배경으로 만든 3D RPG 게임 
  
- 
+ ![게임이미지](https://user-images.githubusercontent.com/63226576/138538128-0c20a1f5-a5f9-4884-8503-0ab742c05905.JPG)
+
  
  ### < 사용한 기술>
 - 각종 Manager 구현하여 게임 관리 
