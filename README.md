@@ -2,6 +2,8 @@
  
 ## Unity를 사용하여 Christmas를 배경으로 만든 3D RPG 게임 
  
+ 
+ 
  < 사용한 기술>
 - 각종 Manager 구현하여 게임 관리 
 - Prefab은 Resources폴더에서 관리 
