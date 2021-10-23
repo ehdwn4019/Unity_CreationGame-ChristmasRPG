@@ -4,7 +4,7 @@
  
  
  
- < 사용한 기술>
+ ###< 사용한 기술>
 - 각종 Manager 구현하여 게임 관리 
 - Prefab은 Resources폴더에서 관리 
 - Interface를 활용하여 체력을 가지고 있는 오브젝트들 관리 
