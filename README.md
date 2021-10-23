@@ -1,5 +1,9 @@
 # Unity_CreationGame / ChristmasRPG 
  
+ <게임 소개>
+ Unity를 사용하여 Christmas를 배경으로 만든 3D RPG 게임   
+ 
+ < 사용한 기술>
 - 각종 Manager 구현하여 게임 관리 
 - Prefab은 Resources폴더에서 관리 
 - Interface를 활용하여 체력을 가지고 있는 오브젝트들 관리 
